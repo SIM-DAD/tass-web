@@ -1,1930 +1,996 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TASS — Text Analysis Support Software</title>
-  <meta name="description" content="TASS is a native Windows desktop app that makes professional-grade dictionary-based text analysis accessible to researchers, journalists, and domain experts who don't code." />
-  <link rel="icon" type="image/svg+xml" href="assets/tass_logo.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <meta name="description" content="TASS is a no-code Windows desktop app for dictionary-based text analysis — group comparisons, publication-quality visualizations, and APA citation blocks. Built for social scientists.">
+  <meta property="og:title" content="TASS — Text Analysis Support Software">
+  <meta property="og:description" content="Everything LIWC does. Plus the things it can't. No coding required.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
   <style>
-    /* =====================================================
-       CSS CUSTOM PROPERTIES — LIGHT MODE
-    ===================================================== */
+    /* ─── TOKENS ─────────────────────────────────────────────────── */
     :root {
-      --primary:   #2E7D5E;
-      --primary-h: #246B4F;
-      --light:     #E3F3EC;
-      --mid:       #B8DEC9;
-      --text:      #1E2A35;
-      --muted:     #6B6B66;
-      --bg:        #FAFDFB;
-      --surface:   #FFFFFF;
-      --border:    #D0EAD8;
-      --red:       #C0392B;
-      --header-h:  56px;
-      --max-w:     1200px;
-      --pad-v:     5rem;
-      --pad-v-sm:  3.5rem;
+      --accent:    #2E7D5E;
+      --accent-h:  #256B50;
+      --text:      #0F0F0F;
+      --muted:     #6B7280;
+      --bg:        #FFFFFF;
+      --surface:   #F7F7F8;
+      --border:    #E4E4E7;
+      --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-w:     1080px;
+      --radius:    8px;
     }
 
-    /* =====================================================
-       DARK MODE OVERRIDES
-    ===================================================== */
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg:      #0D1713;
-        --surface: #121F18;
-        --text:    #EBF5EF;
-        --muted:   #8AB89A;
-        --border:  #1A3326;
-        --light:   #152318;
-        --mid:     #244D35;
+        --text:    #F4F4F5;
+        --muted:   #A1A1AA;
+        --bg:      #09090B;
+        --surface: #111113;
+        --border:  #27272A;
       }
     }
 
-    /* =====================================================
-       RESET & BASE
-    ===================================================== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    /* ─── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Lora', Georgia, serif;
-      font-size: 1rem;
-      line-height: 1.7;
+      font-family: var(--font);
+      background: var(--bg);
       color: var(--text);
-      background-color: var(--bg);
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
+    img, video { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
 
-    img, svg {
-      display: block;
-      max-width: 100%;
+    /* ─── LAYOUT ─────────────────────────────────────────────────── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+
+    /* ─── NAV ────────────────────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: transparent; border-bottom: 1px solid transparent;
+      transition: background 0.2s, border-color 0.2s;
     }
-
-    a {
-      color: var(--primary);
-      text-decoration: none;
+    .nav.scrolled { background: var(--bg); border-color: var(--border); }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+      height: 60px; display: flex; align-items: center; justify-content: space-between;
     }
+    .nav-brand { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
 
-    a:hover {
-      color: var(--primary-h);
+    /* ─── BUTTONS ────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.6rem 1.3rem; border-radius: var(--radius);
+      font-family: var(--font); font-size: 0.875rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid transparent; transition: all 0.15s; text-decoration: none;
     }
+    .btn-primary   { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-h); border-color: var(--accent-h); }
+    .btn-ghost     { background: transparent; color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost-white { background: transparent; color: #fff; border-color: rgba(255,255,255,0.35); }
+    .btn-ghost-white:hover { border-color: #fff; }
+    .btn-lg   { padding: 0.8rem 1.75rem; font-size: 1rem; }
+    .btn-full { width: 100%; justify-content: center; }
 
-    /* =====================================================
-       TYPOGRAPHY UTILITIES
-    ===================================================== */
+    /* ─── HERO ───────────────────────────────────────────────────── */
+    .hero { padding: 7rem 0 5rem; border-bottom: 1px solid var(--border); }
+    .hero-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+    .hero-eyebrow {
+      display: inline-block; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(3rem, 6.5vw, 5.25rem); font-weight: 800;
+      line-height: 1.05; letter-spacing: -0.035em; max-width: 18ch; margin-bottom: 1.5rem;
+    }
+    .hero-accent { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.125rem; color: var(--muted); max-width: 52ch;
+      line-height: 1.65; margin-bottom: 2.5rem; font-weight: 400;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+    .hero-meta { margin-top: 1.75rem; font-size: 0.8rem; color: var(--muted); }
+    .hero-meta span { margin: 0 0.4rem; opacity: 0.4; }
+
+    /* ─── STATS STRIP ────────────────────────────────────────────── */
+    .stats-strip { border-bottom: 1px solid var(--border); padding: 2.75rem 0; }
+    .stats-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    }
+    .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; font-weight: 500; }
+
+    /* ─── DEMO ───────────────────────────────────────────────────── */
+    .demo-section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
+    .demo-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
+    .demo-frame {
+      width: 100%; aspect-ratio: 16 / 9; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem; color: var(--muted);
+    }
+    .demo-play {
+      width: 52px; height: 52px; background: var(--accent); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .demo-play svg { margin-left: 3px; }
+    .demo-caption { font-size: 0.875rem; }
+
+    /* ─── SECTIONS ───────────────────────────────────────────────── */
+    .section       { padding: 6rem 0; border-bottom: 1px solid var(--border); }
+    .section-alt   { padding: 6rem 0; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .section-dark  { padding: 6rem 0; background: var(--text); color: var(--bg); }
+
     .eyebrow {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 0.75rem;
+      display: block; font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 1rem;
     }
-
-    h1, h2, h3, h4 {
-      font-family: 'Lora', Georgia, serif;
-      line-height: 1.25;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      font-style: italic;
-    }
+    .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
 
     h2 {
-      font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-      font-weight: 700;
-      font-style: italic;
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800;
+      line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1.25rem;
     }
+    .section-dark h2 { color: #fff; }
+    .section-sub { font-size: 1.0625rem; color: var(--muted); max-width: 58ch; line-height: 1.65; }
+    .section-dark .section-sub { color: rgba(255,255,255,0.5); }
 
-    h3 {
-      font-size: 1.125rem;
-      font-weight: 600;
-      font-style: normal;
+    /* ─── PROSE GRID ─────────────────────────────────────────────── */
+    .prose-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: start; margin-top: 3.5rem;
     }
+    .prose-col p { font-size: 0.9875rem; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
+    .prose-col p:last-child { margin-bottom: 0; }
 
-    p {
-      color: var(--muted);
+    /* ─── COMPARISON TABLE ───────────────────────────────────────── */
+    .table-wrap {
+      margin-top: 3rem; overflow-x: auto;
+      border: 1px solid var(--border); border-radius: var(--radius);
     }
-
-    /* =====================================================
-       LAYOUT UTILITIES
-    ===================================================== */
-    .container {
-      width: 100%;
-      max-width: var(--max-w);
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .compare-table th {
+      padding: 0.875rem 1.25rem; text-align: left; font-weight: 700; font-size: 0.8rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--surface); border-bottom: 1px solid var(--border); color: var(--muted);
     }
-
-    .section {
-      padding-top: var(--pad-v);
-      padding-bottom: var(--pad-v);
+    .compare-table th.col-tass { color: var(--accent); }
+    .compare-table td {
+      padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); color: var(--muted);
     }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: var(--text); font-weight: 500; }
+    .cell-yes     { color: var(--accent) !important; font-weight: 600; }
+    .cell-no      { color: #dc2626 !important; }
+    .cell-limited { color: var(--muted) !important; }
 
-    .section--light   { background-color: var(--light); }
-    .section--surface { background-color: var(--surface); }
-    .section--bg      { background-color: var(--bg); }
-
-    .text-center { text-align: center; }
-
-    /* =====================================================
-       BUTTONS
-    ===================================================== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-family: 'Lora', Georgia, serif;
-      font-size: 0.9375rem;
-      font-weight: 600;
-      line-height: 1;
-      cursor: pointer;
-      border: none;
-      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
-      text-decoration: none;
-    }
-
-    .btn--primary {
-      background-color: var(--primary);
-      color: #fff;
-    }
-
-    .btn--primary:hover {
-      background-color: var(--primary-h);
-      color: #fff;
-    }
-
-    .btn--ghost {
-      background-color: transparent;
-      color: var(--text);
-      border: 1.5px solid var(--border);
-    }
-
-    .btn--ghost:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    .btn:disabled,
-    .btn[aria-busy="true"] {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* =====================================================
-       STICKY HEADER
-    ===================================================== */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      height: var(--header-h);
-      display: flex;
-      align-items: center;
-      transition: background 0.25s ease, backdrop-filter 0.25s ease, border-bottom 0.25s ease;
-    }
-
-    .site-header.scrolled {
-      background: rgba(250, 253, 251, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .site-header.scrolled {
-        background: rgba(13, 23, 19, 0.88);
-      }
-    }
-
-    .site-header__inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .site-header__logo {
-      font-family: 'Lora', Georgia, serif;
-      font-weight: 700;
-      font-style: normal;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .site-header__logo:hover {
-      color: var(--primary);
-    }
-
-    /* =====================================================
-       HERO SECTION
-    ===================================================== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: calc(var(--header-h) + 2rem);
-      padding-bottom: 4rem;
-      background-color: var(--bg);
-    }
-
-    .hero__inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.5rem;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    .hero__kicker {
-      display: inline-block;
-      background-color: var(--light);
-      color: var(--primary);
-      border: 1px solid var(--mid);
-      border-radius: 999px;
-      padding: 0.375rem 1rem;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-
-    .hero__title {
-      color: var(--text);
-      max-width: 780px;
-    }
-
-    .hero__sub {
-      font-size: 1.0625rem;
-      color: var(--muted);
-      max-width: 640px;
-      line-height: 1.75;
-    }
-
-    .hero__ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      justify-content: center;
-    }
-
-    .hero__fine {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      font-style: italic;
-    }
-
-    .hero__platform {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8125rem;
-      color: var(--muted);
-    }
-
-    .platform-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.25rem 0.625rem;
-      background: var(--light);
-      border: 1px solid var(--mid);
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .platform-badge svg {
-      display: inline;
-      flex-shrink: 0;
-    }
-
-    /* =====================================================
-       DEMO VIDEO SECTION
-    ===================================================== */
-    .demo-section {
-      padding: 3rem 1.5rem;
-      background-color: var(--bg);
-    }
-
-    .demo-section__inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .demo-placeholder {
-      position: relative;
-      background: var(--light);
-      border: 1.5px solid var(--mid);
-      border-radius: 16px;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .demo-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(46, 125, 94, 0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .demo-play-btn {
-      position: relative;
-      width: 64px;
-      height: 64px;
-      background-color: var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(46, 125, 94, 0.35);
-    }
-
-    .demo-play-btn svg {
-      margin-left: 4px;
-    }
-
-    .demo-caption {
-      position: relative;
-      font-style: italic;
-      font-size: 0.9375rem;
-      color: var(--muted);
-      text-align: center;
-      padding: 0 1rem;
-    }
-
-    /* =====================================================
-       PROBLEM / SOLUTION SECTIONS
-    ===================================================== */
-    .prose-section__body {
-      max-width: 720px;
-      margin: 1.5rem auto 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      text-align: center;
-    }
-
-    .prose-section__body p {
-      font-size: 1.0625rem;
-      line-height: 1.8;
-    }
-
-    .prose-section__sub {
-      max-width: 720px;
-      margin: 1.25rem auto 0;
-      font-size: 1.0625rem;
-      line-height: 1.8;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    /* =====================================================
-       COMPARISON TABLE
-    ===================================================== */
-    .comparison-wrap {
-      max-width: 900px;
-      margin: 2.5rem auto 0;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9375rem;
-    }
-
-    .comparison-table thead tr {
-      background-color: var(--light);
-    }
-
-    .comparison-table th {
-      padding: 0.875rem 1.25rem;
-      font-weight: 700;
-      font-style: normal;
-      text-align: left;
-      color: var(--text);
-      border-bottom: 2px solid var(--border);
-      white-space: nowrap;
-    }
-
-    .comparison-table th:not(:first-child) {
-      text-align: center;
-    }
-
-    .comparison-table td {
-      padding: 0.75rem 1.25rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--muted);
-      vertical-align: middle;
-    }
-
-    .comparison-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .comparison-table td:not(:first-child) {
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .comparison-table tbody tr:nth-child(odd) {
-      background-color: var(--surface);
-    }
-
-    .comparison-table tbody tr:nth-child(even) {
-      background-color: var(--bg);
-    }
-
-    .cell--yes {
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .cell--no {
-      color: var(--red);
-      font-weight: 600;
-    }
-
-    .cell--limited {
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .col-tass {
-      color: var(--primary) !important;
-      font-weight: 700 !important;
-    }
-
-    .col-liwc {
-      color: var(--text);
-    }
-
-    /* =====================================================
-       FEATURES GRID
-    ===================================================== */
+    /* ─── FEATURES GRID ──────────────────────────────────────────── */
     .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; margin-top: 3.5rem;
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
     }
-
-    .feature-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem 1.5rem;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    .feature-cell {
+      padding: 2rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
     }
+    .feature-cell:nth-child(even)       { border-right: none; }
+    .feature-cell:nth-last-child(-n+2)  { border-bottom: none; }
+    .feature-cell h3 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
+    .feature-cell p  { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+    .feature-num { font-size: 0.7rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
 
-    .feature-card:hover {
-      border-color: var(--primary);
-      box-shadow: 0 4px 20px rgba(46, 125, 94, 0.1);
-    }
-
-    .feature-card__icon {
-      width: 40px;
-      height: 40px;
-      background: var(--light);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      margin-bottom: 1rem;
-    }
-
-    .feature-card__title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-    }
-
-    .feature-card__body {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* =====================================================
-       DICTIONARY TABLE
-    ===================================================== */
-    .dict-wrap {
-      max-width: 900px;
-      margin: 2.5rem auto 0;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .dict-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9375rem;
-    }
-
-    .dict-table thead tr {
-      background-color: var(--light);
-    }
-
+    /* ─── DICTIONARY TABLE ───────────────────────────────────────── */
+    .dict-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
     .dict-table th {
-      padding: 0.875rem 1.25rem;
-      font-weight: 700;
-      text-align: left;
-      color: var(--text);
-      border-bottom: 2px solid var(--border);
+      padding: 0.875rem 1.25rem; text-align: left; font-weight: 700; font-size: 0.8rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--surface); border-bottom: 1px solid var(--border); color: var(--muted);
     }
-
     .dict-table td {
-      padding: 0.75rem 1.25rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--muted);
-      vertical-align: middle;
+      padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); color: var(--muted);
     }
-
-    .dict-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .dict-table tbody tr:nth-child(odd) {
-      background-color: var(--surface);
-    }
-
-    .dict-table tbody tr:nth-child(even) {
-      background-color: var(--bg);
-    }
-
+    .dict-table tr:last-child td { border-bottom: none; }
+    .dict-table td:first-child { color: var(--text); font-weight: 500; }
     .license-badge {
-      display: inline-block;
-      padding: 0.2rem 0.5rem;
-      border-radius: 5px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
+      display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 0.15rem 0.5rem;
+      border-radius: 4px; text-transform: uppercase; letter-spacing: 0.08em;
     }
-
-    .license--mit      { background: #e6f3ff; color: #1a6fa8; }
-    .license--ccby     { background: #e6fff0; color: #1a7a43; }
-    .license--ccbysa   { background: #fff4e0; color: #9b6000; }
-    .license--princeton { background: #f0eeff; color: #5a3fa8; }
-    .license--apache   { background: #eef5ff; color: #2a55a8; }
+    .license-mit      { background: #DCFCE7; color: #166534; }
+    .license-ccby     { background: #DBEAFE; color: #1E40AF; }
+    .license-ccbysa   { background: #FEF9C3; color: #713F12; }
+    .license-princeton { background: #F3E8FF; color: #6B21A8; }
+    .license-apache   { background: #FFE4E6; color: #9F1239; }
+    .review-note { font-size: 0.7rem; color: var(--muted); margin-left: 0.4rem; font-style: italic; }
 
     @media (prefers-color-scheme: dark) {
-      .license--mit      { background: #0d2035; color: #6bb3e8; }
-      .license--ccby     { background: #0a2215; color: #5dc882; }
-      .license--ccbysa   { background: #2a1e00; color: #d4a046; }
-      .license--princeton { background: #1a1535; color: #9c80e0; }
-      .license--apache   { background: #0d1a35; color: #7098e0; }
+      .license-mit       { background: #14532D; color: #86EFAC; }
+      .license-ccby      { background: #1E3A5F; color: #93C5FD; }
+      .license-ccbysa    { background: #3B2D00; color: #FDE047; }
+      .license-princeton { background: #3B1669; color: #D8B4FE; }
+      .license-apache    { background: #4C0519; color: #FDA4AF; }
     }
 
-    .review-note {
-      font-size: 0.8125rem;
-      font-style: italic;
-      color: var(--muted);
-      display: block;
-      margin-top: 0.2rem;
+    /* ─── T-LEX GRID ─────────────────────────────────────────────── */
+    .tlex-subhead {
+      margin: 3.5rem 0 1rem;
+      font-size: 0.9375rem; font-weight: 700; color: var(--text);
     }
-
-    /* =====================================================
-       T-LEX GRID
-    ===================================================== */
-    .tlex-heading {
-      max-width: 900px;
-      margin: 3rem auto 1.5rem;
-      text-align: center;
-    }
-
-    .tlex-heading h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.25rem;
-    }
-
-    .tlex-heading p {
-      font-size: 0.9375rem;
-    }
-
+    .tlex-subhead span { color: var(--muted); font-weight: 400; }
     .tlex-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1rem;
-      max-width: 1100px;
-      margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
     }
-
-    .tlex-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.125rem 1.125rem 1rem;
-      transition: border-color 0.2s ease;
+    .tlex-cell {
+      padding: 1.25rem 1.5rem;
+      border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
     }
+    .tlex-cell:nth-child(3n) { border-right: none; }
+    .tlex-cell:nth-last-child(-n+3) { border-bottom: none; }
+    .tlex-num { font-size: 0.68rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.35rem; }
+    .tlex-name { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+    .tlex-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+    .tlex-ver  { font-size: 0.7rem; color: var(--muted); margin-bottom: 0.35rem; }
 
-    .tlex-card:hover {
-      border-color: var(--mid);
+    /* ─── ROADMAP ────────────────────────────────────────────────── */
+    .roadmap-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      margin-top: 3.5rem; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
     }
-
-    .tlex-card__header {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
+    .roadmap-cell {
+      padding: 2rem; border-right: 1px solid var(--border);
     }
-
-    .tlex-card__num {
-      font-size: 0.6875rem;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 0.06em;
-      opacity: 0.75;
+    .roadmap-cell:last-child { border-right: none; }
+    .roadmap-cell.current { background: var(--surface); }
+    .roadmap-version {
+      font-size: 1.5rem; font-weight: 800; color: var(--accent);
+      letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.2rem;
     }
+    .roadmap-date { font-size: 0.8rem; color: var(--muted); font-weight: 600; margin-bottom: 1rem; }
+    .roadmap-body { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
 
-    .tlex-card__version {
-      margin-left: auto;
-      font-size: 0.6875rem;
-      font-weight: 600;
-      padding: 0.15rem 0.45rem;
-      border-radius: 4px;
-      background: var(--light);
-      color: var(--primary);
-      white-space: nowrap;
+    /* ─── COLLAB ─────────────────────────────────────────────────── */
+    .collab-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem;
     }
-
-    .tlex-card__name {
-      font-size: 0.9375rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.375rem;
-      line-height: 1.3;
+    .collab-col h3 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .collab-col ul { list-style: none; margin-bottom: 2rem; }
+    .collab-col ul li {
+      font-size: 0.875rem; color: var(--muted); padding: 0.45rem 0;
+      border-top: 1px solid var(--border); display: flex; align-items: baseline; gap: 0.6rem;
     }
-
-    .tlex-card__desc {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    /* =====================================================
-       ROADMAP
-    ===================================================== */
-    .roadmap-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-
-    .roadmap-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem 1.5rem;
-      position: relative;
-    }
-
-    .roadmap-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--primary);
-      border-radius: 12px 12px 0 0;
-      opacity: 0.4;
-    }
-
-    .roadmap-item--current::before {
-      opacity: 1;
-    }
-
-    .roadmap-item__version {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--primary);
-      font-family: 'Lora', Georgia, serif;
-    }
-
-    .roadmap-item__date {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      font-weight: 600;
-      margin-bottom: 1rem;
-      letter-spacing: 0.03em;
-    }
-
-    .roadmap-item__body {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* =====================================================
-       T-LEX COLLABORATION SECTION
-    ===================================================== */
-    .tlex-collab-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.5rem;
-      margin-top: 2.5rem;
-      align-items: start;
-    }
-
-    .tlex-collab-col h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-
-    .tlex-collab-col ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.625rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .tlex-collab-col ul li {
-      display: flex;
-      gap: 0.625rem;
-      font-size: 0.9375rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .tlex-collab-col ul li::before {
-      content: '\2013';
-      color: var(--primary);
-      flex-shrink: 0;
-      font-weight: 700;
-      margin-top: 0.05em;
-    }
-
+    .collab-col ul li::before { content: '→'; color: var(--accent); font-size: 0.75rem; flex-shrink: 0; }
     .credit-block {
-      background: var(--light);
-      border: 1px solid var(--mid);
-      border-radius: 10px;
-      padding: 1.25rem 1.25rem;
-      margin-top: 0.5rem;
+      padding: 1.5rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
     }
+    .credit-block h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .credit-block p  { font-size: 0.8375rem; color: var(--muted); line-height: 1.65; }
 
-    .credit-block h4 {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.5rem;
-      font-style: normal;
-    }
-
-    .credit-block p {
-      font-size: 0.875rem;
-      line-height: 1.65;
-    }
-
-    /* =====================================================
-       PRICING SECTION
-    ===================================================== */
+    /* ─── PRICING ────────────────────────────────────────────────── */
     .pricing-card {
-      max-width: 560px;
-      margin: 2.5rem auto 0;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem 2rem;
-      text-align: center;
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; max-width: 420px;
+    }
+    .price-tag {
+      font-size: 3.5rem; font-weight: 800; color: var(--text); letter-spacing: -0.04em; line-height: 1; margin: 1rem 0 0.35rem;
+    }
+    .price-note { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .price-features { list-style: none; margin-bottom: 2rem; }
+    .price-features li {
+      font-size: 0.875rem; color: var(--muted); padding: 0.5rem 0;
+      border-top: 1px solid var(--border); display: flex; align-items: baseline; gap: 0.6rem;
+    }
+    .price-features li::before { content: '✓'; color: var(--accent); font-size: 0.75rem; font-weight: 800; flex-shrink: 0; }
+    .pricing-note { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .pricing-note a { color: var(--accent); text-decoration: underline; }
+
+    /* ─── WAITLIST ───────────────────────────────────────────────── */
+    .waitlist-wrap { max-width: 520px; }
+    .wl-form { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .wl-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .wl-field label { font-size: 0.8125rem; font-weight: 600; }
+    .wl-field label span { font-weight: 400; color: var(--muted); }
+    .wl-field input[type="email"],
+    .wl-field select {
+      width: 100%; padding: 0.75rem 1rem; font-family: var(--font); font-size: 0.9375rem;
+      background: var(--bg); color: var(--text); border: 1.5px solid var(--border);
+      border-radius: var(--radius); transition: border-color 0.15s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .wl-field input[type="email"]:focus,
+    .wl-field select:focus { outline: none; border-color: var(--accent); }
+    .wl-field input::placeholder { color: var(--muted); }
+    .wl-submit {
+      width: 100%; padding: 0.875rem; background: var(--accent); color: #fff; border: none;
+      border-radius: var(--radius); font-family: var(--font); font-size: 0.9375rem; font-weight: 700;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .wl-submit:hover:not(:disabled) { background: var(--accent-h); }
+    .wl-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+    .wl-fine { font-size: 0.775rem; color: var(--muted); }
+    .wl-success {
+      display: none; padding: 1.5rem; border: 1px solid var(--border);
+      border-radius: var(--radius); background: var(--surface);
+    }
+    .wl-success.visible { display: block; }
+    .wl-success h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .wl-success p  { font-size: 0.875rem; color: var(--muted); }
+    .wl-error { display: none; font-size: 0.8125rem; color: #dc2626; }
+    .wl-error.visible { display: block; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────────── */
+    .footer { padding: 3rem 0 2.5rem; border-top: 1px solid var(--border); }
+    .footer-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-brand { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
+    .footer-sub   { font-size: 0.775rem; color: var(--muted); margin-top: 2px; }
+    .footer-links { display: flex; gap: 1.75rem; align-items: center; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.8125rem; color: var(--muted); transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      max-width: var(--max-w); margin: 1.5rem auto 0;
+      padding: 1.5rem 2rem 0; border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--muted);
     }
 
-    .pricing-card__price {
-      font-size: 3.5rem;
-      font-weight: 700;
-      font-family: 'Lora', Georgia, serif;
-      color: var(--primary);
-      line-height: 1;
-    }
+    /* ─── FOCUS ──────────────────────────────────────────────────── */
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 
-    .pricing-card__period {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-top: 0.375rem;
-      margin-bottom: 1.5rem;
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .roadmap-grid { grid-template-columns: 1fr; }
+      .roadmap-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .roadmap-cell:last-child { border-bottom: none; }
+      .tlex-grid { grid-template-columns: 1fr 1fr; }
+      .tlex-cell:nth-child(3n)           { border-right: 1px solid var(--border); }
+      .tlex-cell:nth-child(2n)           { border-right: none; }
+      .tlex-cell:nth-last-child(-n+3)    { border-bottom: 1px solid var(--border); }
+      .tlex-cell:nth-last-child(-n+2)    { border-bottom: none; }
+      .collab-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
-
-    .pricing-card__body {
-      font-size: 0.9375rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-
-    .pricing-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.625rem;
-      text-align: left;
-      margin-bottom: 1.75rem;
-    }
-
-    .pricing-features li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.625rem;
-      font-size: 0.9375rem;
-      color: var(--muted);
-    }
-
-    .pricing-features li .check {
-      color: var(--primary);
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 0.1em;
-    }
-
-    .pricing-card__note {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      font-style: italic;
-      margin-bottom: 1.75rem;
-    }
-
-    .pricing-card__note a {
-      color: var(--primary);
-    }
-
-    /* =====================================================
-       WAITLIST FORM SECTION
-    ===================================================== */
-    .waitlist-form-wrap {
-      max-width: 520px;
-      margin: 2rem auto 0;
-    }
-
-    .waitlist-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.875rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.375rem;
-    }
-
-    .form-group label {
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.02em;
-    }
-
-    .form-input,
-    .form-select {
-      padding: 0.75rem 0.875rem;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      background: var(--surface);
-      color: var(--text);
-      font-family: 'Lora', Georgia, serif;
-      font-size: 0.9375rem;
-      outline: none;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease;
-      width: 100%;
-    }
-
-    .form-input::placeholder {
-      color: var(--muted);
-      opacity: 0.7;
-    }
-
-    .form-input:focus,
-    .form-select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(46, 125, 94, 0.15);
-    }
-
-    .form-select {
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B6B66' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 0.75rem center;
-      padding-right: 2.25rem;
-      cursor: pointer;
-    }
-
-    .form-submit {
-      padding: 0.875rem 1.5rem;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Lora', Georgia, serif;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.18s ease;
-      width: 100%;
-    }
-
-    .form-submit:hover:not(:disabled) {
-      background: var(--primary-h);
-    }
-
-    .form-submit:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .form-fine {
-      font-size: 0.8125rem;
-      color: var(--muted);
-      font-style: italic;
-      text-align: center;
-      margin-top: 0.25rem;
-    }
-
-    .form-message {
-      padding: 0.875rem 1rem;
-      border-radius: 8px;
-      font-size: 0.9375rem;
-      display: none;
-      margin-bottom: 1rem;
-    }
-
-    .form-message.success {
-      background: var(--light);
-      border: 1px solid var(--mid);
-      color: var(--primary);
-      display: block;
-    }
-
-    .form-message.error {
-      background: #fdf0ef;
-      border: 1px solid #f5c6c3;
-      color: var(--red);
-      display: block;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .form-message.error {
-        background: #2a0f0d;
-        border-color: #7a2a24;
-        color: #e88880;
-      }
-    }
-
-    /* =====================================================
-       FOOTER
-    ===================================================== */
-    .site-footer {
-      background-color: var(--text);
-      padding: 3rem 1.5rem 2rem;
-    }
-
-    .site-footer__inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-
-    .site-footer__top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid rgba(235, 245, 239, 0.1);
-      margin-bottom: 1.5rem;
-    }
-
-    .site-footer__brand-name {
-      font-family: 'Lora', Georgia, serif;
-      font-weight: 700;
-      font-size: 1.125rem;
-      color: #fff;
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-
-    .site-footer__brand-sub {
-      font-size: 0.8125rem;
-      color: rgba(235, 245, 239, 0.5);
-    }
-
-    .site-footer__links {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-
-    .site-footer__links a {
-      font-size: 0.875rem;
-      color: rgba(235, 245, 239, 0.6);
-      text-decoration: none;
-      transition: color 0.18s ease;
-    }
-
-    .site-footer__links a:hover {
-      color: #fff;
-    }
-
-    .site-footer__bottom {
-      font-size: 0.8125rem;
-      color: rgba(235, 245, 239, 0.4);
-      text-align: center;
-    }
-
-    /* =====================================================
-       RESPONSIVE — 768px breakpoint
-    ===================================================== */
     @media (max-width: 768px) {
-      :root {
-        --pad-v: 3.5rem;
-      }
-
-      .roadmap-row {
-        grid-template-columns: 1fr;
-      }
-
-      .tlex-collab-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .site-footer__top {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .comparison-table th,
-      .comparison-table td,
-      .dict-table th,
-      .dict-table td {
-        padding: 0.625rem 0.75rem;
-        font-size: 0.875rem;
-      }
-
-      .pricing-card {
-        padding: 1.75rem 1.25rem;
-      }
-
-      .tlex-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      }
-
-      .hero__ctas {
-        flex-direction: column;
-        align-items: center;
-      }
+      .hero        { padding: 5.5rem 0 4rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .prose-grid  { grid-template-columns: 1fr; gap: 2rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-cell { border-right: none; }
+      .feature-cell:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .feature-cell:last-child { border-bottom: none; }
+      .section     { padding: 4.5rem 0; }
+      .section-alt { padding: 4.5rem 0; }
+      .section-dark { padding: 4.5rem 0; }
+      .tlex-grid { grid-template-columns: 1fr; }
+      .tlex-cell { border-right: none; }
+      .tlex-cell:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
+      .tlex-cell:last-child { border-bottom: none; }
     }
-
-    /* =====================================================
-       ACCESSIBILITY / FOCUS
-    ===================================================== */
-    :focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-
-    .skip-link {
-      position: absolute;
-      top: -100%;
-      left: 1rem;
-      background: var(--primary);
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 0 0 8px 8px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      z-index: 200;
-      transition: top 0.2s;
-    }
-
-    .skip-link:focus {
-      top: 0;
-    }
-
-    /* =====================================================
-       SECTION HEADER UTILITY
-    ===================================================== */
-    .section-header {
-      text-align: center;
-      margin-bottom: 0;
-    }
-
-    .section-header h2 {
-      margin-top: 0.375rem;
-      color: var(--text);
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 2.6rem; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-
-  <!-- ==============================================
-       STICKY HEADER
-  =============================================== -->
-  <header class="site-header" id="site-header" role="banner">
-    <div class="site-header__inner">
-      <a href="/" class="site-header__logo" aria-label="TASS &mdash; Home">TASS</a>
-      <a href="#waitlist" class="btn btn--primary">Join the waitlist</a>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">TASS</a>
+      <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
     </div>
-  </header>
+  </nav>
 
-  <main id="main-content">
 
-    <!-- ==============================================
-         HERO
-    =============================================== -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__inner">
-        <span class="hero__kicker">Text Analysis Support Software &middot; Launching May 2026</span>
-        <h1 class="hero__title" id="hero-title">Rigorous text analysis. No code required.</h1>
-        <p class="hero__sub">TASS is a native Windows desktop app that makes professional-grade dictionary-based text analysis accessible to researchers, journalists, and domain experts who don&rsquo;t code. Everything LIWC does &mdash; and considerably more &mdash; at a lower price.</p>
-        <div class="hero__ctas">
-          <a href="#waitlist" class="btn btn--primary">Join the waitlist &rarr;</a>
-          <a href="#features" class="btn btn--ghost">See what TASS does</a>
-        </div>
-        <p class="hero__fine">Free to join &middot; $49/year at launch</p>
-        <div class="hero__platform">
-          <span class="platform-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg>
-            Windows
-          </span>
-          <span style="color:var(--muted);font-size:0.8125rem;">Available at launch</span>
-        </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Text Analysis Support Software &mdash; launching May 2026</span>
+      <h1>Text analysis for <span class="hero-accent">serious</span> researchers.</h1>
+      <p class="hero-sub">
+        TASS is a native Windows desktop app for dictionary-based text analysis.
+        Group comparisons, publication-quality visualizations, and APA citation blocks &mdash;
+        all without writing a line of code.
+      </p>
+      <div class="hero-actions">
+        <a href="#waitlist" class="btn btn-primary btn-lg">Join the waitlist</a>
+        <a href="#problem" class="btn btn-ghost btn-lg">Why TASS</a>
       </div>
-    </section>
+      <p class="hero-meta">
+        $49/year &mdash; individual license<span>·</span>Windows 10 &amp; 11<span>·</span>No coding required
+      </p>
+    </div>
+  </section>
 
-    <!-- ==============================================
-         DEMO VIDEO PLACEHOLDER
-    =============================================== -->
-    <section class="demo-section" aria-label="Demo video">
-      <div class="demo-section__inner">
-        <div class="demo-placeholder" role="img" aria-label="Demo video coming soon &mdash; showing TASS text analysis in action">
-          <div class="demo-play-btn" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-              <polygon points="6,3 20,12 6,21" fill="currentColor"/>
-            </svg>
-          </div>
-          <p class="demo-caption"><em>Demo video coming soon &mdash; showing TASS text analysis in action</em></p>
-        </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div>
+        <div class="stat-num">100k+</div>
+        <div class="stat-label">Entries &mdash; large dataset support</div>
       </div>
-    </section>
+      <div>
+        <div class="stat-num">8</div>
+        <div class="stat-label">Open dictionaries at v1.0</div>
+      </div>
+      <div>
+        <div class="stat-num">18</div>
+        <div class="stat-label">T-Lex lexicons in development</div>
+      </div>
+      <div>
+        <div class="stat-num">0</div>
+        <div class="stat-label">Lines of code required</div>
+      </div>
+    </div>
+  </div>
 
-    <!-- ==============================================
-         PROBLEM SECTION
-    =============================================== -->
-    <section class="section section--light" id="problem" aria-labelledby="problem-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">The problem</span>
-          <h2 id="problem-title">LIWC is the standard. But it has limits.</h2>
+
+  <!-- DEMO -->
+  <div class="demo-section">
+    <div class="demo-inner">
+      <div class="demo-frame" role="img" aria-label="Demo video coming soon">
+        <div class="demo-play" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
         </div>
-        <div class="prose-section__body">
+        <p class="demo-caption">Demo video coming soon &mdash; showing TASS text analysis in action</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PROBLEM / SOLUTION -->
+  <section class="section" id="problem">
+    <div class="container">
+      <span class="eyebrow">The problem</span>
+      <h2>LIWC is the standard.<br>But it has limits.</h2>
+      <div class="prose-grid">
+        <div class="prose-col">
           <p>LIWC-22 has been the default tool for dictionary-based text analysis in the social sciences for decades. But it has compounding limitations: it cannot handle large datasets, its dictionaries are opaque and proprietary, and it produces no built-in statistical comparisons or visualizations.</p>
           <p>LIWC&rsquo;s academic license now explicitly excludes anyone outside a university setting &mdash; researchers at think tanks, government agencies, nonprofits, and independent consultancies have no clean alternative that doesn&rsquo;t require R or Python.</p>
+        </div>
+        <div class="prose-col">
           <p>The free alternatives &mdash; Yoshikoder, psyLex, LIWCalike &mdash; all require coding. No no-code GUI tool offers group statistical comparisons, effect sizes, and publication-quality visualizations in a single package.</p>
+          <p>TASS is that alternative. Dictionary-based scoring at scale, group statistical comparisons, publication-quality visualizations, and APA citation blocks &mdash; all in a native Windows desktop application. Less than half the price of a LIWC academic license.</p>
         </div>
       </div>
-    </section>
-
-    <!-- ==============================================
-         SOLUTION SECTION
-    =============================================== -->
-    <section class="section section--surface" id="solution" aria-labelledby="solution-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">The solution</span>
-          <h2 id="solution-title">Everything LIWC does. Plus the things it can&rsquo;t.</h2>
-        </div>
-        <p class="prose-section__sub">TASS is the alternative. Dictionary-based scoring at scale, group statistical comparisons, publication-quality visualizations, and APA citation blocks &mdash; all in a native Windows desktop application that requires no coding. Less than half the price of a LIWC academic license.</p>
-      </div>
-    </section>
-
-    <!-- ==============================================
-         COMPARISON TABLE
-    =============================================== -->
-    <section class="section section--bg" id="compare" aria-labelledby="compare-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">Why TASS</span>
-          <h2 id="compare-title">TASS vs. LIWC</h2>
-        </div>
-        <p class="prose-section__sub">LIWC has been the default tool for dictionary-based text analysis in social science for decades. TASS is built to do everything LIWC does &mdash; and considerably more &mdash; at a lower price, with open and auditable dictionaries.</p>
-        <div class="comparison-wrap" role="region" aria-label="TASS vs LIWC comparison table" tabindex="0">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th scope="col">Capability</th>
-                <th scope="col" class="col-tass">TASS</th>
-                <th scope="col" class="col-liwc">LIWC</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>No coding required</td>
-                <td class="cell--yes">&#10003; Yes</td>
-                <td class="cell--yes">&#10003; Yes</td>
-              </tr>
-              <tr>
-                <td>Large dataset support (100k+ entries)</td>
-                <td class="cell--yes">&#10003; Yes</td>
-                <td class="cell--no">&#10007; No</td>
-              </tr>
-              <tr>
-                <td>Open, transparent dictionaries</td>
-                <td class="cell--yes">&#10003; Yes</td>
-                <td class="cell--no">&#10007; No</td>
-              </tr>
-              <tr>
-                <td>Built-in group comparisons (t-test, ANOVA)</td>
-                <td class="cell--yes">&#10003; Yes</td>
-                <td class="cell--no">&#10007; No</td>
-              </tr>
-              <tr>
-                <td>Publication-quality visualizations</td>
-                <td class="cell--yes">&#10003; Yes</td>
-                <td class="cell--limited">&#10007; Limited</td>
-              </tr>
-              <tr>
-                <td>Custom dictionary import</td>
-                <td class="cell--yes">&#10003; Yes</td>
-                <td class="cell--limited">&#10007; Limited</td>
-              </tr>
-              <tr>
-                <td>Offline, local analysis</td>
-                <td class="cell--yes">&#10003; Yes</td>
-                <td class="cell--yes">&#10003; Yes</td>
-              </tr>
-              <tr>
-                <td>Annual license price</td>
-                <td class="cell--yes">&#10003; $49 / year</td>
-                <td class="cell--no">&#10007; $89+ / year</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================================
-         FEATURES SECTION
-    =============================================== -->
-    <section class="section section--light" id="features" aria-labelledby="features-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">What TASS does</span>
-          <h2 id="features-title">From import to publication in one place.</h2>
-        </div>
-        <div class="features-grid">
-
-          <article class="feature-card">
-            <div class="feature-card__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            </div>
-            <h3 class="feature-card__title">Data Import</h3>
-            <p class="feature-card__body">CSV, TXT, and XLSX support with batch file processing. A column-mapping wizard lets you designate text, group, and metadata columns. Rows are previewed read-only before analysis begins.</p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-card__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-            </div>
-            <h3 class="feature-card__title">Analysis Engine</h3>
-            <p class="feature-card__body">Dictionary scoring at word, entry, and document level. Multi-threaded processing distributes work across all CPU cores, with a real-time progress display and time estimates for large corpora.</p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-card__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            </div>
-            <h3 class="feature-card__title">Group Comparisons</h3>
-            <p class="feature-card__body">Define groups by column values. Descriptive statistics, t-test, Mann-Whitney U, one-way ANOVA, Cohen&rsquo;s d, and eta-squared are computed and visualized per category &mdash; ready to report.</p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-card__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </div>
-            <h3 class="feature-card__title">Export &amp; Citation</h3>
-            <p class="feature-card__body">CSV (full entry-level scores), Excel (multi-sheet workbook), and high-resolution PNG + SVG visualizations at 300 DPI. Every export includes a pre-formatted APA citation block for your methods section.</p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================================
-         DICTIONARY LIBRARY
-    =============================================== -->
-    <section class="section section--surface" id="dictionaries" aria-labelledby="dict-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">Dictionary library</span>
-          <h2 id="dict-title">Open lexicons. Original research.</h2>
-        </div>
-        <p class="prose-section__sub">TASS ships with eight third-party dictionaries at v1.0 and is building 18 original T-Lex lexicons &mdash; each independently citable and freely available for academic and non-commercial use.</p>
-
-        <div class="dict-wrap" role="region" aria-label="Bundled dictionary library" tabindex="0">
-          <table class="dict-table">
-            <thead>
-              <tr>
-                <th scope="col">Dictionary</th>
-                <th scope="col">Coverage</th>
-                <th scope="col">License</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>AFINN-165</strong></td>
-                <td>Sentiment valence</td>
-                <td><span class="license-badge license--mit">MIT</span></td>
-              </tr>
-              <tr>
-                <td><strong>VADER Lexicon</strong></td>
-                <td>Sentiment valence + intensity</td>
-                <td><span class="license-badge license--mit">MIT</span></td>
-              </tr>
-              <tr>
-                <td><strong>Moral Foundations Dictionary 2.0</strong></td>
-                <td>Care, Fairness, Loyalty, Authority, Purity</td>
-                <td><span class="license-badge license--ccby">CC-BY</span></td>
-              </tr>
-              <tr>
-                <td><strong>Brysbaert Concreteness Norms</strong></td>
-                <td>Concreteness ratings (~40k words)</td>
-                <td><span class="license-badge license--ccby">CC-BY</span></td>
-              </tr>
-              <tr>
-                <td><strong>HurtLex</strong></td>
-                <td>Hurtful and offensive language by category</td>
-                <td>
-                  <span class="license-badge license--ccbysa">CC-BY-SA</span>
-                  <span class="review-note">under review</span>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>WordNet 3.1</strong></td>
-                <td>Full English lexicon + part-of-speech tags</td>
-                <td><span class="license-badge license--princeton">Princeton</span></td>
-              </tr>
-              <tr>
-                <td><strong>NLTK Stopwords</strong></td>
-                <td>Function words, pronouns, prepositions, articles</td>
-                <td><span class="license-badge license--apache">Apache 2.0</span></td>
-              </tr>
-              <tr>
-                <td><strong>SentiWordNet 3.0</strong></td>
-                <td>Synset-level positive / negative / objective scores</td>
-                <td>
-                  <span class="license-badge license--ccbysa">CC-BY-SA</span>
-                  <span class="review-note">under review</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="tlex-heading">
-          <h3>T-Lex Dictionaries &mdash; In Development</h3>
-          <p>18 original, open-access lexicons being built for TASS v1.1 and v2.0.</p>
-        </div>
-
-        <div class="tlex-grid" role="list">
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">01</span>
-              <span class="tlex-card__version">v1.1 Aug 2026</span>
-            </div>
-            <p class="tlex-card__name">Affective Norms</p>
-            <p class="tlex-card__desc">Valence, arousal, and dominance ratings for 40,000+ English words</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">02</span>
-              <span class="tlex-card__version">v1.1 Aug 2026</span>
-            </div>
-            <p class="tlex-card__name">Discrete Emotions</p>
-            <p class="tlex-card__desc">Anger, fear, joy, sadness, anticipation, trust, surprise, disgust</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">03</span>
-              <span class="tlex-card__version">v1.1 Aug 2026</span>
-            </div>
-            <p class="tlex-card__name">Psychosocial Process Lexicon</p>
-            <p class="tlex-card__desc">Cognitive, social, biological, perceptual, and temporal process categories</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">04</span>
-              <span class="tlex-card__version">v1.1 Aug 2026</span>
-            </div>
-            <p class="tlex-card__name">Opinion &amp; Stance</p>
-            <p class="tlex-card__desc">Evaluative language calibrated for social science text corpora</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">05</span>
-              <span class="tlex-card__version">v1.1 Aug 2026</span>
-            </div>
-            <p class="tlex-card__name">Power &amp; Status</p>
-            <p class="tlex-card__desc">Authority, dominance, submission, and political arena language</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">06</span>
-              <span class="tlex-card__version">v1.1 Aug 2026</span>
-            </div>
-            <p class="tlex-card__name">Hedging &amp; Epistemic Stance</p>
-            <p class="tlex-card__desc">Modal verbs, approximators, evidentials, hedges, and boosters</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">07</span>
-              <span class="tlex-card__version">v1.1 Aug 2026</span>
-            </div>
-            <p class="tlex-card__name">Modal Language</p>
-            <p class="tlex-card__desc">Deontic (obligation, permission) and epistemic (certainty, possibility) modals</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">08</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Agency &amp; Communion</p>
-            <p class="tlex-card__desc">Agentic and communal language across competence, warmth, and affiliation</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">09</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Narrative &amp; Temporal Orientation</p>
-            <p class="tlex-card__desc">Past/future focus, causal reasoning, and narrative sequencing markers</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">10</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Collective Identity &amp; Social Boundaries</p>
-            <p class="tlex-card__desc">In-group/out-group markers, solidarity language, othering vocabulary</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">11</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Formality &amp; Register</p>
-            <p class="tlex-card__desc">Formal vs. informal register markers across social contexts</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">12</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Political &amp; Ideological Language</p>
-            <p class="tlex-card__desc">Populist framing, partisan cues, threat rhetoric, democratic norms vocabulary</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">13</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Health &amp; Illness Communication</p>
-            <p class="tlex-card__desc">Mental health stigma language, health literacy levels, illness narrative framing</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">14</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Deception &amp; Trust Cues</p>
-            <p class="tlex-card__desc">Distancing language, verbal credibility signals, linguistic deception markers</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">15</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Crisis &amp; Uncertainty Language</p>
-            <p class="tlex-card__desc">Risk framing, ambiguity markers, and domain-calibrated epistemic hedging</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">16</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Financial &amp; Economic Sentiment</p>
-            <p class="tlex-card__desc">Optimism, caution, and urgency in organizational and financial communication</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">17</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Academic &amp; Scientific Register</p>
-            <p class="tlex-card__desc">Hedging in scientific writing, citation language, certainty and uncertainty claims</p>
-          </article>
-
-          <article class="tlex-card" role="listitem">
-            <div class="tlex-card__header">
-              <span class="tlex-card__num">18</span>
-              <span class="tlex-card__version">v2.0 Spring 2027</span>
-            </div>
-            <p class="tlex-card__name">Interpersonal Dominance &amp; Deference</p>
-            <p class="tlex-card__desc">Assertiveness, compliance, and face-threatening acts in dyadic interaction</p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================================
-         ROADMAP
-    =============================================== -->
-    <section class="section section--light" id="roadmap" aria-labelledby="roadmap-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">Roadmap</span>
-          <h2 id="roadmap-title">Release timeline.</h2>
-        </div>
-        <div class="roadmap-row" role="list">
-
-          <div class="roadmap-item roadmap-item--current" role="listitem">
-            <div class="roadmap-item__version">v1.0</div>
-            <div class="roadmap-item__date">May 2026</div>
-            <p class="roadmap-item__body">Core tool: dictionary analysis, group comparisons, static visualizations, CSV/Excel export, saved projects, license system. Eight third-party dictionaries ship at launch.</p>
-          </div>
-
-          <div class="roadmap-item" role="listitem">
-            <div class="roadmap-item__version">v1.1</div>
-            <div class="roadmap-item__date">Fall 2026</div>
-            <p class="roadmap-item__body">Machine learning models (DistilBERT, LDA, NER), custom dictionary import, interactive dashboards, auto-updates, Linux support. TASS-native dictionaries 01&ndash;07 ship.</p>
-          </div>
-
-          <div class="roadmap-item" role="listitem">
-            <div class="roadmap-item__version">v2.0</div>
-            <div class="roadmap-item__date">Spring 2027</div>
-            <p class="roadmap-item__body">LLM integration (user API key), cloud-assisted processing for large corpora, Spanish NLP, SQL data connectors. Full 26-dictionary library complete.</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================================
-         T-LEX COLLABORATION
-    =============================================== -->
-    <section class="section section--surface" id="tlex-project" aria-labelledby="tlex-collab-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">The T-Lex Project</span>
-          <h2 id="tlex-collab-title">Co-author the next standard dictionaries.</h2>
-        </div>
-        <p class="prose-section__sub">The T-Lex Project is building 18 original, open-access lexicons for social science text analysis &mdash; each a citable, independently documented resource designed to fill real measurement gaps in the field. T-Lex dictionaries ship with TASS and are freely available to the research community under open-access licensing.</p>
-
-        <div class="tlex-collab-grid">
-          <div class="tlex-collab-col">
-            <h3>What collaboration involves</h3>
-            <ul>
-              <li>Reviewing and validating AI-generated word lists against published measurement frameworks</li>
-              <li>Re-scoring or re-categorizing items that require domain expertise or judgment</li>
-              <li>Supplementing seed lists with terms from your area of specialization</li>
-              <li>Providing feedback on category definitions and construct validity</li>
-            </ul>
-            <div class="credit-block">
-              <h4>Credit &amp; Licensing</h4>
-              <p>Contributors who make substantive contributions will be offered co-authorship on associated dictionary papers and are named in all published dictionary metadata and documentation. All TASS-native dictionaries are freely available for academic and non-commercial research use.</p>
-            </div>
-          </div>
-
-          <div class="tlex-collab-col">
-            <h3>Who we&rsquo;re looking for</h3>
-            <ul>
-              <li>Social scientists with domain expertise in one or more of the target constructs</li>
-              <li>Graduate students and early-career researchers interested in computational methods and lexicon development</li>
-              <li>Anyone curious about how large language models are used in modern corpus construction and validation</li>
-            </ul>
-
-            <h3>Time commitment</h3>
-            <ul>
-              <li>Variable &mdash; you may contribute to a single dictionary or several</li>
-              <li>Validation tasks are asynchronous and self-paced via shared documents</li>
-              <li>No minimum hours required; credit is proportional to contribution</li>
-            </ul>
-
-            <h3>The process</h3>
-            <ul>
-              <li>LLMs generate a seed lexicon grounded in published theoretical frameworks</li>
-              <li>Human collaborators review, validate, and extend the list</li>
-              <li>Validated entries are scored, normed, and documented for publication</li>
-              <li>Dictionaries are deposited openly and integrated into TASS</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================================
-         PRICING
-    =============================================== -->
-    <section class="section section--bg" id="pricing" aria-labelledby="pricing-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">Pricing</span>
-          <h2 id="pricing-title">$49/year. Priced for researchers, not institutions.</h2>
-        </div>
-
-        <div class="pricing-card">
-          <div class="pricing-card__price" aria-label="$49 per year">$49</div>
-          <p class="pricing-card__period">per license &middot; cancel anytime</p>
-          <p class="pricing-card__body">No tiers that lock core features. No surprise charges. $49/year individual license. LIWC academic licenses run higher, and commercial use requires separate negotiation with Receptiviti. Institutional volume pricing available on request.</p>
-          <ul class="pricing-features" aria-label="What&rsquo;s included">
-            <li><span class="check" aria-hidden="true">&#10003;</span> Full dictionary analysis engine</li>
-            <li><span class="check" aria-hidden="true">&#10003;</span> All 8 bundled dictionaries at v1.0</li>
-            <li><span class="check" aria-hidden="true">&#10003;</span> Group comparisons (t-test, ANOVA, Cohen&rsquo;s d)</li>
-            <li><span class="check" aria-hidden="true">&#10003;</span> Publication-quality visualizations (300 DPI PNG + SVG)</li>
-            <li><span class="check" aria-hidden="true">&#10003;</span> APA citation block on every export</li>
-            <li><span class="check" aria-hidden="true">&#10003;</span> 100,000+ entry dataset support</li>
-            <li><span class="check" aria-hidden="true">&#10003;</span> Lifetime updates within licensed year</li>
-          </ul>
-          <p class="pricing-card__note">For institutional or volume pricing, contact <a href="mailto:hello@simdadllc.com">hello@simdadllc.com</a></p>
-          <a href="#waitlist" class="btn btn--primary" style="width:100%;justify-content:center;">Join the waitlist &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==============================================
-         WAITLIST FORM
-    =============================================== -->
-    <section class="section section--light" id="waitlist" aria-labelledby="waitlist-title">
-      <div class="container">
-        <div class="section-header text-center">
-          <span class="eyebrow">Early access</span>
-          <h2 id="waitlist-title">Get notified at launch.</h2>
-        </div>
-        <p class="prose-section__sub">TASS v1.0 is complete and targeting a May 2026 release. Join the waitlist and be notified first.</p>
-
-        <div class="waitlist-form-wrap">
-          <div id="form-success" class="form-message" role="alert" aria-live="polite" aria-atomic="true"></div>
-          <div id="form-error"   class="form-message" role="alert" aria-live="polite" aria-atomic="true"></div>
-
-          <form class="waitlist-form" id="waitlist-form" novalidate aria-label="TASS waitlist sign-up">
-            <div class="form-group">
-              <label for="wl-email">Email address</label>
-              <input
-                type="email"
-                id="wl-email"
-                name="email"
-                class="form-input"
-                placeholder="you@institution.edu"
-                required
-                autocomplete="email"
-                aria-required="true"
-              />
-            </div>
-            <div class="form-group">
-              <label for="wl-role">Role</label>
-              <select id="wl-role" name="role" class="form-select" required aria-required="true">
-                <option value="" disabled selected>Select your role&hellip;</option>
-                <option value="grad-student">Graduate Student</option>
-                <option value="doctoral-student">Doctoral Student</option>
-                <option value="postdoc">Postdoctoral Researcher</option>
-                <option value="asst-prof">Assistant Professor</option>
-                <option value="assoc-prof">Associate Professor</option>
-                <option value="full-prof">Full Professor</option>
-                <option value="independent-researcher">Independent Researcher</option>
-                <option value="data-journalist">Data Journalist</option>
-                <option value="policy-analyst">Policy Analyst</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <button type="submit" class="form-submit" id="form-submit-btn">Join the waitlist</button>
-            <p class="form-fine">No spam. Launch notification only. Unsubscribe anytime.</p>
-          </form>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ==============================================
-       FOOTER
-  =============================================== -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="site-footer__inner">
-      <div class="site-footer__top">
-        <div>
-          <span class="site-footer__brand-name">TASS</span>
-          <span class="site-footer__brand-sub">A SIM DAD LLC product</span>
-        </div>
-        <nav class="site-footer__links" aria-label="Footer navigation">
-          <a href="https://simdadllc.com" target="_blank" rel="noopener noreferrer">simdadllc.com</a>
-          <a href="mailto:hello@simdadllc.com">Contact</a>
-        </nav>
-      </div>
-      <p class="site-footer__bottom">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
     </div>
+  </section>
+
+
+  <!-- COMPARISON TABLE -->
+  <section class="section-alt">
+    <div class="container">
+      <span class="eyebrow">Why TASS</span>
+      <h2>TASS vs. LIWC</h2>
+      <p class="section-sub">
+        LIWC has been the default for decades. TASS is built to do everything LIWC does &mdash;
+        and considerably more &mdash; at a lower price, with open and auditable dictionaries.
+      </p>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th scope="col">Capability</th>
+              <th scope="col" class="col-tass">TASS</th>
+              <th scope="col">LIWC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No coding required</td>
+              <td class="cell-yes">&#10003; Yes</td>
+              <td class="cell-yes">&#10003; Yes</td>
+            </tr>
+            <tr>
+              <td>Large dataset support (100k+ entries)</td>
+              <td class="cell-yes">&#10003; Yes</td>
+              <td class="cell-no">&#10007; No</td>
+            </tr>
+            <tr>
+              <td>Open, transparent dictionaries</td>
+              <td class="cell-yes">&#10003; Yes</td>
+              <td class="cell-no">&#10007; No</td>
+            </tr>
+            <tr>
+              <td>Built-in group comparisons (t-test, ANOVA)</td>
+              <td class="cell-yes">&#10003; Yes</td>
+              <td class="cell-no">&#10007; No</td>
+            </tr>
+            <tr>
+              <td>Publication-quality visualizations</td>
+              <td class="cell-yes">&#10003; Yes</td>
+              <td class="cell-limited">&#8212; Limited</td>
+            </tr>
+            <tr>
+              <td>Custom dictionary import</td>
+              <td class="cell-yes">&#10003; Yes</td>
+              <td class="cell-limited">&#8212; Limited</td>
+            </tr>
+            <tr>
+              <td>Offline, local analysis</td>
+              <td class="cell-yes">&#10003; Yes</td>
+              <td class="cell-yes">&#10003; Yes</td>
+            </tr>
+            <tr>
+              <td>Annual license price</td>
+              <td class="cell-yes">&#10003; $49 / year</td>
+              <td class="cell-no">&#10007; $89+ / year</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">What TASS does</span>
+      <h2>From import to publication<br>in one place.</h2>
+      <div class="features-grid">
+
+        <div class="feature-cell">
+          <div class="feature-num">01</div>
+          <h3>Data Import</h3>
+          <p>CSV, TXT, and XLSX support with batch file processing. A column-mapping wizard lets you designate text, group, and metadata columns. Rows are previewed read-only before analysis begins.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-num">02</div>
+          <h3>Analysis Engine</h3>
+          <p>Dictionary scoring at word, entry, and document level. Multi-threaded processing distributes work across all CPU cores, with a real-time progress display and time estimates for large corpora.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-num">03</div>
+          <h3>Group Comparisons</h3>
+          <p>Define groups by column values. Descriptive statistics, t-test, Mann-Whitney U, one-way ANOVA, Cohen&rsquo;s d, and eta-squared are computed and visualized per category &mdash; ready to report.</p>
+        </div>
+
+        <div class="feature-cell">
+          <div class="feature-num">04</div>
+          <h3>Export &amp; Citation</h3>
+          <p>CSV (full entry-level scores), Excel (multi-sheet workbook), and high-resolution PNG + SVG visualizations at 300 DPI. Every export includes a pre-formatted APA citation block for your methods section.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- DARK SECTION -->
+  <section class="section-dark">
+    <div class="container">
+      <span class="eyebrow">Built for your workflow</span>
+      <h2 style="color:#fff;max-width:22ch;">No Python. No R. No command line.</h2>
+      <p class="section-sub" style="margin-bottom:2.5rem;">
+        TASS is designed for social scientists, journalists, and domain experts who need
+        professional-grade text analysis without the overhead of learning to code.
+        Load your data, choose your dictionaries, run your analysis.
+      </p>
+      <a href="#waitlist" class="btn btn-ghost-white">Join the waitlist &rarr;</a>
+    </div>
+  </section>
+
+
+  <!-- DICTIONARY LIBRARY -->
+  <section class="section-alt" id="dictionaries">
+    <div class="container">
+      <span class="eyebrow">Dictionary library</span>
+      <h2>Open lexicons.<br>Original research.</h2>
+      <p class="section-sub">
+        TASS ships with eight third-party dictionaries at v1.0 and is building 18 original T-Lex lexicons &mdash;
+        each independently citable and freely available for academic and non-commercial use.
+      </p>
+
+      <div class="table-wrap" style="margin-top:3rem;">
+        <table class="dict-table">
+          <thead>
+            <tr>
+              <th scope="col">Dictionary</th>
+              <th scope="col">Coverage</th>
+              <th scope="col">License</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>AFINN-165</strong></td>
+              <td>Sentiment valence</td>
+              <td><span class="license-badge license-mit">MIT</span></td>
+            </tr>
+            <tr>
+              <td><strong>VADER Lexicon</strong></td>
+              <td>Sentiment valence + intensity</td>
+              <td><span class="license-badge license-mit">MIT</span></td>
+            </tr>
+            <tr>
+              <td><strong>Moral Foundations Dictionary 2.0</strong></td>
+              <td>Care, Fairness, Loyalty, Authority, Purity</td>
+              <td><span class="license-badge license-ccby">CC-BY</span></td>
+            </tr>
+            <tr>
+              <td><strong>Brysbaert Concreteness Norms</strong></td>
+              <td>Concreteness ratings (~40k words)</td>
+              <td><span class="license-badge license-ccby">CC-BY</span></td>
+            </tr>
+            <tr>
+              <td><strong>HurtLex</strong></td>
+              <td>Hurtful and offensive language by category</td>
+              <td>
+                <span class="license-badge license-ccbysa">CC-BY-SA</span>
+                <span class="review-note">under review</span>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>WordNet 3.1</strong></td>
+              <td>Full English lexicon + part-of-speech tags</td>
+              <td><span class="license-badge license-princeton">Princeton</span></td>
+            </tr>
+            <tr>
+              <td><strong>NLTK Stopwords</strong></td>
+              <td>Function words, pronouns, prepositions, articles</td>
+              <td><span class="license-badge license-apache">Apache 2.0</span></td>
+            </tr>
+            <tr>
+              <td><strong>SentiWordNet 3.0</strong></td>
+              <td>Synset-level positive / negative / objective scores</td>
+              <td>
+                <span class="license-badge license-ccbysa">CC-BY-SA</span>
+                <span class="review-note">under review</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="tlex-subhead">T-Lex Dictionaries <span>&mdash; 18 original lexicons in development</span></h3>
+      <div class="tlex-grid">
+        <div class="tlex-cell">
+          <div class="tlex-num">01</div>
+          <div class="tlex-ver">v1.1 &mdash; Aug 2026</div>
+          <div class="tlex-name">Affective Norms</div>
+          <div class="tlex-desc">Valence, arousal, and dominance ratings for 40,000+ English words</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">02</div>
+          <div class="tlex-ver">v1.1 &mdash; Aug 2026</div>
+          <div class="tlex-name">Discrete Emotions</div>
+          <div class="tlex-desc">Anger, fear, joy, sadness, anticipation, trust, surprise, disgust</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">03</div>
+          <div class="tlex-ver">v1.1 &mdash; Aug 2026</div>
+          <div class="tlex-name">Psychosocial Process Lexicon</div>
+          <div class="tlex-desc">Cognitive, social, biological, perceptual, and temporal process categories</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">04</div>
+          <div class="tlex-ver">v1.1 &mdash; Aug 2026</div>
+          <div class="tlex-name">Opinion &amp; Stance</div>
+          <div class="tlex-desc">Evaluative language calibrated for social science text corpora</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">05</div>
+          <div class="tlex-ver">v1.1 &mdash; Aug 2026</div>
+          <div class="tlex-name">Power &amp; Status</div>
+          <div class="tlex-desc">Authority, dominance, submission, and political arena language</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">06</div>
+          <div class="tlex-ver">v1.1 &mdash; Aug 2026</div>
+          <div class="tlex-name">Hedging &amp; Epistemic Stance</div>
+          <div class="tlex-desc">Modal verbs, approximators, evidentials, hedges, and boosters</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">07</div>
+          <div class="tlex-ver">v1.1 &mdash; Aug 2026</div>
+          <div class="tlex-name">Modal Language</div>
+          <div class="tlex-desc">Deontic (obligation, permission) and epistemic (certainty, possibility) modals</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">08</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Agency &amp; Communion</div>
+          <div class="tlex-desc">Agentic and communal language across competence, warmth, and affiliation</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">09</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Narrative &amp; Temporal Orientation</div>
+          <div class="tlex-desc">Past/future focus, causal reasoning, and narrative sequencing markers</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">10</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Collective Identity &amp; Social Boundaries</div>
+          <div class="tlex-desc">In-group/out-group markers, solidarity language, othering vocabulary</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">11</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Formality &amp; Register</div>
+          <div class="tlex-desc">Formal vs. informal register markers across social contexts</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">12</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Political &amp; Ideological Language</div>
+          <div class="tlex-desc">Populist framing, partisan cues, threat rhetoric, democratic norms vocabulary</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">13</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Health &amp; Illness Communication</div>
+          <div class="tlex-desc">Mental health stigma language, health literacy levels, illness narrative framing</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">14</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Deception &amp; Trust Cues</div>
+          <div class="tlex-desc">Distancing language, verbal credibility signals, linguistic deception markers</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">15</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Crisis &amp; Uncertainty Language</div>
+          <div class="tlex-desc">Risk framing, ambiguity markers, and domain-calibrated epistemic hedging</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">16</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Financial &amp; Economic Sentiment</div>
+          <div class="tlex-desc">Optimism, caution, and urgency in organizational and financial communication</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">17</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Academic &amp; Scientific Register</div>
+          <div class="tlex-desc">Hedging in scientific writing, citation language, certainty and uncertainty claims</div>
+        </div>
+        <div class="tlex-cell">
+          <div class="tlex-num">18</div>
+          <div class="tlex-ver">v2.0 &mdash; Spring 2027</div>
+          <div class="tlex-name">Interpersonal Dominance &amp; Deference</div>
+          <div class="tlex-desc">Assertiveness, compliance, and face-threatening acts in dyadic interaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ROADMAP -->
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Roadmap</span>
+      <h2>Release timeline.</h2>
+      <div class="roadmap-grid">
+        <div class="roadmap-cell current">
+          <div class="roadmap-version">v1.0</div>
+          <div class="roadmap-date">May 2026</div>
+          <p class="roadmap-body">Core tool: dictionary analysis, group comparisons, static visualizations, CSV/Excel export, saved projects, license system. Eight third-party dictionaries ship at launch.</p>
+        </div>
+        <div class="roadmap-cell">
+          <div class="roadmap-version">v1.1</div>
+          <div class="roadmap-date">Fall 2026</div>
+          <p class="roadmap-body">Machine learning models (DistilBERT, LDA, NER), custom dictionary import, interactive dashboards, auto-updates, Linux support. T-Lex dictionaries 01&ndash;07 ship.</p>
+        </div>
+        <div class="roadmap-cell">
+          <div class="roadmap-version">v2.0</div>
+          <div class="roadmap-date">Spring 2027</div>
+          <p class="roadmap-body">LLM integration (user API key), cloud-assisted processing for large corpora, Spanish NLP, SQL data connectors. Full 26-dictionary library complete.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- T-LEX COLLABORATION -->
+  <section class="section-alt" id="tlex-project">
+    <div class="container">
+      <span class="eyebrow">The T-Lex Project</span>
+      <h2>Co-author the next<br>standard dictionaries.</h2>
+      <p class="section-sub">
+        The T-Lex Project is building 18 original, open-access lexicons for social science text analysis &mdash;
+        each a citable, independently documented resource designed to fill real measurement gaps in the field.
+        T-Lex dictionaries ship with TASS and are freely available to the research community under open-access licensing.
+      </p>
+      <div class="collab-grid">
+        <div class="collab-col">
+          <h3>What collaboration involves</h3>
+          <ul>
+            <li>Reviewing and validating AI-generated word lists against published measurement frameworks</li>
+            <li>Re-scoring or re-categorizing items that require domain expertise or judgment</li>
+            <li>Supplementing seed lists with terms from your area of specialization</li>
+            <li>Providing feedback on category definitions and construct validity</li>
+          </ul>
+          <div class="credit-block">
+            <h4>Credit &amp; Licensing</h4>
+            <p>Contributors who make substantive contributions will be offered co-authorship on associated dictionary papers and are named in all published dictionary metadata. All TASS-native dictionaries are freely available for academic and non-commercial research use.</p>
+          </div>
+        </div>
+        <div class="collab-col">
+          <h3>Who we&rsquo;re looking for</h3>
+          <ul>
+            <li>Social scientists with domain expertise in one or more of the target constructs</li>
+            <li>Graduate students and early-career researchers interested in computational methods and lexicon development</li>
+            <li>Anyone curious about how LLMs are used in modern corpus construction and validation</li>
+          </ul>
+          <h3>Time commitment</h3>
+          <ul>
+            <li>Variable &mdash; you may contribute to a single dictionary or several</li>
+            <li>Validation tasks are asynchronous and self-paced via shared documents</li>
+            <li>No minimum hours required; credit is proportional to contribution</li>
+          </ul>
+          <a href="mailto:hello@simdadllc.com?subject=T-Lex%20Collaboration" class="btn btn-ghost" style="margin-top:1rem;">Contact us to collaborate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PRICING -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <span class="eyebrow">Pricing</span>
+      <h2>$49/year. Priced for researchers,<br>not institutions.</h2>
+      <p class="section-sub" style="margin-bottom:2.5rem;">
+        No tiers that lock core features. No surprise charges. LIWC academic licenses run higher, and commercial use requires separate negotiation with Receptiviti. TASS doesn&rsquo;t.
+      </p>
+      <div class="pricing-card">
+        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Individual License</div>
+        <div class="price-tag">$49</div>
+        <div class="price-note">per year &nbsp;&middot;&nbsp; cancel anytime</div>
+        <ul class="price-features">
+          <li>Full dictionary analysis engine</li>
+          <li>All 8 bundled dictionaries at v1.0</li>
+          <li>Group comparisons (t-test, ANOVA, Cohen&rsquo;s d)</li>
+          <li>Publication-quality visualizations (300 DPI PNG + SVG)</li>
+          <li>APA citation block on every export</li>
+          <li>100,000+ entry dataset support</li>
+          <li>Lifetime updates within licensed year</li>
+        </ul>
+        <p class="pricing-note">
+          For institutional or volume pricing, contact <a href="mailto:hello@simdadllc.com">hello@simdadllc.com</a>
+        </p>
+        <a href="#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- WAITLIST -->
+  <section class="section-alt" id="waitlist">
+    <div class="container">
+      <div class="waitlist-wrap">
+        <span class="eyebrow">Early access</span>
+        <h2>Get notified at launch.</h2>
+        <p class="section-sub">
+          TASS v1.0 is complete and targeting a May 2026 release. Join the waitlist and be notified first.
+        </p>
+
+        <div class="wl-success" id="wl-success" role="status">
+          <h3>You&rsquo;re on the list.</h3>
+          <p>We&rsquo;ll reach out when TASS launches.</p>
+        </div>
+
+        <form class="wl-form" id="wl-form" novalidate>
+          <div class="wl-field">
+            <label for="wl-email">Email address</label>
+            <input type="email" id="wl-email" name="email" placeholder="you@institution.edu" required autocomplete="email">
+          </div>
+          <div class="wl-field">
+            <label for="wl-role">Role <span>(optional)</span></label>
+            <select id="wl-role" name="role">
+              <option value="" disabled selected>Select your role&hellip;</option>
+              <option value="grad-student">Graduate Student</option>
+              <option value="doctoral-student">Doctoral Student</option>
+              <option value="postdoc">Postdoctoral Researcher</option>
+              <option value="asst-prof">Assistant Professor</option>
+              <option value="assoc-prof">Associate Professor</option>
+              <option value="full-prof">Full Professor</option>
+              <option value="independent-researcher">Independent Researcher</option>
+              <option value="data-journalist">Data Journalist</option>
+              <option value="policy-analyst">Policy Analyst</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>
+          <p class="wl-error" id="wl-error" role="alert"></p>
+          <p class="wl-fine">No spam. Launch notification only. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">TASS</div>
+        <div class="footer-sub">A product of SIM DAD LLC</div>
+      </div>
+      <div class="footer-links">
+        <a href="https://simdadllc.com">simdadllc.com</a>
+        <a href="mailto:hello@simdadllc.com">Contact</a>
+        <a href="#">Privacy policy</a>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
   </footer>
 
-  <!-- ==============================================
-       INLINE JAVASCRIPT
-  =============================================== -->
+
   <script>
-    'use strict';
+    /* ── WAITLIST ENDPOINT ──────────────────────────────────────────
+       Set to your Brevo (or other) API endpoint before going live.
+       Leave empty to simulate success locally during development.
+    ─────────────────────────────────────────────────────────────── */
+    const WAITLIST_ENDPOINT = "";
 
-    // ---------------------------------------------------
-    // CONFIG
-    // ---------------------------------------------------
-    var WAITLIST_ENDPOINT = ""; // Set your Brevo/email endpoint here before launch
+    /* ── STICKY NAV ─────────────────────────────────────────────── */
+    const nav = document.getElementById("nav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 48);
+    }, { passive: true });
 
-    // ---------------------------------------------------
-    // STICKY HEADER
-    // ---------------------------------------------------
-    (function () {
-      var header = document.getElementById('site-header');
-      if (!header) return;
+    /* ── WAITLIST FORM ──────────────────────────────────────────── */
+    document.getElementById("wl-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form    = e.target;
+      const btn     = document.getElementById("wl-submit");
+      const success = document.getElementById("wl-success");
+      const errEl   = document.getElementById("wl-error");
 
-      var ticking = false;
+      const email = form.email.value.trim();
+      const role  = form.role?.value ?? "";
 
-      function updateHeader() {
-        if (window.scrollY > 40) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-        ticking = false;
+      errEl.textContent = "";
+      errEl.classList.remove("visible");
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.textContent = "Please enter a valid email address.";
+        errEl.classList.add("visible");
+        return;
       }
 
-      window.addEventListener('scroll', function () {
-        if (!ticking) {
-          window.requestAnimationFrame(updateHeader);
-          ticking = true;
-        }
-      }, { passive: true });
+      btn.disabled = true;
+      btn.textContent = "Joining…";
 
-      updateHeader();
-    })();
-
-    // ---------------------------------------------------
-    // WAITLIST FORM
-    // ---------------------------------------------------
-    (function () {
-      var form      = document.getElementById('waitlist-form');
-      var submitBtn = document.getElementById('form-submit-btn');
-      var successEl = document.getElementById('form-success');
-      var errorEl   = document.getElementById('form-error');
-
-      if (!form) return;
-
-      function clearMessages() {
-        successEl.className = 'form-message';
-        errorEl.className   = 'form-message';
-        successEl.textContent = '';
-        errorEl.textContent   = '';
+      if (!WAITLIST_ENDPOINT) {
+        await new Promise(r => setTimeout(r, 600));
+        form.style.display = "none";
+        success.classList.add("visible");
+        return;
       }
 
-      function showSuccess(msg) {
-        clearMessages();
-        successEl.textContent = msg;
-        successEl.className   = 'form-message success';
-        form.style.display    = 'none';
-      }
-
-      function showError(msg) {
-        clearMessages();
-        errorEl.textContent = msg;
-        errorEl.className   = 'form-message error';
-      }
-
-      function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      function setLoading(loading) {
-        submitBtn.disabled = loading;
-        submitBtn.setAttribute('aria-busy', loading ? 'true' : 'false');
-        submitBtn.textContent = loading ? 'Submitting\u2026' : 'Join the waitlist';
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        clearMessages();
-
-        var emailInput = document.getElementById('wl-email');
-        var roleSelect = document.getElementById('wl-role');
-        var email = emailInput ? emailInput.value.trim() : '';
-        var role  = roleSelect ? roleSelect.value : '';
-
-        if (!email || !isValidEmail(email)) {
-          showError('Please enter a valid email address.');
-          if (emailInput) emailInput.focus();
-          return;
-        }
-
-        if (!role) {
-          showError('Please select your role.');
-          if (roleSelect) roleSelect.focus();
-          return;
-        }
-
-        if (!WAITLIST_ENDPOINT) {
-          showSuccess("You\u2019re on the list! We\u2019ll notify you when TASS launches in May 2026.");
-          return;
-        }
-
-        setLoading(true);
-
-        fetch(WAITLIST_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email, role: role })
-        })
-        .then(function (response) {
-          if (response.ok) {
-            showSuccess("You\u2019re on the list! We\u2019ll notify you when TASS launches in May 2026.");
-          } else {
-            return response.json().catch(function () { return {}; }).then(function (data) {
-              showError(data.message || 'Something went wrong. Please try again or email hello@simdadllc.com.');
-              setLoading(false);
-            });
-          }
-        })
-        .catch(function () {
-          showError('Unable to connect. Please check your internet connection and try again.');
-          setLoading(false);
+      try {
+        const res = await fetch(WAITLIST_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, attributes: { ROLE: role, PRODUCT: "TASS" } })
         });
-      });
-    })();
+        if (!res.ok) throw new Error("Request failed");
+        form.style.display = "none";
+        success.classList.add("visible");
+      } catch {
+        errEl.textContent = "Something went wrong. Please try again or email hello@simdadllc.com.";
+        errEl.classList.add("visible");
+        btn.disabled = false;
+        btn.textContent = "Join the waitlist";
+      }
+    });
   </script>
-
 </body>
 </html>
