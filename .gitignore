@@ -1,0 +1,21 @@
+# Node.js (if build tooling is added)
+node_modules/
+.next/
+dist/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / tooling
+.vscode/
+.idea/
+.claude/
+
+# Temp
+*.tmp
+*.bak
+*.swp
+*.log
