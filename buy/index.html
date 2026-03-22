@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy TASS — $49 / Year | SIM DAD LLC</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/tass_logo.svg">
+  <link rel="stylesheet" href="../css/tass.css">
+  <style>
+    /* ── BUY PAGE EXTRAS ── */
+    .buy-hero {
+      padding: 5rem 0 4.5rem;
+      border-bottom: var(--rule);
+    }
+
+    .buy-hero p {
+      margin-top: 1.25rem;
+    }
+
+    .pricing-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--black);
+      margin-top: 3.5rem;
+    }
+
+    .plan-card {
+      background: var(--white);
+      padding: 2.5rem;
+    }
+
+    .plan-card.plan-featured {
+      background: var(--black);
+    }
+
+    .plan-label {
+      font-size: 0.5875rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .plan-card.plan-featured .plan-label {
+      color: var(--red);
+    }
+
+    .plan-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      margin-bottom: 1.25rem;
+    }
+
+    .plan-card.plan-featured .plan-name {
+      color: var(--white);
+    }
+
+    .plan-price {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--black);
+      letter-spacing: -0.02em;
+    }
+
+    .plan-card.plan-featured .plan-price {
+      color: var(--white);
+    }
+
+    .plan-price span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gray);
+      letter-spacing: 0;
+    }
+
+    .plan-card.plan-featured .plan-price span {
+      color: #888;
+    }
+
+    .plan-divider {
+      height: 1px;
+      background: var(--light);
+      margin: 1.75rem 0;
+    }
+
+    .plan-card.plan-featured .plan-divider {
+      background: #2a2a2a;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin: 0 0 2rem;
+    }
+
+    .plan-features li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--light);
+      color: var(--gray);
+      font-size: 0.875rem;
+      display: flex;
+      gap: 0.625rem;
+      align-items: flex-start;
+    }
+
+    .plan-card.plan-featured .plan-features li {
+      border-bottom-color: #1e1e1e;
+      color: #aaaaaa;
+    }
+
+    .plan-features li::before {
+      content: '\2014';
+      color: var(--red);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .plan-cta {
+      display: inline-block;
+      padding: 0.875rem 2rem;
+      font-family: var(--font);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s, color 0.15s;
+      width: 100%;
+      text-align: center;
+    }
+
+    .plan-cta-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+    .plan-cta-primary:hover { background: #aa0000; }
+
+    .plan-cta-secondary {
+      background: var(--white);
+      color: var(--black);
+      border: 2px solid var(--black);
+    }
+    .plan-cta-secondary:hover { background: var(--light); }
+
+    .plan-note {
+      font-size: 0.6875rem;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 0.75rem;
+      max-width: none;
+    }
+
+    .plan-card.plan-featured .plan-note {
+      color: #666;
+    }
+
+    /* ── INCLUDES ── */
+    .includes-section {
+      padding: 4.5rem 0;
+      border-bottom: var(--rule);
+    }
+
+    .includes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--black);
+      margin-top: 2.5rem;
+    }
+
+    .include-card {
+      background: var(--white);
+      padding: 2rem;
+    }
+
+    .include-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .include-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+
+    .include-desc {
+      font-size: 0.8125rem;
+      color: var(--gray);
+      line-height: 1.55;
+      max-width: none;
+      margin: 0;
+    }
+
+    /* ── FAQ ── */
+    .faq-section {
+      padding: 4.5rem 0;
+      border-bottom: var(--rule);
+    }
+
+    .faq-list {
+      margin-top: 2.5rem;
+    }
+
+    .faq-item {
+      border-bottom: var(--rule);
+      padding: 1.5rem 0;
+    }
+
+    .faq-item:first-child {
+      border-top: var(--rule);
+    }
+
+    .faq-q {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+
+    .faq-a {
+      font-size: 0.9375rem;
+      color: var(--gray);
+      max-width: 72ch;
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT CTA ── */
+    .contact-strip {
+      padding: 4.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .contact-strip p {
+      margin: 0;
+      font-size: 0.9375rem;
+      color: var(--gray);
+      max-width: 52ch;
+    }
+
+    .contact-strip a.btn-submit {
+      flex-shrink: 0;
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 0;
+    }
+
+    /* ── PRERELEASE BANNER ── */
+    .prerelease-banner {
+      background: var(--black);
+      border-bottom: 2px solid var(--red);
+      padding: 0.75rem 2rem;
+      text-align: center;
+    }
+
+    .prerelease-banner p {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      max-width: none;
+      margin: 0;
+    }
+
+    .prerelease-banner p strong {
+      color: var(--red);
+    }
+
+    @media (max-width: 960px) {
+      .pricing-block { grid-template-columns: 1fr; }
+      .includes-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-strip { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 600px) {
+      .includes-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header>
+    <div class="header-inner">
+      <div>
+        <a href="https://simdadllc.com/tass/" class="brand-back">
+          <span>&larr;</span>
+          <img src="../assets/tass_logo.svg" alt="TASS" class="header-logo">
+          TASS
+        </a>
+        <h1>Get T<span>A</span>SS</h1>
+        <p class="tagline">Annual license &mdash; one payment, full access</p>
+      </div>
+      <div class="header-right">
+        <span class="pill pill-status">Pre-Release</span>
+        <span class="pill pill-version">v1.0 &mdash; Summer 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       PRE-RELEASE NOTICE
+  ══════════════════════════════════════════ -->
+  <div class="prerelease-banner">
+    <p><strong>Pre-Release:</strong> TASS launches Summer 2026. Reserve your license now at the introductory rate &mdash; your key will be delivered the day of release.</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       MAIN
+  ══════════════════════════════════════════ -->
+  <main>
+
+    <!-- PRICING -->
+    <section class="buy-hero">
+      <p class="section-label">Pricing</p>
+      <h2>Simple,<br>Annual Licensing</h2>
+      <p>One annual subscription covers all features, all bundled dictionaries, and all updates released during your license term. No per-feature upgrades. No data fees. Your data never leaves your machine.</p>
+
+      <div class="pricing-block">
+
+        <!-- Individual -->
+        <div class="plan-card plan-featured">
+          <p class="plan-label">Most Popular</p>
+          <p class="plan-name">Individual License</p>
+          <div class="plan-price">$49<span>&nbsp;/ year</span></div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Full access to all TASS features</li>
+            <li>All bundled dictionaries included at launch</li>
+            <li>All updates for the duration of your license</li>
+            <li>Activate on up to 2 personal machines</li>
+            <li>Offline, local analysis &mdash; no data transmitted</li>
+            <li>APA citation block in every export</li>
+          </ul>
+          <a href="mailto:ap@simdadllc.com?subject=TASS%20License%20%E2%80%94%20Individual%20Pre-Order&body=I%20would%20like%20to%20pre-order%20an%20individual%20TASS%20license%20at%20%2449%2Fyear.%0A%0AName%3A%0AInstitution%3A%0A" class="plan-cta plan-cta-primary">Pre-Order &mdash; $49 / Year</a>
+          <p class="plan-note">Payment link launching Summer 2026 &mdash; email us to reserve now</p>
+        </div>
+
+        <!-- Institutional -->
+        <div class="plan-card">
+          <p class="plan-label">Departments &amp; Labs</p>
+          <p class="plan-name">Institutional / Site License</p>
+          <div class="plan-price" style="font-size:2rem;padding-top:0.5rem">Contact<br>for Pricing</div>
+          <div class="plan-divider"></div>
+          <ul class="plan-features">
+            <li>Everything in the Individual license</li>
+            <li>Unlimited seats within your department or lab</li>
+            <li>Centralized license key management</li>
+            <li>Priority support &amp; onboarding call</li>
+            <li>Invoice-based billing for grant accounts</li>
+            <li>Volume discounts for multi-year agreements</li>
+          </ul>
+          <a href="mailto:ap@simdadllc.com?subject=TASS%20License%20%E2%80%94%20Institutional%20Inquiry&body=Organization%2FDepartment%3A%0AExpected%20number%20of%20users%3A%0AContact%20name%3A%0AContact%20email%3A%0A" class="plan-cta plan-cta-secondary">Contact Us</a>
+          <p class="plan-note" style="color:var(--gray)">Email ap@simdadllc.com</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHAT&rsquo;S INCLUDED -->
+    <section class="includes-section">
+      <p class="section-label">What You Get</p>
+      <h2>Everything in<br>One License</h2>
+
+      <div class="includes-grid">
+        <div class="include-card">
+          <div class="include-icon">&#9679;</div>
+          <div class="include-title">Full Feature Access</div>
+          <p class="include-desc">Dictionary scoring, group comparisons (t-test, ANOVA, Cohen&rsquo;s d), static visualizations, CSV and Excel export, and saved projects &mdash; all included.</p>
+        </div>
+        <div class="include-card">
+          <div class="include-icon">&#9679;</div>
+          <div class="include-title">Eight Bundled Dictionaries</div>
+          <p class="include-desc">AFINN-165, VADER, Moral Foundations, Brysbaert Concreteness Norms, HurtLex, WordNet 3.1, NLTK Stopwords, and SentiWordNet 3.0 &mdash; included with your license.</p>
+        </div>
+        <div class="include-card">
+          <div class="include-icon">&#9679;</div>
+          <div class="include-title">All Updates</div>
+          <p class="include-desc">Every update released during your license year &mdash; bug fixes, new features, and new dictionary support &mdash; at no additional cost.</p>
+        </div>
+        <div class="include-card">
+          <div class="include-icon">&#9679;</div>
+          <div class="include-title">2 Device Activations</div>
+          <p class="include-desc">Install and activate TASS on up to two personal machines under a single individual license. Additional seats available on institutional plans.</p>
+        </div>
+        <div class="include-card">
+          <div class="include-icon">&#9679;</div>
+          <div class="include-title">Local, Offline Analysis</div>
+          <p class="include-desc">All processing runs entirely on your machine. No data is transmitted. No server required. Your texts, your results &mdash; private by design.</p>
+        </div>
+        <div class="include-card">
+          <div class="include-icon">&#9679;</div>
+          <div class="include-title">APA Citation Export</div>
+          <p class="include-desc">Every export includes a pre-formatted APA citation block so your methods section is complete from the moment you finish your analysis.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <p class="section-label">Common Questions</p>
+      <h2>License FAQ</h2>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <p class="faq-q">How does the license key work?</p>
+          <p class="faq-a">After purchase, you will receive a license key by email. Enter it in TASS when prompted on first launch. The key is tied to your account and can be activated on up to two machines under the individual plan.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">What happens when my license expires?</p>
+          <p class="faq-a">When your annual license expires, TASS enters a read-only mode: you can open and export existing projects, but you cannot run new analyses. Renewing your license restores full access immediately.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Is there an educational or student discount?</p>
+          <p class="faq-a">Yes. Verified students and early-career researchers (.edu email) can contact us at ap@simdadllc.com to request a discounted rate. Institutional site licenses also offer substantial per-seat savings over individual pricing for labs and departments.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Can I pay using a grant or purchase order?</p>
+          <p class="faq-a">Yes. Institutional licenses support invoice-based billing, which is compatible with most university grant accounts and departmental purchase processes. Contact us to initiate a quote.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Does a license include the T-Lex native dictionaries?</p>
+          <p class="faq-a">T-Lex dictionaries are developed independently of the TASS license and are freely available to all users &mdash; including non-licensed users &mdash; for academic and non-commercial research. They are not behind a paywall.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">What operating systems does TASS support at launch?</p>
+          <p class="faq-a">TASS v1.0 launches as a native Windows application. Linux support is planned for v1.1 (Fall 2026). Mac support is under evaluation for a future release.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Is there a free trial?</p>
+          <p class="faq-a">TASS will include a 14-day trial period on first installation that provides full access to all features. No license key or credit card required to begin the trial.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">What is your refund policy?</p>
+          <p class="faq-a">If TASS does not work as described on your system, contact us within 30 days of purchase for a full refund, no questions asked.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <div class="contact-strip">
+      <div>
+        <p class="section-label">Questions?</p>
+        <p>Have a question before you buy, need an invoice for your department, or want to discuss an institutional license? Reach us directly.</p>
+      </div>
+      <a href="mailto:ap@simdadllc.com?subject=TASS%20Licensing%20Question" class="btn-submit">Email Us</a>
+    </div>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 SIM DAD LLC</p>
+      <a href="https://simdadllc.com/tass/">simdadllc.com/tass</a>
+    </div>
+  </footer>
+
+</body>
+</html>

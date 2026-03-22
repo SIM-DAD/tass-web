@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TASS Support | SIM DAD LLC</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/tass_logo.svg">
+  <link rel="stylesheet" href="../css/tass.css">
+  <style>
+    /* ── SUPPORT PAGE ── */
+
+    /* Email-first hero */
+    .support-hero {
+      padding: 5rem 0 4.5rem;
+      border-bottom: var(--rule);
+    }
+
+    .support-hero p {
+      margin-top: 1.25rem;
+    }
+
+    .email-block {
+      margin-top: 2.5rem;
+      background: var(--black);
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .email-block-label {
+      font-size: 0.5875rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.625rem;
+    }
+
+    .email-address {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      font-weight: 900;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      display: inline-block;
+      transition: color 0.15s;
+    }
+    .email-address:hover { color: var(--red); }
+
+    .email-response {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #555;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+      max-width: none;
+    }
+
+    .btn-email {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.875rem 2rem;
+      font-family: var(--font);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-email:hover { background: #aa0000; }
+
+    /* FAQ */
+    .faq-section {
+      padding: 4.5rem 0;
+      border-bottom: var(--rule);
+    }
+
+    .faq-list { margin-top: 2.5rem; }
+
+    .faq-item {
+      border-bottom: var(--rule);
+      padding: 1.75rem 0;
+    }
+    .faq-item:first-child { border-top: var(--rule); }
+
+    .faq-q {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.625rem;
+    }
+
+    .faq-a {
+      font-size: 0.9375rem;
+      color: var(--gray);
+      max-width: 72ch;
+      margin: 0;
+      line-height: 1.7;
+    }
+
+    .faq-a code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.875em;
+      background: var(--light);
+      padding: 0.1em 0.4em;
+      color: var(--black);
+    }
+
+    .faq-a a {
+      color: var(--red);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .faq-a a:hover { text-decoration: underline; }
+
+    /* Inline callout inside FAQ answer */
+    .faq-note {
+      display: block;
+      margin-top: 0.75rem;
+      background: var(--light);
+      border-left: 3px solid var(--red);
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .faq-note strong {
+      color: var(--black);
+    }
+
+    /* Known limitations */
+    .limits-section {
+      padding: 4.5rem 0;
+      border-bottom: var(--rule);
+    }
+
+    .limits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--black);
+      margin-top: 2.5rem;
+    }
+
+    .limit-card {
+      background: var(--white);
+      padding: 2rem;
+    }
+
+    .limit-label {
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.625rem;
+    }
+
+    .limit-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+
+    .limit-desc {
+      font-size: 0.9375rem;
+      color: var(--gray);
+      max-width: none;
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* Bottom contact strip */
+    .contact-strip {
+      padding: 4.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-strip p {
+      font-size: 0.9375rem;
+      color: var(--gray);
+      max-width: 52ch;
+      margin: 0;
+    }
+
+    @media (max-width: 960px) {
+      .email-block  { flex-direction: column; align-items: flex-start; }
+      .limits-grid  { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .email-block  { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header>
+    <div class="header-inner">
+      <div>
+        <a href="https://simdadllc.com/tass/" class="brand-back">
+          <span>&larr;</span>
+          <img src="../assets/tass_logo.svg" alt="TASS" class="header-logo">
+          TASS
+        </a>
+        <h1>T<span>A</span>SS<br>Support</h1>
+        <p class="tagline">Get help with installation, licensing, and analysis</p>
+      </div>
+      <div class="header-right">
+        <span class="pill pill-version">v1.0.0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       MAIN
+  ══════════════════════════════════════════ -->
+  <main>
+
+    <!-- EMAIL FIRST -->
+    <section class="support-hero">
+      <p class="section-label">Support</p>
+      <h2>Something<br>Not Working?</h2>
+      <p>Email us directly &mdash; we respond to every message within one business day. Check the FAQ below first; most issues are covered there.</p>
+
+      <div class="email-block">
+        <div>
+          <p class="email-block-label">Support Email</p>
+          <a href="mailto:support@simdadllc.com" class="email-address">support@simdadllc.com</a>
+          <p class="email-response">Typical response &mdash; 1 business day</p>
+        </div>
+        <a href="mailto:support@simdadllc.com?subject=TASS%20Support%20Request%20%E2%80%94%20v1.0.0" class="btn-email">Email Support</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <p class="section-label">FAQ</p>
+      <h2>Common<br>Questions</h2>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <p class="faq-q">How do I activate my license?</p>
+          <p class="faq-a">When TASS launches for the first time it will show an activation prompt. Paste the license key exactly as it appears in your receipt email &mdash; including any hyphens &mdash; and click <strong>Activate</strong>. TASS requires an internet connection for this one-time check; after activation it runs fully offline. If the key is rejected, confirm you are using the email address you purchased with and that there are no extra spaces in the pasted key. If you can&rsquo;t find your key, <a href="mailto:support@simdadllc.com?subject=TASS%20%E2%80%94%20Lost%20License%20Key">email support</a> with your order ID.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">Can I move TASS to a new computer?</p>
+          <p class="faq-a">Yes. Individual licenses allow activation on up to two machines simultaneously. If you are replacing a machine, email <a href="mailto:support@simdadllc.com?subject=TASS%20%E2%80%94%20Activation%20Reset%20Request">support@simdadllc.com</a> with your order ID and we will reset one of your activations at no charge, usually within one business day. To transfer your projects, copy the <code>TASS Projects</code> folder from your <code>Documents</code> directory on the old machine to the same location on the new one.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">What file formats does TASS accept?</p>
+          <p class="faq-a">TASS accepts <strong>CSV</strong>, <strong>XLSX</strong>, and plain <strong>TXT</strong> files. CSV files must be UTF-8 encoded &mdash; if your file was exported from Excel, re-save it using <strong>File &rarr; Save As &rarr; CSV UTF-8 (Comma delimited)</strong> before importing. The column-mapping wizard lets you designate your text, group, and metadata columns after the file loads.
+            <span class="faq-note"><strong>Trial limitation:</strong> The free trial processes a maximum of 500 rows per analysis run. Upgrade to a full license to remove this limit. See Known Limitations below.</span>
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">How do I cite TASS in a paper?</p>
+          <p class="faq-a">Every TASS export includes a pre-formatted APA citation block in a separate sheet or footer. You can also copy it at any time from inside the app: go to <strong>Help &rarr; Cite TASS</strong>. The cite dialog includes a separate citation block for each bundled dictionary used in the analysis &mdash; copy whichever ones apply to your methods section. If you need a BibTeX or other format, <a href="mailto:support@simdadllc.com?subject=TASS%20%E2%80%94%20Citation%20Format%20Request">email support</a>.</p>
+        </div>
+
+        <div class="faq-item">
+          <p class="faq-q">My antivirus flagged the installer &mdash; is it safe?</p>
+          <p class="faq-a">Yes, TASS is safe. Antivirus programs and Windows SmartScreen sometimes flag newly released executables that have not yet accumulated a large install history &mdash; this is a false positive, not an indicator of malware. TASS is digitally signed by SIM DAD LLC. To verify independently: check that the file&rsquo;s SHA-256 hash matches the one published on the <a href="https://simdadllc.com/tass/download">download page</a>, and confirm the digital signature on the installer by right-clicking the file &rarr; <strong>Properties &rarr; Digital Signatures</strong>. If your institution&rsquo;s IT policy blocks the installer entirely, email <a href="mailto:support@simdadllc.com?subject=TASS%20%E2%80%94%20IT%20Deployment%20Request">support@simdadllc.com</a> and we can provide documentation for your IT department.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- KNOWN LIMITATIONS -->
+    <section class="limits-section">
+      <p class="section-label">Known Limitations</p>
+      <h2>What to Know<br>Before You Run</h2>
+
+      <div class="limits-grid">
+        <div class="limit-card">
+          <p class="limit-label">Trial</p>
+          <div class="limit-title">500-Row Analysis Limit</div>
+          <p class="limit-desc">The 14-day free trial processes a maximum of 500 rows per analysis run. Rows beyond that are excluded from results. There is no limit on the number of trial analyses or the number of dictionaries you can test. A full license removes the row cap entirely. To purchase, visit the <a href="https://simdadllc.com/tass/buy" style="color:var(--red);font-weight:700;text-decoration:none">buy page</a>.</p>
+        </div>
+        <div class="limit-card">
+          <p class="limit-label">Platform</p>
+          <div class="limit-title">Windows Only at Launch</div>
+          <p class="limit-desc">TASS v1.0 is a native Windows application requiring Windows 10 version 2004 (build 19041) or later, 64-bit. Linux support is planned for v1.1 (Fall 2026). macOS support is under evaluation. Email <a href="mailto:support@simdadllc.com?subject=TASS%20%E2%80%94%20Platform%20Notification" style="color:var(--red);font-weight:700;text-decoration:none">support@simdadllc.com</a> to be notified when additional platforms are available.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM CONTACT -->
+    <div class="contact-strip">
+      <div>
+        <p class="section-label">Still Stuck?</p>
+        <p>If your issue isn&rsquo;t covered above, email us directly. Include your TASS version (shown in <strong>Help &rarr; About</strong>), your Windows version, and a description of the problem.</p>
+      </div>
+      <a href="mailto:support@simdadllc.com?subject=TASS%20Support%20Request%20%E2%80%94%20v1.0.0" class="btn-submit">Email Support</a>
+    </div>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 SIM DAD LLC</p>
+      <a href="https://simdadllc.com/tass/">simdadllc.com/tass</a>
+    </div>
+  </footer>
+
+</body>
+</html>

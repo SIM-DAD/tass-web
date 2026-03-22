@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TASS — Text Analysis for Social Scientists | Launching May 2026</title>
+  <link rel="icon" type="image/svg+xml" href="assets/tass_logo.svg">
+  <link rel="stylesheet" href="css/tass.css">
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════ -->
+  <header>
+    <div class="header-inner">
+      <div>
+<h1>T<span>A</span>SS</h1>
+        <p class="tagline">Text Analysis for Social Scientists</p>
+      </div>
+      <div class="header-right">
+        <span class="pill pill-status">Feature Complete</span>
+        <span class="pill pill-version">v1.0 &mdash; May 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════════ -->
+  <nav>
+    <div class="nav-inner">
+      <a class="tab-link active" data-tab="overview">Overview</a>
+      <a class="tab-link" data-tab="collaborate">Collaborate</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       MAIN
+  ══════════════════════════════════════════ -->
+  <main>
+
+    <!-- ╔══════════════════════════════╗
+         ║       OVERVIEW TAB          ║
+         ╚══════════════════════════════╝ -->
+    <div id="tab-overview" class="tab-panel active">
+
+      <!-- ABOUT -->
+      <section class="content-section">
+        <p class="section-label">About</p>
+        <h2>Rigorous Text Analysis.<br>No Code Required.</h2>
+        <p>TASS is a native Windows desktop application built specifically for social scientists who want to work with text at scale &mdash; without writing a line of Python, R, or terminal commands. Development is complete. TASS combines dictionary-based scoring, group statistical comparisons, and publication-quality visualizations in a single, self-contained interface, with a v1.0 release targeting May 2026.</p>
+        <p>All analysis runs entirely on your machine. No data leaves your device. Every export includes a pre-formatted APA citation block so your methods are fully documented the moment you finish.</p>
+        <div class="discipline-tags">
+          <span class="disc-tag">Political Science</span>
+          <span class="disc-tag">Communication</span>
+          <span class="disc-tag">Sociology</span>
+          <span class="disc-tag">Psychology</span>
+          <span class="disc-tag">Linguistics</span>
+          <span class="disc-tag">Public Health</span>
+          <span class="disc-tag">Journalism Studies</span>
+          <span class="disc-tag">Information Science</span>
+        </div>
+      </section>
+
+      <!-- COMPARISON -->
+      <section class="content-section">
+        <p class="section-label">Why TASS</p>
+        <h2>TASS vs. LIWC</h2>
+        <p>LIWC has been the default tool for dictionary-based text analysis in social science for decades. TASS is built to do everything LIWC does &mdash; and considerably more &mdash; at a lower price, with open and auditable dictionaries.</p>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th>TASS</th>
+              <th>LIWC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No coding required</td>
+              <td class="check">Yes</td>
+              <td class="check">Yes</td>
+            </tr>
+            <tr>
+              <td>Large dataset support (100k+ entries)</td>
+              <td class="check">Yes</td>
+              <td class="cross">No</td>
+            </tr>
+            <tr>
+              <td>Open, transparent dictionaries</td>
+              <td class="check">Yes</td>
+              <td class="cross">No</td>
+            </tr>
+            <tr>
+              <td>Built-in group comparisons (t-test, ANOVA)</td>
+              <td class="check">Yes</td>
+              <td class="cross">No</td>
+            </tr>
+            <tr>
+              <td>Publication-quality visualizations</td>
+              <td class="check">Yes</td>
+              <td class="cross">Limited</td>
+            </tr>
+            <tr>
+              <td>Custom dictionary import</td>
+              <td class="check">Yes</td>
+              <td class="cross">Limited</td>
+            </tr>
+            <tr>
+              <td>Offline, local analysis</td>
+              <td class="check">Yes</td>
+              <td class="check">Yes</td>
+            </tr>
+            <tr>
+              <td>Annual license price</td>
+              <td class="check">$49 / year</td>
+              <td class="cross">$89+ / year</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="content-section">
+        <p class="section-label">Features</p>
+        <h2>What TASS Does</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>Data Import</h3>
+            <p>CSV, TXT, and XLSX support with batch file processing. A column-mapping wizard lets you designate text, group, and metadata columns. Rows are previewed read-only before analysis begins.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Analysis Engine</h3>
+            <p>Dictionary scoring at word, entry, and document level. Multi-threaded processing distributes work across all CPU cores, with a real-time progress display and time estimates for large corpora.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Group Comparisons</h3>
+            <p>Define groups by column values. Descriptive statistics, t-test, Mann-Whitney U, one-way ANOVA, Cohen&rsquo;s d, and eta-squared are computed and visualized per category, per group &mdash; ready to report.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Export &amp; Citation</h3>
+            <p>CSV (full entry-level scores), Excel (multi-sheet workbook), and high-resolution PNG + SVG visualizations at 300 DPI. Every export includes a pre-formatted APA citation block for your methods section.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DICTIONARIES -->
+      <section class="content-section">
+        <p class="section-label">Dictionary Library</p>
+        <h2>Open Lexicons, Original Research</h2>
+        <p>TASS ships with eight third-party dictionaries at v1.0 and is building 18 original T-Lex lexicons &mdash; each independently citable and freely available for academic and non-commercial use. Two dictionaries (HurtLex and SentiWordNet) are under license review; they will ship pending resolution or be replaced with equivalent coverage.</p>
+
+        <div style="margin-top:3rem">
+          <h3>Bundled at Launch &mdash; v1.0</h3>
+          <table class="compare-table" style="margin-top:1rem">
+            <thead>
+              <tr>
+                <th>Dictionary</th>
+                <th>Coverage</th>
+                <th>License</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>AFINN-165</td>
+                <td>Sentiment valence</td>
+                <td>MIT</td>
+              </tr>
+              <tr>
+                <td>VADER Lexicon</td>
+                <td>Sentiment valence + intensity</td>
+                <td>MIT</td>
+              </tr>
+              <tr>
+                <td>Moral Foundations Dictionary 2.0</td>
+                <td>Care, Fairness, Loyalty, Authority, Purity</td>
+                <td>CC-BY</td>
+              </tr>
+              <tr>
+                <td>Brysbaert Concreteness Norms</td>
+                <td>Concreteness ratings (~40k words)</td>
+                <td>CC-BY</td>
+              </tr>
+              <tr>
+                <td>HurtLex</td>
+                <td>Hurtful and offensive language by category</td>
+                <td>CC-BY-SA</td>
+              </tr>
+              <tr>
+                <td>WordNet 3.1</td>
+                <td>Full English lexicon + part-of-speech tags</td>
+                <td>Princeton (commercial-compatible)</td>
+              </tr>
+              <tr>
+                <td>NLTK Stopwords</td>
+                <td>Function words, pronouns, prepositions, articles</td>
+                <td>Apache 2.0</td>
+              </tr>
+              <tr>
+                <td>SentiWordNet 3.0</td>
+                <td>Synset-level positive / negative / objective scores</td>
+                <td>CC-BY-SA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:3.5rem">
+          <h3>TASS-Native Dictionaries &mdash; In Development</h3>
+          <p style="margin-bottom:0">Eighteen original T-Lex lexicons built and owned by SIM DAD LLC. Each dictionary is freely available for academic research and is expected to yield one or more peer-reviewed publications. See the <a href="#" class="tab-link" data-tab="collaborate">T-Lex Project tab</a> if you want to help build them.</p>
+          <div class="dict-grid">
+            <div class="dict-card">
+              <div class="dict-number">01</div>
+              <span class="dict-tag">v1.1 &middot; Aug 2026</span>
+              <div class="dict-name">Affective Norms</div>
+              <div class="dict-desc">Valence, arousal, and dominance ratings for 40,000+ English words</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">02</div>
+              <span class="dict-tag">v1.1 &middot; Aug 2026</span>
+              <div class="dict-name">Discrete Emotions</div>
+              <div class="dict-desc">Anger, fear, joy, sadness, anticipation, trust, surprise, disgust</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">03</div>
+              <span class="dict-tag">v1.1 &middot; Aug 2026</span>
+              <div class="dict-name">Psychosocial Process Lexicon</div>
+              <div class="dict-desc">Cognitive, social, biological, perceptual, and temporal process categories</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">04</div>
+              <span class="dict-tag">v1.1 &middot; Aug 2026</span>
+              <div class="dict-name">Opinion &amp; Stance</div>
+              <div class="dict-desc">Evaluative language calibrated for social science text corpora</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">05</div>
+              <span class="dict-tag">v1.1 &middot; Aug 2026</span>
+              <div class="dict-name">Power &amp; Status</div>
+              <div class="dict-desc">Authority, dominance, submission, and political arena language</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">06</div>
+              <span class="dict-tag">v1.1 &middot; Aug 2026</span>
+              <div class="dict-name">Hedging &amp; Epistemic Stance</div>
+              <div class="dict-desc">Modal verbs, approximators, evidentials, hedges, and boosters</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">07</div>
+              <span class="dict-tag">v1.1 &middot; Aug 2026</span>
+              <div class="dict-name">Modal Language</div>
+              <div class="dict-desc">Deontic (obligation, permission) and epistemic (certainty, possibility) modals</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">08</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Agency &amp; Communion</div>
+              <div class="dict-desc">Agentic and communal language across competence, warmth, and affiliation</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">09</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Narrative &amp; Temporal Orientation</div>
+              <div class="dict-desc">Past/future focus, causal reasoning, and narrative sequencing markers</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">10</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Collective Identity &amp; Social Boundaries</div>
+              <div class="dict-desc">In-group/out-group markers, solidarity language, othering vocabulary</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">11</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Formality &amp; Register</div>
+              <div class="dict-desc">Formal vs. informal register markers across social contexts</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">12</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Political &amp; Ideological Language</div>
+              <div class="dict-desc">Populist framing, partisan cues, threat rhetoric, democratic norms vocabulary</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">13</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Health &amp; Illness Communication</div>
+              <div class="dict-desc">Mental health stigma language, health literacy levels, illness narrative framing</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">14</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Deception &amp; Trust Cues</div>
+              <div class="dict-desc">Distancing language, verbal credibility signals, linguistic deception markers</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">15</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Crisis &amp; Uncertainty Language</div>
+              <div class="dict-desc">Risk framing, ambiguity markers, and domain-calibrated epistemic hedging</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">16</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Financial &amp; Economic Sentiment</div>
+              <div class="dict-desc">Optimism, caution, and urgency in organizational and financial communication</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">17</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Academic &amp; Scientific Register</div>
+              <div class="dict-desc">Hedging in scientific writing, citation language, certainty and uncertainty claims</div>
+            </div>
+            <div class="dict-card">
+              <div class="dict-number">18</div>
+              <span class="dict-tag">v2.0 &middot; Spring 2027</span>
+              <div class="dict-name">Interpersonal Dominance &amp; Deference</div>
+              <div class="dict-desc">Assertiveness, compliance, and face-threatening acts in dyadic interaction</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ROADMAP -->
+      <section class="content-section">
+        <p class="section-label">Roadmap</p>
+        <h2>Release Timeline</h2>
+        <div class="roadmap">
+          <div class="roadmap-item">
+            <div class="roadmap-version">v<span>1.0</span></div>
+            <div class="roadmap-date">May 2026</div>
+            <p class="roadmap-desc">Core tool: dictionary analysis, group comparisons, static visualizations, CSV/Excel export, saved projects, license system. Eight third-party dictionaries ship at launch. All features complete &mdash; pending release build and license resolution.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-version">v<span>1.1</span></div>
+            <div class="roadmap-date">Fall 2026</div>
+            <p class="roadmap-desc">Machine learning models (DistilBERT, LDA, NER), custom dictionary import, interactive dashboards, auto-updates, Linux support. TASS-native dictionaries 01&ndash;07 ship.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="roadmap-version">v<span>2.0</span></div>
+            <div class="roadmap-date">Spring 2027</div>
+            <p class="roadmap-desc">LLM integration (user API key), cloud-assisted processing for large corpora, Spanish NLP, SQL data connectors. Full 26-dictionary library complete.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EARLY ACCESS -->
+      <section class="content-section">
+        <p class="section-label">Early Access</p>
+        <h2>Get Notified at Launch</h2>
+        <p>TASS v1.0 development is complete and is targeting a May 2026 release. Early-access subscribers will be notified first and offered a discounted introductory license. If you are a researcher actively working with text data, this is the right time to get on the list.</p>
+        <div class="early-access-banner">
+          <p><strong>Feature Complete &mdash; Launching May 2026</strong> Reserve early-access pricing before the public launch. No commitment required.</p>
+          <button class="banner-cta" onclick="document.querySelector('[data-tab=collaborate]').click();window.scrollTo({top:0,behavior:'smooth'})">Express Interest &rarr;</button>
+        </div>
+      </section>
+
+    </div><!-- /tab-overview -->
+
+
+    <!-- ╔══════════════════════════════╗
+         ║      COLLABORATE TAB        ║
+         ╚══════════════════════════════╝ -->
+    <div id="tab-collaborate" class="tab-panel">
+
+      <!-- PITCH -->
+      <section class="content-section">
+        <p class="section-label">The T-Lex Project</p>
+        <h2>Co-Author the Next<br>Standard Dictionaries</h2>
+
+        <div class="collab-grid">
+          <div>
+            <p>The T-Lex Project is building 18 original, open-access lexicons for social science text analysis &mdash; each a citable, independently documented resource designed to fill real measurement gaps in the field. T-Lex dictionaries ship with TASS and are freely available to the research community under open-access licensing.</p>
+            <p>This is an opportunity to participate in the full lifecycle of a lexicon development project alongside modern LLM-assisted corpus construction methods &mdash; from theoretical grounding and seed list generation through human validation, expert scoring, and peer review. Every dictionary is scoped to yield one or more peer-reviewed publications, and contributors receive co-authorship credit.</p>
+
+            <h3 style="margin-top:1.75rem">What collaboration involves</h3>
+            <ul class="what-list">
+              <li>Reviewing and validating AI-generated word lists against published measurement frameworks</li>
+              <li>Re-scoring or re-categorizing items that require domain expertise or judgment</li>
+              <li>Supplementing seed lists with terms from your area of specialization</li>
+              <li>Providing feedback on category definitions and construct validity</li>
+            </ul>
+
+            <div class="credit-block">
+              <h3>Credit &amp; Licensing</h3>
+              <p>Contributors who make substantive contributions will be offered co-authorship on associated dictionary papers and are named in all published dictionary metadata and documentation.</p>
+              <p>All TASS-native dictionaries are freely available for academic and non-commercial research use. TASS is developed and commercially licensed by SIM DAD LLC. Contributors who participate in building a dictionary are eligible to discuss commercial licensing arrangements directly with SIM DAD LLC.</p>
+            </div>
+          </div>
+
+          <div>
+            <h3>Who we&rsquo;re looking for</h3>
+            <ul class="what-list">
+              <li>Social scientists with domain expertise in one or more of the target constructs</li>
+              <li>Graduate students and early-career researchers interested in computational methods and lexicon development</li>
+              <li>Anyone curious about how large language models are used in modern corpus construction and validation</li>
+            </ul>
+
+            <h3 style="margin-top:1.75rem">Time commitment</h3>
+            <ul class="what-list">
+              <li>Variable &mdash; you may contribute to a single dictionary or several</li>
+              <li>Validation tasks are asynchronous and self-paced via shared documents</li>
+              <li>No minimum hours required; credit is proportional to contribution</li>
+            </ul>
+
+            <h3 style="margin-top:1.75rem">The process</h3>
+            <ul class="what-list">
+              <li>LLMs generate a seed lexicon grounded in published theoretical frameworks</li>
+              <li>Human collaborators review, validate, and extend the list</li>
+              <li>Validated entries are scored, normed, and documented for publication</li>
+              <li>Dictionaries are deposited openly and integrated into TASS</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORM -->
+      <div class="form-section">
+        <p class="section-label">Express Interest</p>
+        <h2>Join the T-Lex Project</h2>
+        <p>Complete the form below and click Submit. Your email client will open with your responses pre-filled &mdash; just send the message to confirm your interest. We will follow up directly with timeline details, process documentation, and the dictionaries you selected. There is no commitment required at this stage.</p>
+
+        <form id="collab-form">
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="f-name">Full Name</label>
+              <input type="text" id="f-name" placeholder="Your name">
+            </div>
+
+            <div class="form-group">
+              <label for="f-email">Email Address</label>
+              <input type="email" id="f-email" placeholder="your@institution.edu">
+            </div>
+
+            <div class="form-group">
+              <label for="f-institution">Institution / Affiliation</label>
+              <input type="text" id="f-institution" placeholder="University or organization">
+            </div>
+
+            <div class="form-group">
+              <label for="f-role">Academic Role</label>
+              <select id="f-role">
+                <option value="" disabled selected>Select role</option>
+                <option>Graduate Student (MA / MS)</option>
+                <option>Doctoral Student (PhD)</option>
+                <option>Postdoctoral Researcher</option>
+                <option>Assistant Professor</option>
+                <option>Associate Professor</option>
+                <option>Full Professor</option>
+                <option>Independent Researcher</option>
+                <option>Data Journalist</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group full">
+              <label>Dictionaries of Interest</label>
+              <div class="dict-checkboxes">
+
+                <div class="dict-group-items" style="border-bottom:1px solid var(--border-2)">
+                  <label class="checkbox-item any-item">
+                    <input type="checkbox" id="f-any"> Any / All &mdash; I am open to contributing wherever I can be useful
+                  </label>
+                </div>
+
+                <span class="dict-group-label">v1.1 &mdash; August 2026</span>
+                <div class="dict-group-items">
+                  <label class="checkbox-item"><input type="checkbox" value="01 — Affective Norms"> Affective Norms</label>
+                  <label class="checkbox-item"><input type="checkbox" value="02 — Discrete Emotions"> Discrete Emotions</label>
+                  <label class="checkbox-item"><input type="checkbox" value="03 — Psychosocial Process Lexicon"> Psychosocial Process Lexicon</label>
+                  <label class="checkbox-item"><input type="checkbox" value="04 — Opinion &amp; Stance"> Opinion &amp; Stance</label>
+                  <label class="checkbox-item"><input type="checkbox" value="05 — Power &amp; Status"> Power &amp; Status</label>
+                  <label class="checkbox-item"><input type="checkbox" value="06 — Hedging &amp; Epistemic Stance"> Hedging &amp; Epistemic Stance</label>
+                  <label class="checkbox-item" style="grid-column:1/-1"><input type="checkbox" value="07 — Modal Language"> Modal Language</label>
+                </div>
+
+                <span class="dict-group-label">v2.0 &mdash; Spring 2027</span>
+                <div class="dict-group-items">
+                  <label class="checkbox-item"><input type="checkbox" value="08 — Agency &amp; Communion"> Agency &amp; Communion</label>
+                  <label class="checkbox-item"><input type="checkbox" value="09 — Narrative &amp; Temporal Orientation"> Narrative &amp; Temporal Orientation</label>
+                  <label class="checkbox-item"><input type="checkbox" value="10 — Collective Identity &amp; Social Boundaries"> Collective Identity &amp; Social Boundaries</label>
+                  <label class="checkbox-item"><input type="checkbox" value="11 — Formality &amp; Register"> Formality &amp; Register</label>
+                  <label class="checkbox-item"><input type="checkbox" value="12 — Political &amp; Ideological Language"> Political &amp; Ideological Language</label>
+                  <label class="checkbox-item"><input type="checkbox" value="13 — Health &amp; Illness Communication"> Health &amp; Illness Communication</label>
+                  <label class="checkbox-item"><input type="checkbox" value="14 — Deception &amp; Trust Cues"> Deception &amp; Trust Cues</label>
+                  <label class="checkbox-item"><input type="checkbox" value="15 — Crisis &amp; Uncertainty Language"> Crisis &amp; Uncertainty Language</label>
+                  <label class="checkbox-item"><input type="checkbox" value="16 — Financial &amp; Economic Sentiment"> Financial &amp; Economic Sentiment</label>
+                  <label class="checkbox-item"><input type="checkbox" value="17 — Academic &amp; Scientific Register"> Academic &amp; Scientific Register</label>
+                  <label class="checkbox-item" style="grid-column:1/-1"><input type="checkbox" value="18 — Interpersonal Dominance &amp; Deference"> Interpersonal Dominance &amp; Deference</label>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="form-group full">
+              <label for="f-message">Background &amp; Interest</label>
+              <textarea id="f-message" placeholder="Briefly describe your background, area of expertise, and what draws you to this project..."></textarea>
+            </div>
+
+          </div>
+
+          <button type="button" class="btn-submit" onclick="submitForm()">Submit via Email</button>
+          <p class="form-note">Clicking Submit opens your email client with your responses pre-filled. No data is transmitted automatically.</p>
+        </form>
+      </div>
+
+    </div><!-- /tab-collaborate -->
+
+  </main>
+
+  <!-- ══════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <p>&copy; 2026 SIM DAD LLC</p>
+      <a href="https://sim-dad.github.io">sim-dad.github.io</a>
+    </div>
+  </footer>
+
+  <script src="js/tass.js"></script>
+
+</body>
+</html>
