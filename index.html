@@ -115,18 +115,12 @@
     /* ─── DEMO ───────────────────────────────────────────────────── */
     .demo-section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
     .demo-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
-    .demo-frame {
-      width: 100%; aspect-ratio: 16 / 9; background: var(--surface);
-      border: 1px solid var(--border); border-radius: 10px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 1rem; color: var(--muted);
+    .demo-video {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: block;
     }
-    .demo-play {
-      width: 52px; height: 52px; background: var(--accent); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .demo-play svg { margin-left: 3px; }
-    .demo-caption { font-size: 0.875rem; }
 
     /* ─── SECTIONS ───────────────────────────────────────────────── */
     .section       { padding: 6rem 0; border-bottom: 1px solid var(--border); }
@@ -439,12 +433,15 @@
   <!-- DEMO -->
   <div class="demo-section">
     <div class="demo-inner">
-      <div class="demo-frame" role="img" aria-label="Demo video coming soon">
-        <div class="demo-play" aria-hidden="true">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-        </div>
-        <p class="demo-caption">Demo video coming soon &mdash; showing TASS text analysis in action</p>
-      </div>
+      <video
+        class="demo-video"
+        src="video/out/tass-demo.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        aria-label="TASS demo — text analysis and group comparison in action"
+      ></video>
     </div>
   </div>
 
