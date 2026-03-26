@@ -65,7 +65,8 @@
       max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
       height: 60px; display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-brand { font-size: 1.1rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+    .nav-brand { display: flex; align-items: center; }
+    .nav-wordmark { height: 36px; width: auto; display: block; }
 
     /* ─── BUTTONS ────────────────────────────────────────────────── */
     .btn {
@@ -393,7 +394,7 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-brand">TASS</a>
+      <a href="#" class="nav-brand"><img src="img/wordmark.svg" alt="TASS" class="nav-wordmark"></a>
       <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
     </div>
   </nav>
