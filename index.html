@@ -998,11 +998,11 @@
 
 
   <script>
-    /* ── WAITLIST ENDPOINT ──────────────────────────────────────────
-       Set to your Brevo (or other) API endpoint before going live.
+    /* ── BREVO BACKEND ENDPOINT ─────────────────────────────────────
+       Set this to your Cloudflare Worker URL that proxies Brevo.
        Leave empty to simulate success locally during development.
     ─────────────────────────────────────────────────────────────── */
-    const WAITLIST_ENDPOINT = "";
+    const BREVO_BACKEND_ENDPOINT = "https://lector-waitlist.ap-493.workers.dev";
 
     /* ── STICKY NAV ─────────────────────────────────────────────── */
     const nav = document.getElementById("nav");
@@ -1033,7 +1033,7 @@
       btn.disabled = true;
       btn.textContent = "Joining…";
 
-      if (!WAITLIST_ENDPOINT) {
+      if (!BREVO_BACKEND_ENDPOINT) {
         await new Promise(r => setTimeout(r, 600));
         form.style.display = "none";
         success.classList.add("visible");
@@ -1041,12 +1041,25 @@
       }
 
       try {
-        const res = await fetch(WAITLIST_ENDPOINT, {
+        const params = new URLSearchParams(window.location.search);
+        const res = await fetch(BREVO_BACKEND_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, attributes: { ROLE: role, PRODUCT: "TASS" } })
+          body: JSON.stringify({
+            email,
+            listName: "tass_waitlist",
+            attributes: {
+              ROLE: role,
+              PRODUCT: "TASS",
+              SOURCE: "tass-web",
+              PAGE_URL: window.location.href,
+              UTM_SOURCE: params.get("utm_source") || "",
+              UTM_MEDIUM: params.get("utm_medium") || "",
+              UTM_CAMPAIGN: params.get("utm_campaign") || ""
+            }
+          })
         });
-        if (!res.ok) throw new Error("Request failed");
+        if (!res.ok && res.status !== 409) throw new Error("Request failed");
         form.style.display = "none";
         success.classList.add("visible");
       } catch {
