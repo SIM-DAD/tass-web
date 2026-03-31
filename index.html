@@ -89,7 +89,7 @@
     .hero-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
     .hero-eyebrow {
       display: inline-block; font-size: 0.75rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1.5rem;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1.5rem;
     }
     .hero h1 {
       font-size: clamp(3rem, 6.5vw, 5.25rem); font-weight: 800;
@@ -126,7 +126,10 @@
     /* ─── SECTIONS ───────────────────────────────────────────────── */
     .section       { padding: 6rem 0; border-bottom: 1px solid var(--border); }
     .section-alt   { padding: 6rem 0; background: var(--surface); border-bottom: 1px solid var(--border); }
-    .section-dark  { padding: 6rem 0; background: #111111; color: #FFFFFF; }
+    .section-dark  { padding: 6rem 0; background: #0F0F0F; color: #FFFFFF; }
+    @media (prefers-color-scheme: dark) {
+      .section-dark { background: #1C1C1E; }
+    }
 
     .eyebrow {
       display: block; font-size: 0.72rem; font-weight: 700;
