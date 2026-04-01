@@ -868,7 +868,7 @@
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Academic</div>
           <div class="price-tag"><span class="price-amount" data-monthly="8" data-annual="79">$8</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$79/year</span> &nbsp;&middot;&nbsp; 2 devices &nbsp;&middot;&nbsp; .edu email</div>
+          <div class="price-note"><span class="price-alt">$96/year</span> &nbsp;&middot;&nbsp; 2 devices &nbsp;&middot;&nbsp; .edu email</div>
           <ul class="price-features">
             <li>Full dictionary analysis engine</li>
             <li>All 6 bundled dictionaries + T-Lex updates</li>
@@ -883,7 +883,7 @@
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Professional</div>
           <div class="price-tag"><span class="price-amount" data-monthly="15" data-annual="129">$15</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$129/year</span> &nbsp;&middot;&nbsp; 2 devices</div>
+          <div class="price-note"><span class="price-alt">$180/year</span> &nbsp;&middot;&nbsp; 2 devices</div>
           <ul class="price-features">
             <li>Everything in Academic</li>
             <li>For journalists, consultants, nonprofits, government</li>
@@ -895,7 +895,7 @@
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Lab</div>
           <div class="price-tag"><span class="price-amount" data-monthly="29" data-annual="249">$29</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$249/year</span> &nbsp;&middot;&nbsp; 10 seats</div>
+          <div class="price-note"><span class="price-alt">$348/year</span> &nbsp;&middot;&nbsp; 10 seats</div>
           <ul class="price-features">
             <li>Everything in Academic</li>
             <li>10 seats for research labs and small departments</li>
@@ -907,7 +907,7 @@
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Department</div>
           <div class="price-tag"><span class="price-amount" data-monthly="79" data-annual="699">$79</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$699/year</span> &nbsp;&middot;&nbsp; 50 seats</div>
+          <div class="price-note"><span class="price-alt">$948/year</span> &nbsp;&middot;&nbsp; 50 seats</div>
           <ul class="price-features">
             <li>Everything in Academic</li>
             <li>50 seats for departments and organizations</li>
@@ -1047,8 +1047,15 @@
         alts.forEach(function(el) {
           var card = el.closest(".pricing-card");
           var amountEl = card.querySelector(".price-amount");
-          var altVal = isAnnual ? "$" + amountEl.dataset.monthly + "/mo" : "$" + amountEl.dataset.annual + "/year";
-          el.textContent = altVal;
+          if (isAnnual) {
+            // Showing annual price — alt shows equivalent monthly
+            var moEquiv = (parseInt(amountEl.dataset.annual) / 12).toFixed(2).replace(/\.00$/, '');
+            el.textContent = "$" + moEquiv + "/mo";
+          } else {
+            // Showing monthly price — alt shows monthly × 12 (undiscounted annual)
+            var fullYear = parseInt(amountEl.dataset.monthly) * 12;
+            el.textContent = "$" + fullYear + "/year";
+          }
         });
       });
     })();
