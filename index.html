@@ -419,7 +419,7 @@
         <a href="#problem" class="btn btn-ghost btn-lg">Why TASS</a>
       </div>
       <p class="hero-meta">
-        From $79/year<span>·</span>30-day free trial<span>·</span>Windows 10 &amp; 11<span>·</span>No coding required
+        From $8/month<span>·</span>30-day free trial<span>·</span>Windows 10 &amp; 11<span>·</span>No coding required
       </p>
     </div>
   </section>
@@ -539,7 +539,7 @@
             </tr>
             <tr>
               <td>License price</td>
-              <td class="cell-yes">&#10003; From $79/year (academic)</td>
+              <td class="cell-yes">&#10003; From $8/month (academic)</td>
               <td class="cell-no">&#10007; $54.95+ / year</td>
             </tr>
           </tbody>
@@ -844,15 +844,31 @@
     <div class="container">
       <span class="eyebrow">Pricing</span>
       <h2>Subscription pricing.<br>Priced for researchers, not institutions.</h2>
-      <p class="section-sub" style="margin-bottom:2.5rem;">
+      <p class="section-sub" style="margin-bottom:1.5rem;">
         Every tier includes every feature &mdash; no artificial limits by price. 30-day free trial, cancel anytime.
       </p>
+
+      <!-- Billing toggle -->
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2.5rem;">
+        <span id="toggle-label-monthly" style="font-size:0.875rem;font-weight:600;color:var(--text);">Monthly</span>
+        <button id="billing-toggle" type="button" aria-pressed="false" aria-label="Switch to annual billing" style="
+          position:relative;width:48px;height:26px;border-radius:13px;border:none;
+          background:var(--border);cursor:pointer;transition:background 0.2s;padding:0;
+        ">
+          <span id="toggle-knob" style="
+            position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;
+            background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:transform 0.2s;
+          "></span>
+        </button>
+        <span id="toggle-label-annual" style="font-size:0.875rem;font-weight:500;color:var(--muted);">Annual <span style="font-size:0.75rem;color:var(--accent);font-weight:700;">Save up to 34%</span></span>
+      </div>
+
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;max-width:1080px;">
 
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Academic</div>
-          <div class="price-tag">$79<span style="font-size:1.25rem;font-weight:600;">/yr</span></div>
-          <div class="price-note">or $8/month &nbsp;&middot;&nbsp; 2 devices &nbsp;&middot;&nbsp; .edu email</div>
+          <div class="price-tag"><span class="price-amount" data-monthly="8" data-annual="79">$8</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
+          <div class="price-note"><span class="price-alt">$79/year</span> &nbsp;&middot;&nbsp; 2 devices &nbsp;&middot;&nbsp; .edu email</div>
           <ul class="price-features">
             <li>Full dictionary analysis engine</li>
             <li>All 6 bundled dictionaries + T-Lex updates</li>
@@ -866,8 +882,8 @@
 
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Professional</div>
-          <div class="price-tag">$129<span style="font-size:1.25rem;font-weight:600;">/yr</span></div>
-          <div class="price-note">or $15/month &nbsp;&middot;&nbsp; 2 devices</div>
+          <div class="price-tag"><span class="price-amount" data-monthly="15" data-annual="129">$15</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
+          <div class="price-note"><span class="price-alt">$129/year</span> &nbsp;&middot;&nbsp; 2 devices</div>
           <ul class="price-features">
             <li>Everything in Academic</li>
             <li>For journalists, consultants, nonprofits, government</li>
@@ -878,8 +894,8 @@
 
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Lab</div>
-          <div class="price-tag">$249<span style="font-size:1.25rem;font-weight:600;">/yr</span></div>
-          <div class="price-note">or $29/month &nbsp;&middot;&nbsp; 10 seats</div>
+          <div class="price-tag"><span class="price-amount" data-monthly="29" data-annual="249">$29</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
+          <div class="price-note"><span class="price-alt">$249/year</span> &nbsp;&middot;&nbsp; 10 seats</div>
           <ul class="price-features">
             <li>Everything in Academic</li>
             <li>10 seats for research labs and small departments</li>
@@ -890,8 +906,8 @@
 
         <div class="pricing-card">
           <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Department</div>
-          <div class="price-tag">$699<span style="font-size:1.25rem;font-weight:600;">/yr</span></div>
-          <div class="price-note">or $79/month &nbsp;&middot;&nbsp; 50 seats</div>
+          <div class="price-tag"><span class="price-amount" data-monthly="79" data-annual="699">$79</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
+          <div class="price-note"><span class="price-alt">$699/year</span> &nbsp;&middot;&nbsp; 50 seats</div>
           <ul class="price-features">
             <li>Everything in Academic</li>
             <li>50 seats for departments and organizations</li>
@@ -999,6 +1015,43 @@
        Leave empty to simulate success locally during development.
     ─────────────────────────────────────────────────────────────── */
     const BREVO_BACKEND_ENDPOINT = "https://lector-waitlist.ap-493.workers.dev";
+
+    /* ── BILLING TOGGLE ─────────────────────────────────────────── */
+    (function() {
+      const toggle = document.getElementById("billing-toggle");
+      const knob = document.getElementById("toggle-knob");
+      const lblMonthly = document.getElementById("toggle-label-monthly");
+      const lblAnnual = document.getElementById("toggle-label-annual");
+      const amounts = document.querySelectorAll(".price-amount");
+      const periods = document.querySelectorAll(".price-period");
+      const alts = document.querySelectorAll(".price-alt");
+      let isAnnual = false;
+
+      toggle.addEventListener("click", function() {
+        isAnnual = !isAnnual;
+        toggle.setAttribute("aria-pressed", isAnnual);
+        toggle.style.background = isAnnual ? "var(--accent)" : "var(--border)";
+        knob.style.transform = isAnnual ? "translateX(22px)" : "translateX(0)";
+        lblMonthly.style.fontWeight = isAnnual ? "500" : "600";
+        lblMonthly.style.color = isAnnual ? "var(--muted)" : "var(--text)";
+        lblAnnual.style.fontWeight = isAnnual ? "600" : "500";
+        lblAnnual.style.color = isAnnual ? "var(--text)" : "var(--muted)";
+
+        amounts.forEach(function(el) {
+          var val = isAnnual ? el.dataset.annual : el.dataset.monthly;
+          el.textContent = "$" + val;
+        });
+        periods.forEach(function(el) {
+          el.textContent = isAnnual ? "/yr" : "/mo";
+        });
+        alts.forEach(function(el) {
+          var card = el.closest(".pricing-card");
+          var amountEl = card.querySelector(".price-amount");
+          var altVal = isAnnual ? "$" + amountEl.dataset.monthly + "/mo" : "$" + amountEl.dataset.annual + "/year";
+          el.textContent = altVal;
+        });
+      });
+    })();
 
     /* ── STICKY NAV ─────────────────────────────────────────────── */
     const nav = document.getElementById("nav");
