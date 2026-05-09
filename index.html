@@ -9,10 +9,13 @@
   <meta property="og:title" content="TASS — Text Analysis Support Software">
   <meta property="og:description" content="Everything LIWC does. Plus the things it can't. No coding required.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://usetass.app/img/social-share.png">
+  <meta property="og:url" content="https://usetass.app">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://usetass.app/img/social-share.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
   <style>
     /* ─── TOKENS ─────────────────────────────────────────────────── */
@@ -25,6 +28,7 @@
       --surface:   #F7F7F8;
       --border:    #E4E4E7;
       --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Lora', 'Source Serif Pro', 'Iowan Old Style', Georgia, serif;
       --max-w:     1080px;
       --radius:    8px;
     }
@@ -44,13 +48,38 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font);
-      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(46, 125, 94, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46, 125, 94, 0.04) 1px, transparent 1px),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      background-size: 32px 32px, 32px 32px, auto;
+      background-repeat: repeat;
     }
     img, video { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
+
+    /* ─── PAGE-LOAD REVEAL ───────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+      animation: fadeUp 0.75s cubic-bezier(0.2, 0.65, 0.3, 1) backwards;
+    }
+    .hero-eyebrow { animation-delay: 0.10s; }
+    .hero h1     { animation-delay: 0.22s; }
+    .hero-sub    { animation-delay: 0.44s; }
+    .hero-actions{ animation-delay: 0.60s; }
+    .hero-meta   { animation-delay: 0.74s; }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero h1, .hero-sub, .hero-actions, .hero-meta {
+        animation: none;
+      }
+    }
 
     /* ─── LAYOUT ─────────────────────────────────────────────────── */
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
@@ -93,10 +122,11 @@
       text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1.5rem;
     }
     .hero h1 {
-      font-size: clamp(3rem, 6.5vw, 5.25rem); font-weight: 800;
-      line-height: 1.05; letter-spacing: -0.035em; max-width: 18ch; margin-bottom: 1.5rem;
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6.5vw, 5.25rem); font-weight: 600;
+      line-height: 1.04; letter-spacing: -0.02em; max-width: 18ch; margin-bottom: 1.5rem;
     }
-    .hero-accent { color: var(--accent); }
+    .hero-accent { color: var(--accent); font-style: italic; font-weight: 500; }
     .hero-sub {
       font-size: 1.125rem; color: var(--muted); max-width: 52ch;
       line-height: 1.65; margin-bottom: 2.5rem; font-weight: 400;
@@ -111,7 +141,7 @@
       max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
     }
-    .stat-num { font-size: 2rem; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; line-height: 1; }
+    .stat-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; color: var(--accent); letter-spacing: -0.025em; line-height: 1; }
     .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; font-weight: 500; }
 
     /* ─── DEMO ───────────────────────────────────────────────────── */
@@ -139,10 +169,13 @@
     .section-dark .eyebrow { color: rgba(255,255,255,0.45); }
 
     h2 {
-      font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800;
-      line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 1.25rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.85rem, 3.7vw, 2.75rem); font-weight: 600;
+      line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 1.25rem;
     }
+    h2 em { font-style: italic; color: var(--accent); font-weight: 500; }
     .section-dark h2 { color: #fff; }
+    .section-dark h2 em { color: var(--accent); }
     .section-sub { font-size: 1.0625rem; color: var(--muted); max-width: 58ch; line-height: 1.65; }
     .section-dark .section-sub { color: rgba(255,255,255,0.5); }
 
@@ -154,26 +187,32 @@
     .prose-col p { font-size: 0.9875rem; color: var(--muted); line-height: 1.75; margin-bottom: 1rem; }
     .prose-col p:last-child { margin-bottom: 0; }
 
-    /* ─── COMPARISON TABLE ───────────────────────────────────────── */
+    /* ─── METHODS-NOTE TABLES (re-styled to fit manuscript register) ── */
     .table-wrap {
-      margin-top: 3rem; overflow-x: auto;
-      border: 1px solid var(--border); border-radius: var(--radius);
+      margin-top: 0; overflow-x: auto;
+      border-top: 2px solid var(--accent); border-bottom: 1px solid var(--border);
+      border-left: none; border-right: none; border-radius: 0;
+      background: transparent;
     }
-    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .compare-table {
+      width: 100%; border-collapse: collapse;
+      font-family: var(--font-display); font-size: 0.95rem;
+    }
     .compare-table th {
-      padding: 0.875rem 1.25rem; text-align: left; font-weight: 700; font-size: 0.8rem;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      background: var(--surface); border-bottom: 1px solid var(--border); color: var(--muted);
+      padding: 0.75rem 1rem 0.6rem; text-align: left;
+      font-family: var(--font); font-weight: 700; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      background: transparent; border-bottom: 1px solid var(--border); color: var(--muted);
     }
     .compare-table th.col-tass { color: var(--accent); }
     .compare-table td {
-      padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border); color: var(--muted);
+      padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--text);
     }
     .compare-table tr:last-child td { border-bottom: none; }
     .compare-table td:first-child { color: var(--text); font-weight: 500; }
     .cell-yes     { color: var(--accent) !important; font-weight: 600; }
-    .cell-no      { color: #dc2626 !important; }
-    .cell-limited { color: var(--muted) !important; }
+    .cell-no      { color: var(--muted) !important; opacity: 0.6; }
+    .cell-limited { color: var(--muted) !important; font-style: italic; }
 
     /* ─── FEATURES GRID ──────────────────────────────────────────── */
     .features-grid {
@@ -378,6 +417,180 @@
       .hero h1 { font-size: 2.6rem; }
       .hero-actions .btn { width: 100%; justify-content: center; }
     }
+    /* ═══ MANUSCRIPT LAYOUT — methods-note register ═══ */
+    .manuscript { max-width: 720px; margin: 0 auto; padding: 0 2rem; font-family: var(--font-display); color: var(--text); }
+    .manuscript p { font-size: 1.1875rem; line-height: 1.7; margin: 0 0 1.4rem; color: var(--text); }
+    .manuscript em { font-style: italic; }
+    .manuscript strong { font-weight: 600; color: var(--accent); font-style: italic; }
+    .manuscript a { color: var(--accent); border-bottom: 1px solid var(--border); transition: border-color 0.15s; }
+    .manuscript a:hover { border-color: var(--accent); }
+
+    .issue-marker {
+      max-width: 720px; margin: 4rem auto 3rem; padding: 0 2rem;
+      display: flex; align-items: center; gap: 1.25rem;
+      font-family: var(--font); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    }
+    .issue-marker::before, .issue-marker::after {
+      content: ""; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .opening { max-width: 720px; margin: 0 auto 3.5rem; padding: 0 2rem; text-align: center; }
+    .opening h1 {
+      font-family: var(--font-display); font-size: clamp(3rem, 7.5vw, 5.5rem);
+      font-weight: 500; line-height: 1.0; letter-spacing: -0.025em; margin: 0; color: var(--text);
+    }
+    .opening h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+    .opening .byline {
+      font-family: var(--font); font-size: 0.78rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); margin-top: 2rem;
+    }
+
+    .lede { font-size: 1.3125rem !important; line-height: 1.55 !important; margin-bottom: 2rem !important; }
+    /* methods-note: smaller, less ornamental drop cap than magazine */
+    .lede::first-letter {
+      font-family: var(--font-display);
+      float: left; font-size: 4.4em; line-height: 0.85;
+      padding: 0.05em 0.12em 0 0;
+      font-weight: 600; color: var(--accent);
+    }
+    .lede-opener { font-variant: small-caps; letter-spacing: 0.05em; font-weight: 500; }
+
+    /* methods-note: arabic numbered sections instead of Roman */
+    .section-marker { max-width: 720px; margin: 4.5rem auto 1.5rem; padding: 0 2rem; }
+    .section-marker .numeral {
+      font-family: var(--font-display); font-size: 0.95rem; font-weight: 600;
+      color: var(--accent); letter-spacing: 0.05em;
+      display: block; margin-bottom: 0.5rem;
+    }
+    .section-marker .heading {
+      font-family: var(--font-display); font-size: 1.875rem; font-weight: 600;
+      letter-spacing: -0.015em; line-height: 1.2; color: var(--text);
+      border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;
+    }
+    .section-marker .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
+
+    .figure {
+      max-width: 720px; margin: 3rem auto 4rem; padding: 0 2rem;
+    }
+    .figure-caption {
+      font-family: var(--font); font-size: 0.8125rem; color: var(--muted);
+      line-height: 1.55; padding-left: 0.25rem; max-width: 56ch;
+    }
+    .figure-caption b {
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      font-size: 0.72rem; color: var(--accent); margin-right: 0.5rem;
+    }
+
+    /* methods-note dict-table (matches compare-table styling) */
+    .dict-table { width: 100%; border-collapse: collapse;
+      font-family: var(--font-display); font-size: 0.95rem; }
+    .dict-table th {
+      padding: 0.75rem 1rem 0.6rem; text-align: left;
+      font-family: var(--font); font-weight: 700; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      background: transparent; border-bottom: 1px solid var(--border); color: var(--muted);
+    }
+    .dict-table td {
+      padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--text);
+    }
+    .dict-table tr:last-child td { border-bottom: none; }
+    .dict-table td:first-child { color: var(--text); font-weight: 500; }
+
+    /* methods-note tlex list (replaces card grid with stacked entries) */
+    .tlex-subhead {
+      max-width: 720px; margin: 3rem auto 1.5rem; padding: 0 2rem;
+      font-family: var(--font-display); font-size: 1.0625rem; font-weight: 600; color: var(--text);
+    }
+    .tlex-subhead span { color: var(--muted); font-weight: 400; font-style: italic; }
+    .tlex-grid {
+      max-width: 720px; margin: 0 auto 3rem; padding: 0 2rem;
+      display: block; border: none; border-top: 1px solid var(--border);
+    }
+    .tlex-cell {
+      padding: 1rem 0; border-right: none !important; border-bottom: 1px solid var(--border) !important;
+      display: grid; grid-template-columns: 3.5rem 1fr 8rem; gap: 1rem; align-items: baseline;
+    }
+    .tlex-num {
+      font-family: var(--font-display); font-size: 0.875rem; font-weight: 600;
+      color: var(--accent); letter-spacing: 0.05em;
+      text-transform: none; margin-bottom: 0;
+    }
+    .tlex-name {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;
+      letter-spacing: -0.005em;
+    }
+    .tlex-desc {
+      font-family: var(--font); font-size: 0.85rem; color: var(--muted); line-height: 1.5;
+      grid-column: 2; margin-top: 0.1rem;
+    }
+    .tlex-ver {
+      font-family: var(--font); font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.05em; text-transform: uppercase;
+      grid-column: 3; grid-row: 1; text-align: right; margin-bottom: 0;
+      align-self: start; padding-top: 0.15rem;
+    }
+
+    .pull-quote {
+      max-width: 720px; margin: 3.5rem auto; padding: 2rem 2rem 2rem 3.5rem;
+      font-family: var(--font-display); font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+      font-style: italic; font-weight: 500; line-height: 1.3; letter-spacing: -0.015em;
+      color: var(--accent); border-left: 3px solid var(--accent); position: relative;
+    }
+    .pull-quote::before {
+      content: "“"; position: absolute; left: 1.2rem; top: 0.5rem;
+      font-size: 4rem; color: var(--accent); opacity: 0.35; line-height: 1;
+      font-family: var(--font-display);
+    }
+
+    .ornament {
+      max-width: 720px; margin: 3.5rem auto 1.5rem; padding: 0 2rem; text-align: center;
+      font-family: var(--font-display); font-size: 1.5rem; color: var(--accent); opacity: 0.5;
+    }
+    .signature {
+      max-width: 720px; margin: 0 auto 5rem; padding: 0 2rem;
+      font-family: var(--font); font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center;
+    }
+    .signature-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: inline-block; vertical-align: middle; margin-right: 0.85rem;
+      border: 1px solid var(--border); object-fit: cover;
+    }
+
+    .colophon { max-width: 720px; margin: 6rem auto 4rem; padding: 3rem 2rem 0; border-top: 1px solid var(--border); }
+    .colophon-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1rem;
+    }
+    .colophon-label {
+      font-family: var(--font); font-size: 0.72rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .colophon-price {
+      font-family: var(--font-display); font-size: 2.25rem; font-weight: 600;
+      color: var(--accent); letter-spacing: -0.02em;
+    }
+    .colophon-price sup { font-size: 1.2rem; vertical-align: super; padding-right: 0.1em; }
+    .colophon p {
+      font-family: var(--font); font-size: 0.875rem; color: var(--muted);
+      line-height: 1.7; margin-bottom: 0.5rem;
+    }
+
+    .end-waitlist { max-width: 720px; margin: 0 auto 5rem; padding: 0 2rem; }
+    .end-waitlist .heading {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 600;
+      letter-spacing: -0.02em; margin-bottom: 0.75rem;
+    }
+    .end-waitlist .heading em { font-style: italic; color: var(--accent); font-weight: 500; }
+
+    @media (max-width: 720px) {
+      .opening h1 { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+      .lede::first-letter { font-size: 3.4em; }
+      .pull-quote { padding: 1.5rem 1.5rem 1.5rem 2.5rem; }
+      .pull-quote::before { left: 0.8rem; top: 0.4rem; font-size: 3rem; }
+    }
+
     /* ─── OPEN SOURCE ATTRIBUTION ────────────────────────────── */
     .oss-section { padding: 3rem 0; border-top: 1px solid var(--border); background: var(--surface); }
     .oss-heading { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.6rem; }
@@ -398,101 +611,55 @@
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-brand"><img src="img/wordmark.svg" alt="TASS" class="nav-wordmark"></a>
+      <a href="#" class="nav-brand">
+        <picture>
+          <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+          <img src="img/wordmark-2E7D5E.svg" alt="TASS" class="nav-wordmark">
+        </picture>
+      </a>
       <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
     </div>
   </nav>
 
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-inner">
-      <span class="hero-eyebrow">Text Analysis Support Software &mdash; launching May 2026</span>
-      <h1>Text analysis for <span class="hero-accent">serious</span> researchers.</h1>
-      <p class="hero-sub">
-        TASS is a native Windows desktop app for dictionary-based text analysis.
-        Group comparisons, publication-quality visualizations, and APA citation blocks &mdash;
-        all without writing a line of code.
-      </p>
-      <div class="hero-actions">
-        <a href="#waitlist" class="btn btn-primary btn-lg">Join the waitlist</a>
-        <a href="#problem" class="btn btn-ghost btn-lg">Why TASS</a>
-      </div>
-      <p class="hero-meta">
-        From $8/month<span>·</span>30-day free trial<span>·</span>Windows 10 &amp; 11<span>·</span>No coding required
-      </p>
-    </div>
-  </section>
+  <!-- ISSUE MARKER -->
+  <div class="issue-marker">TASS &middot; Methods Note No. 1 &middot; May 2026</div>
 
 
-  <!-- STATS STRIP -->
-  <div class="stats-strip">
-    <div class="stats-inner">
-      <div>
-        <div class="stat-num">100k+</div>
-        <div class="stat-label">Entries &mdash; large dataset support</div>
-      </div>
-      <div>
-        <div class="stat-num">6</div>
-        <div class="stat-label">Open dictionaries at v1.0</div>
-      </div>
-      <div>
-        <div class="stat-num">18</div>
-        <div class="stat-label">T-Lex lexicons in development</div>
-      </div>
-      <div>
-        <div class="stat-num">0</div>
-        <div class="stat-label">Lines of code required</div>
-      </div>
-    </div>
+  <!-- OPENING -->
+  <header class="opening">
+    <h1>Text analysis<br>for <em>serious</em> researchers.</h1>
+    <div class="byline">A native Windows desktop app for dictionary-based text analysis &middot; from $79/year</div>
+  </header>
+
+
+  <!-- LEDE -->
+  <article class="manuscript">
+    <p class="lede"><span class="lede-opener">TASS is a no-code</span> analytical environment for dictionary-based text analysis. Group comparisons with assumption checks and post-hoc tests, publication-quality visualizations, and APA citation blocks. Built for social scientists, journalists, and domain experts who need rigorous methods without learning to code.</p>
+
+    <p>For decades, LIWC has been the default tool for dictionary-based text analysis in the social sciences. The default has compounding limitations. It cannot handle large datasets. Its dictionaries are opaque and proprietary. It produces no built-in statistical comparisons or visualizations. Its academic license now explicitly excludes anyone outside a university setting, which leaves researchers at think tanks, government agencies, nonprofits, and independent consultancies with no clean alternative that does not require R or Python.</p>
+
+    <p>The free alternatives, Yoshikoder and psyLex and LIWCalike, all require coding. No no-code tool offers group statistical comparisons, effect sizes, and publication-quality visualizations in one package.</p>
+
+    <p>TASS is that tool. It supports <strong>100,000+ entry datasets</strong>, ships with <strong>six open dictionaries</strong> at v1.0, includes <strong>18 T-Lex lexicons</strong> in development, and requires <strong>zero lines of code</strong>.</p>
+  </article>
+
+
+  <!-- SECTION 1 — METHODS CONTEXT -->
+  <div class="section-marker">
+    <span class="numeral">§ 1</span>
+    <div class="heading">LIWC is the standard. But it has <em>limits</em>.</div>
   </div>
 
 
-  <!-- DEMO -->
-  <div class="demo-section">
-    <div class="demo-inner">
-      <video
-        class="demo-video"
-        src="video/out/tass-demo.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        aria-label="TASS demo — text analysis and group comparison in action"
-      ></video>
-    </div>
-  </div>
+  <!-- LEGACY PROBLEM/SOLUTION REMOVED — content folded into the lede above. -->
 
 
-  <!-- PROBLEM / SOLUTION -->
-  <section class="section" id="problem">
-    <div class="container">
-      <span class="eyebrow">The problem</span>
-      <h2>LIWC is the standard.<br>But it has limits.</h2>
-      <div class="prose-grid">
-        <div class="prose-col">
-          <p>LIWC-22 has been the default tool for dictionary-based text analysis in the social sciences for decades. But it has compounding limitations: it cannot handle large datasets, its dictionaries are opaque and proprietary, and it produces no built-in statistical comparisons or visualizations.</p>
-          <p>LIWC&rsquo;s academic license now explicitly excludes anyone outside a university setting &mdash; researchers at think tanks, government agencies, nonprofits, and independent consultancies have no clean alternative that doesn&rsquo;t require R or Python.</p>
-        </div>
-        <div class="prose-col">
-          <p>The free alternatives &mdash; Yoshikoder, psyLex, LIWCalike &mdash; all require coding. No no-code GUI tool offers group statistical comparisons, effect sizes, and publication-quality visualizations in a single package.</p>
-          <p>TASS is that alternative. Dictionary-based scoring at scale, group statistical comparisons with assumption checks and post-hoc tests, publication-quality visualizations, and APA citation blocks &mdash; all in a native Windows desktop application. Starting at $79/year for academic users &mdash; a fraction of LIWC&rsquo;s pricing.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-
-  <!-- COMPARISON TABLE -->
-  <section class="section-alt">
-    <div class="container">
-      <span class="eyebrow">Why TASS</span>
-      <h2>TASS vs. LIWC</h2>
-      <p class="section-sub">
-        LIWC has been the default for decades. TASS is built to do everything LIWC does &mdash;
-        and considerably more &mdash; at a lower price, with open and auditable dictionaries.
-      </p>
-      <div class="table-wrap">
+  <!-- FIGURE 1 — TASS VS LIWC (kept; restyled to read as a paper figure) -->
+  <figure class="figure">
+    <figcaption class="figure-caption" style="margin-bottom:1rem;margin-top:0;"><b>Figure 1.</b> Capability comparison, TASS versus LIWC at the v1.0 release. Open, auditable dictionaries and built-in group statistics are the principal points of difference.</figcaption>
+    <div class="table-wrap">
         <table class="compare-table">
           <thead>
             <tr>
@@ -545,72 +712,39 @@
           </tbody>
         </table>
       </div>
-    </div>
-  </section>
+  </figure>
 
 
-  <!-- FEATURES -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">What TASS does</span>
-      <h2>From import to publication<br>in one place.</h2>
-      <div class="features-grid">
+  <!-- SECTION 2 — CAPABILITIES -->
+  <div class="section-marker">
+    <span class="numeral">§ 2</span>
+    <div class="heading">From import to <em>publication</em>, in one place.</div>
+  </div>
 
-        <div class="feature-cell">
-          <div class="feature-num">01</div>
-          <h3>Data Import</h3>
-          <p>CSV, TXT, and XLSX support with batch file processing. A column-mapping wizard lets you designate text, group, and metadata columns. Rows are previewed read-only before analysis begins.</p>
-        </div>
+  <article class="manuscript">
+    <p>TASS handles the entire analysis cycle in a native desktop environment. <strong>Data Import</strong> accepts CSV, TXT, and XLSX with batch processing; a column-mapping wizard lets you designate text, group, and metadata columns, and rows are previewed read-only before analysis begins. The <strong>Analysis Engine</strong> performs dictionary scoring at word, entry, and document level, with multi-threaded processing across all CPU cores, a real-time progress display, and time estimates for large corpora.</p>
 
-        <div class="feature-cell">
-          <div class="feature-num">02</div>
-          <h3>Analysis Engine</h3>
-          <p>Dictionary scoring at word, entry, and document level. Multi-threaded processing distributes work across all CPU cores, with a real-time progress display and time estimates for large corpora.</p>
-        </div>
-
-        <div class="feature-cell">
-          <div class="feature-num">03</div>
-          <h3>Group Comparisons</h3>
-          <p>Define groups by column values. Welch&rsquo;s t-test, Mann-Whitney U, one-way ANOVA, Kruskal-Wallis, Tukey HSD post-hoc, Shapiro-Wilk normality checks, effect sizes with interpretation labels, and 95% confidence intervals &mdash; all computed per category, ready to report.</p>
-        </div>
-
-        <div class="feature-cell">
-          <div class="feature-num">04</div>
-          <h3>Export &amp; Citation</h3>
-          <p>CSV (full entry-level scores), Excel (multi-sheet workbook), and high-resolution PNG + SVG visualizations at 300 DPI. Every export includes a pre-formatted APA citation block for your methods section.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
+    <p><strong>Group Comparisons</strong> are defined by column values and produce Welch&rsquo;s t-test, Mann-Whitney U, one-way ANOVA, Kruskal-Wallis, Tukey HSD post-hoc tests, Shapiro-Wilk normality checks, effect sizes with interpretation labels, and 95% confidence intervals, computed per category, ready to report. <strong>Export &amp; Citation</strong> produces CSV at the entry level, multi-sheet Excel workbooks, and 300 DPI PNG + SVG visualizations. Every export includes a pre-formatted APA citation block for your methods section.</p>
+  </article>
 
 
-  <!-- DARK SECTION -->
-  <section class="section-dark">
-    <div class="container">
-      <span class="eyebrow">Built for your workflow</span>
-      <h2 style="color:#fff;max-width:22ch;">No Python. No R. No command line.</h2>
-      <p class="section-sub" style="margin-bottom:2.5rem;">
-        TASS is designed for social scientists, journalists, and domain experts who need
-        professional-grade text analysis without the overhead of learning to code.
-        Load your data, choose your dictionaries, run your analysis.
-      </p>
-      <a href="#waitlist" class="btn btn-ghost-white">Join the waitlist &rarr;</a>
-    </div>
-  </section>
+  <!-- PULL QUOTE -->
+  <blockquote class="pull-quote">No Python. No R. No command line.</blockquote>
 
 
-  <!-- DICTIONARY LIBRARY -->
-  <section class="section-alt" id="dictionaries">
-    <div class="container">
-      <span class="eyebrow">Dictionary library</span>
-      <h2>Open lexicons.<br>Original research.</h2>
-      <p class="section-sub">
-        TASS ships with six open-source dictionaries at v1.0 and is building 18 original T-Lex lexicons &mdash;
-        each independently citable and freely available for academic and non-commercial use.
-      </p>
+  <!-- SECTION 3 — DICTIONARY LIBRARY -->
+  <div class="section-marker">
+    <span class="numeral">§ 3</span>
+    <div class="heading"><em>Open</em> lexicons. Original research.</div>
+  </div>
 
-      <div class="table-wrap" style="margin-top:3rem;">
+  <article class="manuscript">
+    <p>TASS ships with six open-source dictionaries at v1.0 and is building eighteen original T-Lex lexicons. Each lexicon is independently citable and freely available for academic and non-commercial use, with full documentation and version control.</p>
+  </article>
+
+  <figure class="figure" id="dictionaries">
+    <figcaption class="figure-caption" style="margin-bottom:1rem;margin-top:0;"><b>Table 1.</b> Bundled dictionaries shipping with TASS v1.0. All open-licensed; coverage and license terms below.</figcaption>
+    <div class="table-wrap">
         <table class="dict-table">
           <thead>
             <tr>
@@ -765,207 +899,116 @@
           <div class="tlex-desc">Assertiveness, compliance, and face-threatening acts in dyadic interaction</div>
         </div>
       </div>
+  </figure>
+
+
+  <!-- SECTION 4 — RELEASE TIMELINE -->
+  <div class="section-marker">
+    <span class="numeral">§ 4</span>
+    <div class="heading">Release timeline.</div>
+  </div>
+
+  <article class="manuscript">
+    <p><strong>v1.0, May 2026.</strong> Complete analytical environment: dictionary scoring, n-gram support, structured group comparisons with assumption checks and post-hoc tests, correlation matrix, KWIC concordance, seven visualization types, APA table export. Six open dictionaries at launch.</p>
+
+    <p><strong>v1.1, Q3 2026.</strong> Paired-samples t-test, factorial ANOVA, macOS build, LIWC .dic format import, concordance plot. T-Lex dictionaries 01 through 07 ship.</p>
+
+    <p><strong>v2.0, 2027.</strong> Multilingual dictionary support, topic modeling (LDA), readability metrics, inter-rater reliability module, API and CLI for pipeline integration. Full eighteen-dictionary T-Lex library complete.</p>
+  </article>
+
+
+  <!-- SECTION 5 — T-LEX COLLABORATION -->
+  <div class="section-marker">
+    <span class="numeral">§ 5</span>
+    <div class="heading">Co-author the next <em>standard</em> dictionaries.</div>
+  </div>
+
+  <article class="manuscript" id="tlex-project">
+    <p>The T-Lex Project is building eighteen original, open-access lexicons for social science text analysis. Each is a citable, independently documented resource designed to fill real measurement gaps in the field. T-Lex dictionaries ship with TASS and are freely available to the research community under open-access licensing.</p>
+
+    <p>Collaboration is asynchronous and self-paced. Contributors review and validate AI-generated word lists against published measurement frameworks, re-score or re-categorize items that require domain expertise, supplement seed lists with terms from their specialization, and provide feedback on category definitions and construct validity.</p>
+
+    <p>We are looking for social scientists with domain expertise in one or more of the target constructs, graduate students and early-career researchers interested in computational methods and lexicon development, and anyone curious about how LLMs are used in modern corpus construction and validation. Time commitment is variable; you may contribute to a single dictionary or several. No minimum hours are required, and credit is proportional to contribution.</p>
+
+    <p>Contributors who make substantive contributions are offered <strong>co-authorship</strong> on associated dictionary papers and are named in all published dictionary metadata. All TASS-native dictionaries remain freely available for academic and non-commercial research use. Email <a href="mailto:tass@simdadllc.com?subject=T-Lex%20Collaboration">tass@simdadllc.com</a> to discuss involvement.</p>
+  </article>
+
+
+  <!-- ORNAMENT + SIGNATURE -->
+  <div class="ornament" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" fill="currentColor" style="width:3em;height:2.25em;display:inline-block;vertical-align:middle;">
+      <g transform="translate(32, 14)">
+        <line x1="0" y1="-7" x2="0" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-6" y1="-3.5" x2="6" y2="3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-6" y1="3.5" x2="6" y2="-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(18, 36)">
+        <line x1="0" y1="-7" x2="0" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-6" y1="-3.5" x2="6" y2="3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-6" y1="3.5" x2="6" y2="-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </g>
+      <g transform="translate(46, 36)">
+        <line x1="0" y1="-7" x2="0" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-6" y1="-3.5" x2="6" y2="3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-6" y1="3.5" x2="6" y2="-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
+  <div class="signature">
+    <img src="img/headshot.png" alt="Alex P. Leith" class="signature-avatar">
+    TASS Editorial &middot; SIM DAD LLC &middot; May 2026
+  </div>
+
+
+  <!-- COLOPHON: PRICING -->
+  <section class="colophon" id="pricing">
+    <div class="colophon-row">
+      <span class="colophon-label">Subscription &middot; from May 2026 &middot; 30-day free trial</span>
     </div>
+    <p style="font-family:var(--font-display);font-size:1.0625rem;color:var(--text);margin-bottom:1.25rem;">Every tier includes every feature. No artificial limits by price. The split is by audience and seat count.</p>
+    <p><strong style="color:var(--accent);">Academic</strong> &middot; $8/month or $79/year &middot; 2 devices &middot; .edu email required.</p>
+    <p><strong style="color:var(--accent);">Professional</strong> &middot; $15/month or $129/year &middot; 2 devices &middot; for journalists, consultants, nonprofits, and government.</p>
+    <p><strong style="color:var(--accent);">Lab</strong> &middot; $29/month or $249/year &middot; 10 seats for research labs and small departments.</p>
+    <p><strong style="color:var(--accent);">Department</strong> &middot; $79/month or $699/year &middot; 50 seats for departments and organizations.</p>
+    <p style="margin-top:1.25rem;">Custom institutional licensing on request: <a href="mailto:tass@simdadllc.com" style="color:var(--accent);border-bottom:1px solid var(--border);">tass@simdadllc.com</a>.</p>
   </section>
 
 
-  <!-- ROADMAP -->
-  <section class="section">
-    <div class="container">
-      <span class="eyebrow">Roadmap</span>
-      <h2>Release timeline.</h2>
-      <div class="roadmap-grid">
-        <div class="roadmap-cell current">
-          <div class="roadmap-version">v1.0</div>
-          <div class="roadmap-date">May 2026</div>
-          <p class="roadmap-body">Complete analytical environment: dictionary scoring, n-gram support, structured group comparisons with assumption checks and post-hoc tests, correlation matrix, KWIC concordance, 7 visualization types, APA table export. Six open dictionaries at launch.</p>
-        </div>
-        <div class="roadmap-cell">
-          <div class="roadmap-version">v1.1</div>
-          <div class="roadmap-date">Q3 2026</div>
-          <p class="roadmap-body">Paired-samples t-test, factorial ANOVA, macOS build, LIWC .dic format import, concordance plot. T-Lex dictionaries 01&ndash;07 ship.</p>
-        </div>
-        <div class="roadmap-cell">
-          <div class="roadmap-version">v2.0</div>
-          <div class="roadmap-date">2027</div>
-          <p class="roadmap-body">Multilingual dictionary support, topic modeling (LDA), readability metrics, inter-rater reliability module, API/CLI for pipeline integration. Full 18-dictionary T-Lex library complete.</p>
-        </div>
-      </div>
+  <!-- WAITLIST (quiet end-block) -->
+  <section class="end-waitlist" id="waitlist">
+    <div class="heading">Get notified at <em>launch</em>.</div>
+    <p style="font-family:var(--font);font-size:0.95rem;color:var(--muted);line-height:1.65;margin-bottom:2rem;">TASS v1.0 is complete and targeting a May 2026 release. Add your email and we will notify you. No drip campaigns. Launch notification only.</p>
+
+    <div class="wl-success" id="wl-success" role="status">
+      <h3>You&rsquo;re on the list.</h3>
+      <p>We&rsquo;ll reach out when TASS launches.</p>
     </div>
-  </section>
 
-
-  <!-- T-LEX COLLABORATION -->
-  <section class="section-alt" id="tlex-project">
-    <div class="container">
-      <span class="eyebrow">The T-Lex Project</span>
-      <h2>Co-author the next<br>standard dictionaries.</h2>
-      <p class="section-sub">
-        The T-Lex Project is building 18 original, open-access lexicons for social science text analysis &mdash;
-        each a citable, independently documented resource designed to fill real measurement gaps in the field.
-        T-Lex dictionaries ship with TASS and are freely available to the research community under open-access licensing.
-      </p>
-      <div class="collab-grid">
-        <div class="collab-col">
-          <h3>What collaboration involves</h3>
-          <ul>
-            <li>Reviewing and validating AI-generated word lists against published measurement frameworks</li>
-            <li>Re-scoring or re-categorizing items that require domain expertise or judgment</li>
-            <li>Supplementing seed lists with terms from your area of specialization</li>
-            <li>Providing feedback on category definitions and construct validity</li>
-          </ul>
-          <div class="credit-block">
-            <h4>Credit &amp; Licensing</h4>
-            <p>Contributors who make substantive contributions will be offered co-authorship on associated dictionary papers and are named in all published dictionary metadata. All TASS-native dictionaries are freely available for academic and non-commercial research use.</p>
-          </div>
-        </div>
-        <div class="collab-col">
-          <h3>Who we&rsquo;re looking for</h3>
-          <ul>
-            <li>Social scientists with domain expertise in one or more of the target constructs</li>
-            <li>Graduate students and early-career researchers interested in computational methods and lexicon development</li>
-            <li>Anyone curious about how LLMs are used in modern corpus construction and validation</li>
-          </ul>
-          <h3>Time commitment</h3>
-          <ul>
-            <li>Variable &mdash; you may contribute to a single dictionary or several</li>
-            <li>Validation tasks are asynchronous and self-paced via shared documents</li>
-            <li>No minimum hours required; credit is proportional to contribution</li>
-          </ul>
-          <a href="mailto:hello@simdadllc.com?subject=T-Lex%20Collaboration" class="btn btn-ghost" style="margin-top:1rem;">Contact us to collaborate</a>
-        </div>
+    <form class="wl-form" id="wl-form" novalidate>
+      <div class="wl-field">
+        <label for="wl-email">Email address</label>
+        <input type="email" id="wl-email" name="email" placeholder="you@institution.edu" required autocomplete="email">
       </div>
-    </div>
-  </section>
-
-
-  <!-- PRICING -->
-  <section class="section" id="pricing">
-    <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2>Subscription pricing.<br>Priced for researchers, not institutions.</h2>
-      <p class="section-sub" style="margin-bottom:1.5rem;">
-        Every tier includes every feature &mdash; no artificial limits by price. 30-day free trial, cancel anytime.
-      </p>
-
-      <!-- Billing toggle -->
-      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:2.5rem;">
-        <span id="toggle-label-monthly" style="font-size:0.875rem;font-weight:600;color:var(--text);">Monthly</span>
-        <button id="billing-toggle" type="button" aria-pressed="false" aria-label="Switch to annual billing" style="
-          position:relative;width:48px;height:26px;border-radius:13px;border:none;
-          background:var(--border);cursor:pointer;transition:background 0.2s;padding:0;
-        ">
-          <span id="toggle-knob" style="
-            position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;
-            background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transition:transform 0.2s;
-          "></span>
-        </button>
-        <span id="toggle-label-annual" style="font-size:0.875rem;font-weight:500;color:var(--muted);">Yearly <span style="font-size:0.75rem;color:var(--accent);font-weight:700;">Save up to 34%</span></span>
+      <div class="wl-field">
+        <label for="wl-role">Role <span>(optional)</span></label>
+        <select id="wl-role" name="role">
+          <option value="" disabled selected>Select your role&hellip;</option>
+          <option value="grad-student">Graduate Student</option>
+          <option value="doctoral-student">Doctoral Student</option>
+          <option value="postdoc">Postdoctoral Researcher</option>
+          <option value="asst-prof">Assistant Professor</option>
+          <option value="assoc-prof">Associate Professor</option>
+          <option value="full-prof">Full Professor</option>
+          <option value="independent-researcher">Independent Researcher</option>
+          <option value="data-journalist">Data Journalist</option>
+          <option value="policy-analyst">Policy Analyst</option>
+          <option value="other">Other</option>
+        </select>
       </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;max-width:1080px;">
-
-        <div class="pricing-card">
-          <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Academic</div>
-          <div class="price-tag"><span class="price-amount" data-monthly="8" data-annual="79">$8</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$96/year</span> &nbsp;&middot;&nbsp; 2 devices &nbsp;&middot;&nbsp; .edu email</div>
-          <ul class="price-features">
-            <li>Full dictionary analysis engine</li>
-            <li>All 6 bundled dictionaries + T-Lex updates</li>
-            <li>Group comparisons with post-hoc tests</li>
-            <li>Publication-quality visualizations (PNG + SVG)</li>
-            <li>APA citation block on every export</li>
-            <li>100,000+ entry dataset support</li>
-          </ul>
-          <a href="#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
-        </div>
-
-        <div class="pricing-card">
-          <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Professional</div>
-          <div class="price-tag"><span class="price-amount" data-monthly="15" data-annual="129">$15</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$180/year</span> &nbsp;&middot;&nbsp; 2 devices</div>
-          <ul class="price-features">
-            <li>Everything in Academic</li>
-            <li>For journalists, consultants, nonprofits, government</li>
-            <li>No .edu requirement</li>
-          </ul>
-          <a href="#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
-        </div>
-
-        <div class="pricing-card">
-          <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Lab</div>
-          <div class="price-tag"><span class="price-amount" data-monthly="29" data-annual="249">$29</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$348/year</span> &nbsp;&middot;&nbsp; 10 seats</div>
-          <ul class="price-features">
-            <li>Everything in Academic</li>
-            <li>10 seats for research labs and small departments</li>
-            <li>Multi-seat license management</li>
-          </ul>
-          <a href="#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
-        </div>
-
-        <div class="pricing-card">
-          <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">Department</div>
-          <div class="price-tag"><span class="price-amount" data-monthly="79" data-annual="699">$79</span><span class="price-period" style="font-size:1.25rem;font-weight:600;">/mo</span></div>
-          <div class="price-note"><span class="price-alt">$948/year</span> &nbsp;&middot;&nbsp; 50 seats</div>
-          <ul class="price-features">
-            <li>Everything in Academic</li>
-            <li>50 seats for departments and organizations</li>
-            <li>Multi-seat license management</li>
-          </ul>
-          <a href="#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
-        </div>
-
-      </div>
-      <p class="pricing-note" style="margin-top:1.5rem;">
-        Custom institutional licensing? Contact <a href="mailto:hello@simdadllc.com">hello@simdadllc.com</a>
-      </p>
-    </div>
-  </section>
-
-
-  <!-- WAITLIST -->
-  <section class="section-alt" id="waitlist">
-    <div class="container">
-      <div class="waitlist-wrap">
-        <span class="eyebrow">Early access</span>
-        <h2>Get notified at launch.</h2>
-        <p class="section-sub">
-          TASS v1.0 is complete and targeting a May 2026 release. Join the waitlist and be notified first.
-        </p>
-
-        <div class="wl-success" id="wl-success" role="status">
-          <h3>You&rsquo;re on the list.</h3>
-          <p>We&rsquo;ll reach out when TASS launches.</p>
-        </div>
-
-        <form class="wl-form" id="wl-form" novalidate>
-          <div class="wl-field">
-            <label for="wl-email">Email address</label>
-            <input type="email" id="wl-email" name="email" placeholder="you@institution.edu" required autocomplete="email">
-          </div>
-          <div class="wl-field">
-            <label for="wl-role">Role <span>(optional)</span></label>
-            <select id="wl-role" name="role">
-              <option value="" disabled selected>Select your role&hellip;</option>
-              <option value="grad-student">Graduate Student</option>
-              <option value="doctoral-student">Doctoral Student</option>
-              <option value="postdoc">Postdoctoral Researcher</option>
-              <option value="asst-prof">Assistant Professor</option>
-              <option value="assoc-prof">Associate Professor</option>
-              <option value="full-prof">Full Professor</option>
-              <option value="independent-researcher">Independent Researcher</option>
-              <option value="data-journalist">Data Journalist</option>
-              <option value="policy-analyst">Policy Analyst</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>
-          <p class="wl-error" id="wl-error" role="alert"></p>
-          <p class="wl-fine">No spam. Launch notification only. Unsubscribe anytime.</p>
-        </form>
-      </div>
-    </div>
+      <button type="submit" class="wl-submit" id="wl-submit">Join the waitlist</button>
+      <p class="wl-error" id="wl-error" role="alert"></p>
+      <p class="wl-fine">No spam. Launch notification only. Unsubscribe anytime.</p>
+    </form>
   </section>
 
 
@@ -1001,8 +1044,9 @@
       </div>
       <div class="footer-links">
         <a href="https://simdadllc.com">simdadllc.com</a>
-        <a href="mailto:hello@simdadllc.com">Contact</a>
+        <a href="mailto:tass@simdadllc.com">Contact</a>
         <a href="/eula.html">License agreement</a>
+        <a href="/privacy.html">Privacy policy</a>
       </div>
     </div>
     <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
@@ -1119,7 +1163,7 @@
         form.style.display = "none";
         success.classList.add("visible");
       } catch {
-        errEl.textContent = "Something went wrong. Please try again or email hello@simdadllc.com.";
+        errEl.textContent = "Something went wrong. Please try again or email tass@simdadllc.com.";
         errEl.classList.add("visible");
         btn.disabled = false;
         btn.textContent = "Join the waitlist";

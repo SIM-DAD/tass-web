@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" fill="currentColor" aria-hidden="true">
+  <!-- TASS ornament: the asterism (⁂), classic typographic mark for section division in academic writing -->
+  <g>
+    <!-- top asterisk -->
+    <g transform="translate(32, 14)">
+      <line x1="0" y1="-7" x2="0" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-6" y1="-3.5" x2="6" y2="3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-6" y1="3.5" x2="6" y2="-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <!-- bottom-left asterisk -->
+    <g transform="translate(18, 36)">
+      <line x1="0" y1="-7" x2="0" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-6" y1="-3.5" x2="6" y2="3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-6" y1="3.5" x2="6" y2="-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <!-- bottom-right asterisk -->
+    <g transform="translate(46, 36)">
+      <line x1="0" y1="-7" x2="0" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-6" y1="-3.5" x2="6" y2="3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-6" y1="3.5" x2="6" y2="-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

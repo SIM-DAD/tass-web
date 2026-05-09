@@ -59,7 +59,7 @@ function submitForm() {
 
   const subject = 'T-Lex Project \u2014 Expression of Interest';
   window.location.href =
-    'mailto:ap@simdadllc.com'
+    'mailto:tass@simdadllc.com'
     + '?subject=' + encodeURIComponent(subject)
     + '&body='    + encodeURIComponent(body);
 }
