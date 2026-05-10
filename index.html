@@ -7,7 +7,7 @@
   <link rel="icon" type="image/svg+xml" href="img/logo.svg">
   <meta name="description" content="TASS is a no-code Windows desktop app for dictionary-based text analysis — group comparisons, publication-quality visualizations, and APA citation blocks. Built for social scientists.">
   <meta property="og:title" content="TASS — Text Analysis Support Software">
-  <meta property="og:description" content="Everything LIWC does. Plus the things it can't. No coding required.">
+  <meta property="og:description" content="An alternative to LIWC for dictionary-based text analysis. No-code Windows desktop. Adds dictionaries LIWC doesn't ship: Warriner VAD, Empath, custom builds.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://usetass.app/img/social-share.png">
   <meta property="og:url" content="https://usetass.app">
@@ -660,9 +660,9 @@
   <article class="manuscript">
     <p class="lede"><span class="lede-opener">TASS is a no-code</span> analytical environment for dictionary-based text analysis. Group comparisons with assumption checks and post-hoc tests, publication-quality visualizations, and APA citation blocks. Built for social scientists, journalists, and domain experts who need rigorous methods without learning to code.</p>
 
-    <p>For decades, LIWC has been the default tool for dictionary-based text analysis in the social sciences. The default has compounding limitations. It cannot handle large datasets. Its dictionaries are opaque and proprietary. It produces no built-in statistical comparisons or visualizations. Its academic license now explicitly excludes anyone outside a university setting, which leaves researchers at think tanks, government agencies, nonprofits, and independent consultancies with no clean alternative that does not require R or Python.</p>
+    <p>For decades, LIWC has been the default tool for dictionary-based text analysis in the social sciences, and it remains capable for many of those workflows. A few friction points come up often in our consulting work. LIWC's bundled dictionaries are licensed and not user-inspectable, which complicates reproducibility checks. The desktop client is not built for datasets in the tens of thousands of rows. Group statistics and publication-ready visualizations have to be produced downstream in R or Python. And as of LIWC-22, the academic license explicitly excludes researchers outside university settings, which leaves think tanks, government agencies, nonprofits, and independent consultancies looking for a different workflow.</p>
 
-    <p>The free alternatives, Yoshikoder and psyLex and LIWCalike, all require coding. No no-code tool offers group statistical comparisons, effect sizes, and publication-quality visualizations in one package.</p>
+    <p>Free alternatives like Yoshikoder, psyLex, and LIWCalike are capable but assume the researcher is comfortable in R or Python. When we set out to build TASS, we didn't find a no-code option that bundled group statistical comparisons, effect sizes, and publication-quality visualizations together.</p>
 
     <p>TASS is that tool. It supports <strong>100,000+ entry datasets</strong>, ships with <strong>six open dictionaries</strong> at v1.0, includes <strong>18 T-Lex lexicons</strong> in development, and requires <strong>zero lines of code</strong>.</p>
   </article>
@@ -671,7 +671,7 @@
   <!-- SECTION 1 — METHODS CONTEXT -->
   <div class="section-marker">
     <span class="numeral">§ 1</span>
-    <div class="heading">LIWC is the standard. But it has <em>limits</em>.</div>
+    <div class="heading">LIWC is the standard. With <em>trade-offs</em>.</div>
   </div>
 
 
