@@ -89,7 +89,20 @@
     </ul>
 
     <h2>3. No Telemetry or Cloud Processing</h2>
-    <p>TASS does not include any telemetry, crash reporting, or usage analytics. All text analysis, dictionary processing, and visualization generation happens 100% locally on your device. No text data or analysis results are ever sent to SIM DAD LLC or any third party.</p>
+    <p>TASS does not include any telemetry or usage analytics. All text analysis, dictionary processing, and visualization generation happens 100% locally on your device. No text data or analysis results are ever sent to SIM DAD LLC or any third party. The only data the developer can ever receive is a crash report that you choose to send, described below.</p>
+
+    <h3>Error reports</h3>
+    <p>TASS does not transmit any data automatically. If TASS encounters an unexpected error, you may be prompted to send a crash report. Crash reports are sent only when you click Send, are addressed to <a href="mailto:support+tass@simdadllc.com">support+tass@simdadllc.com</a> through your own mail client, and contain only the following information:</p>
+    <ul>
+      <li>the product name and version</li>
+      <li>the date and time of the crash</li>
+      <li>the technical error (traceback)</li>
+      <li>your operating system and version</li>
+      <li>your CPU model and total RAM</li>
+      <li>(if relevant to the crash) your Python runtime version</li>
+    </ul>
+    <p>Crash reports never contain documents, dictionary contents, analysis data, file paths from your home directory, environment variables, your username, your hostname, your machine identifier, your IP address, your license key, or your order information. File paths inside the technical error are automatically redacted before the report is shown to you. There is no third-party error-tracking service.</p>
+    <p>You can disable crash-report prompts at any time in Settings &rarr; Privacy. You can review or delete saved reports in the same panel.</p>
 
     <h2>4. Third-Party Services</h2>
     <p>We use the following third-party services:</p>
