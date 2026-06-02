@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TASS — Release log</title>
+<meta name="description" content="Every major iteration of TASS, newest first. Versioned, not dated.">
+<link rel="icon" type="image/svg+xml" href="img/logo.svg">
+<meta name="theme-color" content="#2E7D5E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#2E7D5E; --accent-h:#256B50; --text:#0F0F0F; --muted:#6B7280;
+    --faint:#98A0A8; --bg:#FFFFFF; --surface:#F7F7F8; --line:#E4E4E7; --spine:#E4E4E7;
+    --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --serif:'Lora','Source Serif Pro','Iowan Old Style',Georgia,serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --text:#F4F4F5; --muted:#A1A1AA; --faint:#71717A; --bg:#09090B;
+      --surface:#111113; --line:#27272A; --spine:#27272A;
+    }
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font);color:var(--text);line-height:1.6;background-color:var(--bg);
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      linear-gradient(rgba(46,125,94,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,125,94,0.04) 1px, transparent 1px),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size:32px 32px, 32px 32px, auto;
+    background-repeat:repeat;}
+  a{color:var(--accent);text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 1.75rem;}
+
+  /* header */
+  .top{padding:3.5rem 0 0;display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+  .top img{height:30px;width:auto;}
+  .top .back{font-size:0.82rem;font-weight:600;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:1px;}
+  .top .back:hover{color:var(--accent);border-color:var(--accent);}
+
+  .lede{padding:2.5rem 0 1.5rem;}
+  .lede h1{font-family:var(--serif);font-size:clamp(2.4rem,6vw,3.6rem);font-weight:600;letter-spacing:-0.025em;line-height:1.0;}
+  .lede h1 em{font-style:italic;font-weight:500;color:var(--accent);}
+  .lede p{font-size:1rem;color:var(--muted);margin-top:1rem;max-width:56ch;}
+  .lede .note{font-size:0.8rem;color:var(--faint);margin-top:0.5rem;}
+
+  /* timeline */
+  .log{position:relative;padding:1.5rem 0 4rem;margin-left:0.5rem;}
+  .log::before{content:"";position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--spine);}
+  .rel{position:relative;padding:0 0 2.25rem 2.5rem;}
+  .rel::before{content:"";position:absolute;left:0;top:0.35rem;width:16px;height:16px;border-radius:50%;background:var(--bg);border:2px solid var(--spine);}
+  .rel.major::before{border-color:var(--accent);box-shadow:0 0 0 4px rgba(46,125,94,0.12);}
+  .rel.latest::before{background:var(--accent);border-color:var(--accent);}
+
+  .ver{display:flex;align-items:baseline;gap:0.75rem;flex-wrap:wrap;}
+  .ver .num{font-family:var(--serif);font-size:1.5rem;font-weight:600;letter-spacing:-0.01em;color:var(--accent);line-height:1;}
+  .rel.major .ver .num{font-size:1.85rem;}
+  .ver .name{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.13em;color:var(--accent);}
+  .ver .tag{font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:#fff;background:var(--accent);padding:0.18rem 0.5rem;border-radius:100px;}
+
+  .summary{font-family:var(--serif);font-size:1.0625rem;color:var(--text);margin-top:0.6rem;line-height:1.55;max-width:58ch;}
+  .rel.major .summary{font-size:1.15rem;}
+  ul.hi{list-style:none;margin-top:0.9rem;display:grid;gap:0.4rem;max-width:62ch;}
+  ul.hi li{position:relative;padding-left:1.1rem;font-size:0.9rem;color:var(--muted);line-height:1.55;}
+  ul.hi li::before{content:"";position:absolute;left:0;top:0.6rem;width:5px;height:5px;border-radius:50%;background:var(--accent);}
+
+  .foot{border-top:1px solid var(--line);padding:2rem 0 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  .foot .brand{font-weight:800;letter-spacing:-0.02em;}
+  .foot .links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+  .foot a{font-size:0.8125rem;color:var(--muted);}
+  .foot a:hover{color:var(--text);}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px;}
+
+  @media (max-width:560px){ .rel{padding-left:2rem;} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="top">
+      <a href="/">
+        <picture>
+          <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+          <img src="img/wordmark-2E7D5E.svg" alt="TASS">
+        </picture>
+      </a>
+      <a href="/" class="back">&larr; Back to TASS</a>
+    </header>
+
+    <section class="lede">
+      <h1>Release <em>log</em>.</h1>
+      <p>Every major iteration of TASS, newest first. TASS is in active development on the road to 1.0, and we version what we ship as we go.</p>
+      <p class="note">Versioned, not dated. The number is the reference.</p>
+    </section>
+
+    <div class="log">
+
+      <article class="rel latest major">
+        <div class="ver"><span class="num">0.2.6</span><span class="name">Report bundle</span><span class="tag">Latest</span></div>
+        <p class="summary">Finish an analysis and walk away with a complete, citable report in one step.</p>
+        <ul class="hi">
+          <li>One-step report export that bundles a formatted HTML report, a reusable TASS project file, a Word document, and a PDF.</li>
+          <li>Report export wired directly into the desktop Export dialog.</li>
+          <li>Brought forward onto the native desktop shell with the full test suite passing.</li>
+        </ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.2.0</span><span class="name">Native desktop shell</span></div>
+        <p class="summary">TASS moved to a proper native desktop application.</p>
+        <ul class="hi">
+          <li>Rebuilt around a native Windows desktop shell for a faster, more stable workspace.</li>
+          <li>Added local-first error reporting that prepares a report for you to send and never transmits anything on its own.</li>
+          <li>Refined the analysis workflow with clearer in-app feedback and steadier panel behavior.</li>
+        </ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.1.5</span><span class="name">Methods complete</span></div>
+        <p class="summary">The statistical core that makes TASS publication-ready.</p>
+        <ul class="hi">
+          <li>Structured group comparisons with assumption checks, post-hoc tests, effect sizes, and confidence intervals.</li>
+          <li>Refined licensing and bundled-dictionary handling for clean, auditable provenance.</li>
+          <li>Hardened the analysis engine and fixed core crashes surfaced in heavier workloads.</li>
+        </ul>
+      </article>
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.1.0</span><span class="name">First build</span></div>
+        <p class="summary">Where it began: no-code dictionary scoring on your own machine.</p>
+        <ul class="hi">
+          <li>The full interface, core analysis services, and the first round of bundled open dictionaries.</li>
+          <li>Dictionary-based text scoring with the supporting test suites in place from the start.</li>
+          <li>Established TASS branding and the local-first, offline foundation.</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <footer class="foot">
+      <div class="brand">TASS</div>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="https://simdadllc.com/commitment.html">Our commitment</a>
+        <a href="https://simdadllc.com">SIM DAD LLC</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
