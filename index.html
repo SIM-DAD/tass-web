@@ -4,48 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TASS — Coming August 2026</title>
-  <meta name="description" content="TASS is being rebuilt. Local-first software for serious work, back in August 2026.">
+  <meta name="description" content="TASS — Text Analysis Support Software. Coming August 2026 from SIM DAD LLC.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#2E7D5E">
+  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
   <link rel="canonical" href="https://usetass.app/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --accent: #2E7D5E;
-      --text: #0F0F0F;
-      --muted: #6B7280;
-      --bg: #FFFFFF;
+      --accent: #2E7D5E; --accent-h: #256B50;
+      --text: #0F0F0F; --muted: #6B7280; --bg: #FFFFFF; --border: #E4E4E7; --btn-fg: #FFFFFF;
       --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Lora', 'Source Serif Pro', Georgia, serif;
     }
     @media (prefers-color-scheme: dark) {
-      :root { --text: #F4F4F5; --muted: #A1A1AA; --bg: #0C1A14; --accent: #6FC19A; }
+      :root { --text: #F4F4F5; --muted: #A1A1AA; --bg: #0C1A14; --border: #16301F; --accent: #6FC19A; --btn-fg: #07140D; }
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     body { font-family: var(--font); color: var(--text); background: var(--bg); display: flex; flex-direction: column; min-height: 100%; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; max-width: 640px; width: 100%; margin: 0 auto; padding: 2.5rem 1.5rem; }
-    .kicker { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
-    .kicker a { color: var(--muted); border: none; }
-    h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.75rem, 9vw, 4.75rem); letter-spacing: -0.02em; line-height: 1.02; color: var(--accent); }
-    .status { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.1rem, 3.5vw, 1.5rem); margin-top: 0.75rem; color: var(--text); }
-    .lede { margin-top: 1.5rem; font-size: 1.0625rem; color: var(--muted); max-width: 46ch; }
-    .contact { margin-top: 2rem; font-size: 1rem; }
-    a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
-    a:hover, a:focus { opacity: 0.75; }
-    footer { max-width: 640px; width: 100%; margin: 0 auto; padding: 1.5rem; font-size: 0.8125rem; color: var(--muted); border-top: 1px solid color-mix(in srgb, var(--muted) 30%, transparent); }
+    main { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; max-width: 620px; width: 100%; margin: 0 auto; padding: 2.5rem 1.5rem; }
+    .mark { height: 46px; width: auto; margin-bottom: 1.5rem; }
+    .kicker { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .kicker a { color: var(--muted); text-decoration: none; }
+    .kicker a:hover { color: var(--accent); }
+    h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.75rem, 9vw, 4.5rem); letter-spacing: -0.01em; line-height: 1.04; color: var(--accent); }
+    .tagline { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.15rem, 3vw, 1.5rem); margin-top: 0.5rem; color: var(--text); }
+    .status { margin-top: 1.75rem; font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.02em; color: var(--accent); }
+    .lede { margin-top: 0.5rem; font-size: 1.0625rem; color: var(--muted); max-width: 48ch; }
+    .cta { margin-top: 2rem; }
+    .btn { display: inline-block; background: var(--accent); color: var(--btn-fg); font-weight: 600; font-size: 1rem; padding: 0.7rem 1.4rem; border-radius: 8px; text-decoration: none; transition: background 120ms ease; }
+    .btn:hover, .btn:focus { background: var(--accent-h); }
+    footer { max-width: 620px; width: 100%; margin: 0 auto; padding: 1.5rem; font-size: 0.8125rem; color: var(--muted); border-top: 1px solid var(--border); }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
   </style>
 </head>
 <body>
   <main>
-    <p class="kicker"><a href="https://simdadllc.com">A SIM DAD product</a></p>
+    <img class="mark" src="img/logo.svg" alt="TASS logo">
+    <p class="kicker"><a href="https://simdadllc.com">SIM DAD LLC</a></p>
     <h1>TASS</h1>
+    <p class="tagline">Text Analysis Support Software.</p>
     <p class="status">Coming August 2026</p>
-    <p class="lede">We've taken TASS offline while we rebuild it as part of one local-first suite. Back in August.</p>
-    <p class="contact"><a href="mailto:hello@simdadllc.com">hello@simdadllc.com</a></p>
+    <p class="lede">We've taken TASS offline while we rebuild it as part of one local-first suite. Questions in the meantime? We'd love to hear from you.</p>
+    <p class="cta"><a class="btn" href="mailto:tass@simdadllc.com?subject=TASS%20question">Email us</a></p>
   </main>
-  <footer>© 2026 SIM DAD LLC · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></footer>
+  <footer>© 2026 SIM DAD LLC · <a href="mailto:tass@simdadllc.com">tass@simdadllc.com</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></footer>
 </body>
 </html>
