@@ -6,13 +6,13 @@
 <title>TASS — Release log</title>
 <meta name="description" content="Every major iteration of TASS, newest first. Versioned, not dated.">
 <link rel="icon" type="image/svg+xml" href="img/logo.svg">
-<meta name="theme-color" content="#2E7D5E">
+<meta name="theme-color" content="#009E73">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --accent:#2E7D5E; --accent-h:#256B50; --text:#0F0F0F; --muted:#6B7280;
+    --accent:#009E73; --accent-h:#007A59; --text:#0F0F0F; --muted:#6B7280;
     --faint:#98A0A8; --bg:#FFFFFF; --surface:#F7F7F8; --line:#E4E4E7; --spine:#E4E4E7;
     --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
     --serif:'Lora','Source Serif Pro','Iowan Old Style',Georgia,serif;
@@ -101,7 +101,19 @@
     <div class="log">
 
       <article class="rel latest major">
-        <div class="ver"><span class="num">0.2.6</span><span class="name">Report bundle</span><span class="tag">Latest</span></div>
+        <div class="ver"><span class="num">0.1</span><span class="name">Foundations</span><span class="tag">In development</span></div>
+        <p class="summary">The engine exists, and every dictionary in it is one you can open and read. In active development.</p>
+        <ul class="hi">
+          <li>Open, citable lexicons bundled: 194 Empath categories, VADER, AFINN, and dimensional affect norms — every word list inspectable, every source credited.</li>
+          <li>The counting engine and KWIC concordance are working today, with wildcard dictionary terms and weighted categories.</li>
+          <li>A LIWC-format .dic importer, so dictionaries you already license can come with you.</li>
+          <li>On the roadmap: group statistics with effect sizes, publication-grade charts you can export as SVG, and keyword analysis against a built-in reference corpus.</li>
+        </ul>
+      </article>
+
+
+      <article class="rel major">
+        <div class="ver"><span class="num">0.2.6</span><span class="name">Report bundle</span></div>
         <p class="summary">Finish an analysis and walk away with a complete, citable report in one step.</p>
         <ul class="hi">
           <li>One-step report export that bundles a formatted HTML report, a reusable TASS project file, a Word document, and a PDF.</li>
