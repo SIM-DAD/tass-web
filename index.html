@@ -272,6 +272,8 @@
     .license-ccbysa   { background: #FEF9C3; color: #713F12; }
     .license-princeton { background: #F3E8FF; color: #6B21A8; }
     .license-apache   { background: #FFE4E6; color: #9F1239; }
+    .license-pddl     { background: #E4E4E7; color: #3F3F46; }
+    .license-tass     { background: #D1FAE5; color: #065F46; }
     .review-note { font-size: 0.7rem; color: var(--muted); margin-left: 0.4rem; font-style: italic; }
 
     @media (prefers-color-scheme: dark) {
@@ -280,6 +282,8 @@
       .license-ccbysa    { background: #3B2D00; color: #FDE047; }
       .license-princeton { background: #3B1669; color: #D8B4FE; }
       .license-apache    { background: #4C0519; color: #FDA4AF; }
+      .license-pddl      { background: #27272A; color: #D4D4D8; }
+      .license-tass      { background: #04231A; color: #6FC19A; }
     }
 
     /* ─── T-LEX GRID ─────────────────────────────────────────────── */
@@ -664,7 +668,7 @@
 
     <p>Free alternatives like Yoshikoder, psyLex, and LIWCalike are capable but assume the researcher is comfortable in R or Python. When we set out to build TASS, we didn't find a no-code option that bundled group statistical comparisons, effect sizes, and publication-quality visualizations together.</p>
 
-    <p>TASS is that tool. It supports <strong>100,000+ entry datasets</strong>, ships with <strong>six open dictionaries</strong> at v1.0, includes <strong>18 T-Lex lexicons</strong> in development, and requires <strong>zero lines of code</strong>.</p>
+    <p>TASS is that tool. It supports <strong>100,000+ entry datasets</strong>, ships with <strong>ten open dictionaries</strong> at v1.0, includes <strong>18 T-Lex lexicons</strong> in development, and requires <strong>zero lines of code</strong>.</p>
   </article>
 
 
@@ -699,9 +703,9 @@
 
 
 
-  <!-- FIGURE 1 — TASS VS LIWC (kept; restyled to read as a paper figure) -->
+  <!-- TABLE 1 — TASS VS LIWC (restyled to read as a paper table) -->
   <figure class="figure">
-    <figcaption class="figure-caption" style="margin-bottom:1rem;margin-top:0;"><b>Figure 1.</b> Capability comparison, TASS versus LIWC at the v1.0 release. Open, auditable dictionaries and built-in group statistics are the principal points of difference.</figcaption>
+    <figcaption class="figure-caption" style="margin-bottom:1rem;margin-top:0;"><b>Table 1.</b> Capability comparison, TASS versus LIWC at the v1.0 release. Open, auditable dictionaries and built-in group statistics are the principal points of difference.</figcaption>
     <div class="table-wrap">
         <table class="compare-table">
           <thead>
@@ -782,11 +786,11 @@
   </div>
 
   <article class="manuscript">
-    <p>TASS ships with six open-source dictionaries at v1.0 and is building eighteen original T-Lex lexicons. Each lexicon is independently citable and freely available for academic and non-commercial use, with full documentation and version control.</p>
+    <p>TASS ships with ten open dictionaries at v1.0 and is building eighteen original T-Lex lexicons. Each lexicon is independently citable and freely available for academic and non-commercial use, with full documentation and version control.</p>
   </article>
 
   <figure class="figure" id="dictionaries">
-    <figcaption class="figure-caption" style="margin-bottom:1rem;margin-top:0;"><b>Table 1.</b> Bundled dictionaries shipping with TASS v1.0. All open-licensed; coverage and license terms below.</figcaption>
+    <figcaption class="figure-caption" style="margin-bottom:1rem;margin-top:0;"><b>Table 2.</b> Dictionaries bundled with TASS v1.0, with coverage and license as listed. Every bundled dictionary is verified commercial-ok; each run records its name, license, and citation in a provenance manifest.</figcaption>
     <div class="table-wrap">
         <table class="dict-table">
           <thead>
@@ -799,33 +803,53 @@
           <tbody>
             <tr>
               <td><strong>AFINN-165</strong></td>
-              <td>Sentiment valence</td>
-              <td><span class="license-badge license-mit">MIT</span></td>
+              <td>Sentiment valence (&minus;5 to +5 per word)</td>
+              <td><span class="license-badge license-apache">Apache 2.0</span></td>
             </tr>
             <tr>
               <td><strong>VADER Lexicon</strong></td>
-              <td>Sentiment valence + intensity</td>
+              <td>Sentiment valence + intensity (rule model)</td>
               <td><span class="license-badge license-mit">MIT</span></td>
             </tr>
             <tr>
-              <td><strong>Moral Foundations Dictionary 2.0</strong></td>
-              <td>Care, Fairness, Loyalty, Authority, Purity</td>
+              <td><strong>labMT 1.0</strong></td>
+              <td>Happiness (hedonometric) valence</td>
               <td><span class="license-badge license-ccby">CC-BY</span></td>
+            </tr>
+            <tr>
+              <td><strong>Empath</strong></td>
+              <td>194 topical and affective categories</td>
+              <td><span class="license-badge license-mit">MIT</span></td>
+            </tr>
+            <tr>
+              <td><strong>SocialSent (2000s)</strong></td>
+              <td>Domain-induced historical sentiment</td>
+              <td><span class="license-badge license-pddl">PDDL</span></td>
+            </tr>
+            <tr>
+              <td><strong>Warriner VAD</strong></td>
+              <td>Valence, arousal, dominance norms</td>
+              <td><span class="license-badge license-ccby">CC-BY 4.0</span></td>
             </tr>
             <tr>
               <td><strong>Brysbaert Concreteness Norms</strong></td>
               <td>Concreteness ratings (~40k words)</td>
-              <td><span class="license-badge license-ccby">CC-BY</span></td>
+              <td><span class="license-badge license-ccby">CC-BY 4.0</span></td>
             </tr>
             <tr>
-              <td><strong>WordNet 3.1</strong></td>
-              <td>Full English lexicon + part-of-speech tags</td>
-              <td><span class="license-badge license-princeton">Princeton</span></td>
+              <td><strong>Kuperman Age-of-Acquisition</strong></td>
+              <td>Age-of-acquisition norms (~30k words)</td>
+              <td><span class="license-badge license-ccby">CC-BY 4.0</span></td>
             </tr>
             <tr>
-              <td><strong>NLTK Stopwords</strong></td>
-              <td>Function words, pronouns, prepositions, articles</td>
-              <td><span class="license-badge license-apache">Apache 2.0</span></td>
+              <td><strong>stopwords-iso (English)</strong></td>
+              <td>Function words and stopwords</td>
+              <td><span class="license-badge license-mit">MIT</span></td>
+            </tr>
+            <tr>
+              <td><strong>TASS Politeness Markers v1</strong></td>
+              <td>15 politeness-strategy categories</td>
+              <td><span class="license-badge license-tass">TASS-native</span></td>
             </tr>
           </tbody>
         </table>
@@ -952,7 +976,7 @@
   </div>
 
   <article class="manuscript">
-    <p><strong>v1.0, May 2026.</strong> Complete analytical environment: dictionary scoring, n-gram support, structured group comparisons with assumption checks and post-hoc tests, correlation matrix, KWIC concordance, seven visualization types, APA table export. Six open dictionaries at launch.</p>
+    <p><strong>v1.0, May 2026.</strong> Complete analytical environment: dictionary scoring, n-gram support, structured group comparisons with assumption checks and post-hoc tests, correlation matrix, KWIC concordance, seven visualization types, APA table export. Ten open dictionaries at launch.</p>
 
     <p><strong>v1.1, Q3 2026.</strong> Paired-samples t-test, factorial ANOVA, macOS build, LIWC .dic format import, concordance plot. T-Lex dictionaries 01 through 07 ship.</p>
 
