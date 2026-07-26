@@ -88,5 +88,16 @@
     </section>
   </main>
   <footer>© 2026 SIM DAD LLC · <a href="mailto:tass@simdadllc.com">tass@simdadllc.com</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></footer>
+  <!-- First-party, cookie-free page counter (aggregate daily counts only; no cookies, no IP stored, honors Do Not Track) -->
+  <script>
+    (function () {
+      try {
+        if (navigator.doNotTrack === "1" || window.doNotTrack === "1") return;
+        if (!navigator.sendBeacon) return;
+        navigator.sendBeacon("https://simdad-hits.ap-493.workers.dev/hit",
+          JSON.stringify({ site: "tass", path: location.pathname }));
+      } catch (e) {}
+    })();
+  </script>
 </body>
 </html>
