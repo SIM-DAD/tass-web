@@ -3,91 +3,350 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TASS · Text Analysis Support Software</title>
-  <meta name="description" content="TASS, Text Analysis Support Software from SIM DAD LLC. In development, and recruiting research partners for a closed beta.">
+  <title>TASS · Deterministic text analysis for social scientists</title>
+  <meta name="description" content="TASS is deterministic, provenance-first dictionary text analysis for social scientists. Free open-source Community Edition; buy-once GUI Edition with R-benchmarked statistics, publication charts, and reproducible projects.">
   <meta name="author" content="SIM DAD LLC">
   <meta name="theme-color" content="#009E73">
-  <link rel="icon" type="image/svg+xml" href="img/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
   <link rel="canonical" href="https://usetass.app/">
-  <meta property="og:title" content="TASS · Text Analysis Support Software">
-  <meta property="og:description" content="A SIM DAD LLC tool for dictionary-based text analysis. In development, and recruiting research partners for a closed beta.">
+  <meta property="og:title" content="TASS · Deterministic text analysis for social scientists">
+  <meta property="og:description" content="Dictionary-based text analysis with open lexicons, provenance manifests, R-benchmarked statistics, and reproducible projects. Free Community Edition; buy-once GUI Edition.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://usetass.app/img/social-share.png">
   <meta property="og:url" content="https://usetass.app">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="TASS · Text Analysis Support Software">
-  <meta name="twitter:description" content="A SIM DAD LLC tool for dictionary-based text analysis. Recruiting research partners for a closed beta.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TASS · Deterministic text analysis for social scientists">
+  <meta name="twitter:description" content="Dictionary-based text analysis with open lexicons, provenance manifests, R-benchmarked statistics, and reproducible projects.">
+  <meta name="twitter:image" content="https://usetass.app/img/social-share.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "TASS",
+    "alternateName": "Text Analysis for Social Scientists",
+    "description": "Deterministic, provenance-first dictionary-based text analysis. Open-source Community Edition (engine, CLI, MCP server); commercial GUI Edition with inferential statistics, publication charts, and reproducible projects.",
+    "url": "https://usetass.app",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "image": "https://usetass.app/img/social-share.png",
+    "publisher": { "@type": "Organization", "name": "SIM DAD LLC", "url": "https://simdadllc.com" }
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --accent: #009E73; --accent-h: #007A59;
-      --text: #0F0F0F; --muted: #6B7280; --bg: #FFFFFF; --surface: #F7F7F8; --border: #E4E4E7;
-      --btn-fg: #FFFFFF; --radius: 8px;
-      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Lora', 'Source Serif Pro', Georgia, serif;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root { --text: #F4F4F5; --muted: #A1A1AA; --bg: #09090B; --surface: #111113; --border: #27272A;
-              --accent: #34D399; --accent-h: #10B981; --btn-fg: #06251A; }
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body { font-family: var(--font); color: var(--text); background: var(--bg);
-      display: flex; flex-direction: column; min-height: 100%; line-height: 1.6;
-      -webkit-font-smoothing: antialiased; }
-    main { flex: 1; display: flex; flex-direction: column; justify-content: center;
-      align-items: flex-start; max-width: 640px; width: 100%; margin: 0 auto; padding: 3rem 1.5rem; }
-    .wordmark { height: 30px; width: auto; margin-bottom: 2rem; }
-    .kicker { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 0.75rem; }
-    .kicker a { color: var(--muted); text-decoration: none; }
-    .kicker a:hover { color: var(--accent); }
-    h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.5rem, 8vw, 4rem);
-      letter-spacing: -0.01em; line-height: 1.05; color: var(--accent); }
-    .tagline { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.1rem, 3vw, 1.4rem);
-      margin-top: 0.5rem; color: var(--text); }
-    .status { margin-top: 1.75rem; font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.02em;
-      color: var(--accent); }
-    .lede { margin-top: 0.5rem; font-size: 1.0625rem; color: var(--muted); max-width: 54ch; }
-    .beta { margin-top: 2.25rem; width: 100%; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.6rem 1.5rem; }
-    .beta h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; color: var(--text); }
-    .beta p { margin-top: 0.6rem; font-size: 1rem; color: var(--muted); max-width: 58ch; }
-    .beta strong { color: var(--text); font-weight: 600; }
-    .cta { margin-top: 1.25rem; }
-    .btn { display: inline-block; background: var(--accent); color: var(--btn-fg); font-weight: 600;
-      font-size: 1rem; padding: 0.7rem 1.4rem; border-radius: var(--radius); text-decoration: none;
-      transition: background 120ms ease; }
-    .btn:hover, .btn:focus { background: var(--accent-h); }
-    .fineprint { margin-top: 0.9rem; font-size: 0.8125rem; color: var(--muted); }
-    footer { max-width: 640px; width: 100%; margin: 0 auto; padding: 1.5rem; font-size: 0.8125rem;
-      color: var(--muted); border-top: 1px solid var(--border); }
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--accent); }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
-  <main>
-    <picture>
-      <source srcset="img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
-      <img class="wordmark" src="img/wordmark-2E7D5E.svg" alt="TASS">
-    </picture>
-    <p class="kicker"><a href="https://simdadllc.com">SIM DAD LLC</a></p>
-    <h1>TASS</h1>
-    <p class="tagline">Text Analysis Support Software.</p>
-    <p class="status">In development</p>
-    <p class="lede">TASS is a SIM DAD LLC tool for dictionary-based text analysis. It is in active development, and we are opening it to a small group of research partners first.</p>
 
-    <section class="beta" id="beta">
-      <h2>Call for beta researchers</h2>
-      <p>We are inviting researchers to put TASS to work on their own corpora and help shape its first release. Participation is open to people who are currently affiliated with a university or an established research institution.</p>
-      <p>To apply, write to <strong>tass@simdadllc.com</strong> from your <strong>institutional email address</strong>. We use that address to confirm eligibility, so we are not able to consider requests sent from a personal account. A short note about your institution, your field, and how you would like to use TASS helps us match you to the beta.</p>
-      <p class="cta"><a class="btn" href="mailto:tass@simdadllc.com?subject=TASS%20beta%20participation&body=Please%20send%20this%20from%20your%20institutional%20email%20address.%0A%0AName%3A%0AInstitution%3A%0AField%20%2F%20research%20area%3A%0AHow%20you%20would%20like%20to%20use%20TASS%3A%0A">Apply from your institutional email</a></p>
-      <p class="fineprint">Places are limited, and we review requests as they arrive.</p>
-    </section>
-  </main>
-  <footer>© 2026 SIM DAD LLC · <a href="mailto:tass@simdadllc.com">tass@simdadllc.com</a> · <a href="privacy.html">Privacy</a> · <a href="eula.html">EULA</a></footer>
+  <nav class="nav" aria-label="Main">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand" aria-label="TASS home">
+        <picture>
+          <source srcset="/img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+          <img src="/img/wordmark-2E7D5E.svg" alt="TASS" class="nav-wordmark">
+        </picture>
+      </a>
+      <div class="nav-links">
+        <a href="#editions">Editions</a>
+        <a href="#dictionaries">Dictionaries</a>
+        <a href="#tlex">T-Lex</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/download/">Download</a>
+        <a href="#beta" class="btn btn-primary">Join the beta</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">Text Analysis for Social Scientists · A SIM DAD LLC product</span>
+      <h1>Deterministic, <span class="hero-accent">provenance-first</span> text analysis.</h1>
+      <p class="hero-sub">TASS scores text against open, citable dictionaries and shows its work. Same inputs, byte-identical outputs, every time. Every run writes a manifest recording versions, input hashes, licenses, and citations: the record a methods section and a replication both need.</p>
+      <div class="hero-actions">
+        <a href="#editions" class="btn btn-primary btn-lg">See the editions</a>
+        <a href="https://github.com/SIM-DAD/tass" class="btn btn-ghost btn-lg">Community Edition on GitHub</a>
+      </div>
+      <p class="hero-meta">Ten bundled open dictionaries · statistics benchmarked against R · one-time purchase, no subscription</p>
+    </div>
+  </header>
+
+  <!-- EDITIONS -->
+  <section class="section" id="editions" aria-labelledby="editions-h">
+    <div class="container">
+      <span class="eyebrow">Two editions, one engine</span>
+      <h2 id="editions-h">Free where it counts. <em>Paid</em> where it saves you time.</h2>
+      <p class="section-sub">Both editions run the same deterministic engine and produce the same manifests. The Community Edition is free forever and open source. The GUI Edition adds the no-code desktop workflow, inferential statistics, and publication output.</p>
+
+      <div class="editions-grid">
+        <div class="edition-card">
+          <span class="edition-kicker">Open source · Apache-2.0</span>
+          <h3>Community Edition</h3>
+          <p class="edition-price">Free forever</p>
+          <p class="blurb">The full scoring engine for people comfortable at a command line, and for AI agents driving it over MCP.</p>
+          <ul class="edition-list">
+            <li>Dictionary scoring engine: percent, hits, weighted, and mean metrics; group summaries; trajectories</li>
+            <li>Complete CLI: score, analyze, exemplars, KWIC concordance, ingest, import, author, cite</li>
+            <li>MCP server: the whole engine as tools for your AI agent; TASS itself never calls a model</li>
+            <li>Minimal local web GUI (runs on 127.0.0.1 only)</li>
+            <li>Reproducible .tassproj projects with byte-compare rerun</li>
+            <li>All ten bundled dictionaries and free registry installs</li>
+            <li>Zero runtime dependencies; Node 18 or newer is the only requirement</li>
+          </ul>
+          <a href="https://github.com/SIM-DAD/tass" class="btn btn-ghost btn-full">github.com/SIM-DAD/tass</a>
+        </div>
+
+        <div class="edition-card featured">
+          <span class="edition-kicker">Commercial · one-time purchase</span>
+          <h3>GUI Edition</h3>
+          <p class="edition-price">From $59, own it outright · <a href="#pricing">pricing</a></p>
+          <p class="blurb">The no-code desktop workbench: import a corpus, score it, test it, chart it, and archive the whole run, without writing a line of code.</p>
+          <ul class="edition-list">
+            <li>Import to Report workflow: corpus in, cited results out</li>
+            <li>Inferential statistics with assumption checks and paste-ready APA output</li>
+            <li>Publication charts: eight deterministic SVG chart types, colorblind-safe</li>
+            <li>Validation workspace with reliability statistics (Cohen's kappa, Krippendorff's alpha)</li>
+            <li>Reproducible .tassproj archives a reviewer can re-run</li>
+            <li>30-day full-featured trial, capped at 10,000 rows per analysis</li>
+          </ul>
+          <a href="/buy/" class="btn btn-primary btn-full">Buy the GUI Edition</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT SHIPS -->
+  <section class="section section-alt" aria-labelledby="features-h">
+    <div class="container">
+      <span class="eyebrow">What ships today</span>
+      <h2 id="features-h">Built for numbers you can <em>defend</em>.</h2>
+      <p class="section-sub">Every claim below describes a shipping capability, documented in the public <a href="https://github.com/SIM-DAD/tass/blob/main/docs/METHODS.md">methods reference</a> and <a href="https://github.com/SIM-DAD/tass/blob/main/docs/USER_GUIDE.md">user guide</a>.</p>
+
+      <div class="features-grid">
+        <div class="feature-cell">
+          <div class="feature-num">01 · Reproducibility</div>
+          <h3>Same inputs, byte-identical outputs</h3>
+          <p>The engine has no clocks and no randomness: fixed column orders, stable sorts, one fixed-precision number formatter. A .tassproj archive seals a complete run; <code>tass project rerun</code> re-executes it and byte-compares every artifact. The answer is REPRODUCED, or a precise report of what moved.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">02 · Provenance</div>
+          <h3>Every score traces to open, inspectable dictionaries</h3>
+          <p>Every run writes a manifest: tool and engine versions, SHA-256 of each input, and each lexicon's name, license, license class, and citation. Every bundled dictionary is open and verified for any use. Restricted resources such as LIWC or NRC are never bundled; if you import a copy you have licensed, TASS flags every run that touches it.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">03 · Statistics</div>
+          <h3>Benchmarked against R, with a public audit report</h3>
+          <p>Welch and Student t, Mann-Whitney, ANOVA variants, Kruskal-Wallis, post-hoc tests, effect sizes, assumption checks, and Benjamini-Hochberg correction, each validated against R 4.6 golden files with agreement typically to 1e-13. The <a href="https://github.com/SIM-DAD/tass/blob/main/docs/BENCHMARKS.md">benchmark report</a> is public, and every comparison can emit a base-R script that reproduces the run independently.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">04 · Sentiment</div>
+          <h3>TASS VADER-rules, honestly labeled</h3>
+          <p>A clean-room implementation of the published VADER heuristics (negation, boosters, ALL-CAPS, punctuation, but-clauses, emoticons, idioms) over the bundled MIT-licensed VADER lexicon. It can differ from the reference package in corner cases, so TASS reports it as "TASS VADER-rules compound", never as a canonical VADER score.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">05 · AI, outside the pipeline</div>
+          <h3>Driveable by your AI agent over MCP</h3>
+          <p>The MCP server exposes the full workflow (18 tools with statistics and charts installed) to Claude or any MCP client. The division of labor is deliberate: your agent drives, the deterministic engine scores, and TASS itself never calls a model. Agent-produced labels join a corpus with explicit external-classifier provenance.</p>
+        </div>
+        <div class="feature-cell">
+          <div class="feature-num">06 · Trace-back</div>
+          <h3>Every number leads back to quotable text</h3>
+          <p>Exemplars return the top and bottom documents for any category with their matched terms; KWIC gives a keyword-in-context concordance. The validation workspace samples matches for human review and reports precision and coder agreement, so dictionary fit becomes evidence instead of hope.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DICTIONARIES -->
+  <section class="section" id="dictionaries" aria-labelledby="dict-h">
+    <div class="container">
+      <span class="eyebrow">The bundle</span>
+      <h2 id="dict-h">Ten <em>open</em> dictionaries, licenses on the table.</h2>
+      <p class="section-sub">Every bundled dictionary is verified for any use, including commercial. Each run records the name, license, and citation of every lexicon it touched in its provenance manifest. More install free by name from the <a href="https://github.com/SIM-DAD/tass-lexicons">public registry</a>, integrity-checked against a pinned SHA-256.</p>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <caption class="visually-hidden" style="position:absolute;left:-9999px;">Dictionaries bundled with TASS, with coverage and license</caption>
+          <thead>
+            <tr>
+              <th scope="col">Dictionary</th>
+              <th scope="col">Coverage</th>
+              <th scope="col">License</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>AFINN-165</td><td>Sentiment valence (&minus;5 to +5 per word)</td><td><span class="license-badge license-apache">Apache 2.0</span></td></tr>
+            <tr><td>VADER Lexicon</td><td>Sentiment valence + intensity (rule model)</td><td><span class="license-badge license-mit">MIT</span></td></tr>
+            <tr><td>labMT 1.0</td><td>Happiness (hedonometric) valence</td><td><span class="license-badge license-ccby">CC-BY</span></td></tr>
+            <tr><td>Empath</td><td>194 topical and affective categories</td><td><span class="license-badge license-mit">MIT</span></td></tr>
+            <tr><td>SocialSent (2000s)</td><td>Domain-induced historical sentiment</td><td><span class="license-badge license-pddl">PDDL</span></td></tr>
+            <tr><td>Warriner VAD</td><td>Valence, arousal, dominance norms</td><td><span class="license-badge license-ccby">CC-BY 4.0</span></td></tr>
+            <tr><td>Brysbaert Concreteness Norms</td><td>Concreteness ratings (~40k words)</td><td><span class="license-badge license-ccby">CC-BY 4.0</span></td></tr>
+            <tr><td>Kuperman Age-of-Acquisition</td><td>Age-of-acquisition norms (~30k words)</td><td><span class="license-badge license-ccby">CC-BY 4.0</span></td></tr>
+            <tr><td>stopwords-iso (English)</td><td>Function words and stopwords</td><td><span class="license-badge license-mit">MIT</span></td></tr>
+            <tr><td>TASS Politeness Markers v1</td><td>15 politeness-strategy categories</td><td><span class="license-badge license-tass">CC-BY 4.0</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">Full citations for every dictionary are printed by <code>tass dicts</code>, written into every manifest, and listed in the <a href="https://github.com/SIM-DAD/tass/blob/main/docs/METHODS.md">methods reference</a>. Bring your own too: author a dictionary in any spreadsheet and import it with row-numbered validation, or import a LIWC-format .dic file you have licensed (flagged academic-only in every run's provenance).</p>
+    </div>
+  </section>
+
+  <!-- T-LEX -->
+  <section class="section section-alt" id="tlex" aria-labelledby="tlex-h">
+    <div class="container">
+      <span class="eyebrow">The T-Lex program</span>
+      <h2 id="tlex-h">Open lexicons, built in the <em>open</em>.</h2>
+      <p class="section-sub">T-Lex is TASS's program of original, citable dictionaries for social science text analysis. Every T-Lex dictionary is released under CC-BY-4.0 (ODC-BY for ratings databases): citation required, any use permitted including commercial, never paywalled, in every edition. Each ships versioned in the public registry, installable by name with <code>tass install</code>, together with the authoring memo and a validation report produced with TASS's own validation workspace.</p>
+
+      <div class="tlex-list">
+        <div class="tlex-item">
+          <span class="tlex-name">Politeness Markers</span>
+          <span class="tlex-status shipping">v1 · shipping now</span>
+          <p class="tlex-desc">Fifteen politeness-strategy categories approximating the Stanford politeness taxonomy at the lexical and phrase level. Bundled with every edition.</p>
+        </div>
+        <div class="tlex-item">
+          <span class="tlex-name">Discrete Emotions</span>
+          <span class="tlex-status">In development</span>
+          <p class="tlex-desc">Anger, fear, joy, sadness, anticipation, trust, surprise, disgust. An original, openly licensed alternative where the incumbent resource is restricted to academic use.</p>
+        </div>
+        <div class="tlex-item">
+          <span class="tlex-name">Epistemic Language</span>
+          <span class="tlex-status">In development</span>
+          <p class="tlex-desc">Hedges, boosters, evidentials, and deontic and epistemic modality in one coherent scheme.</p>
+        </div>
+        <div class="tlex-item">
+          <span class="tlex-name">Opinion &amp; Stance</span>
+          <span class="tlex-status">In development</span>
+          <p class="tlex-desc">Evaluative language calibrated for social science text corpora.</p>
+        </div>
+        <div class="tlex-item">
+          <span class="tlex-name">Power &amp; Status</span>
+          <span class="tlex-status">In development</span>
+          <p class="tlex-desc">Authority, dominance, deference, and political-arena language.</p>
+        </div>
+        <div class="tlex-item">
+          <span class="tlex-name">Agency &amp; Communion</span>
+          <span class="tlex-status">In development</span>
+          <p class="tlex-desc">Agentic and communal language across competence, warmth, and affiliation.</p>
+        </div>
+        <div class="tlex-item">
+          <span class="tlex-name">Affective Norms Extension</span>
+          <span class="tlex-status">In development</span>
+          <p class="tlex-desc">A harmonization and coverage-extension layer over the bundled Warriner VAD norms, targeting modern vocabulary gaps. ODC-BY.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:2.5rem;">
+        <h3>Co-author a dictionary</h3>
+        <p>T-Lex entries are community projects with named, cited co-authors, not anonymous donations. Contributors review and validate word lists against published measurement frameworks, re-score items that need domain expertise, and supplement seed lists from their specialization. Substantive contributors are offered co-authorship on the associated dictionary paper and are named in the dictionary metadata.</p>
+        <p>Interested? Write to <a href="mailto:tass@simdadllc.com?subject=T-Lex%20collaboration">tass@simdadllc.com</a> with your field and the constructs you care about, or read <a href="https://github.com/SIM-DAD/tass-lexicons">CONTRIBUTING in the registry</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="pricing" aria-labelledby="pricing-h">
+    <div class="container">
+      <span class="eyebrow">Pricing</span>
+      <h2 id="pricing-h">Buy it once. <em>Own</em> it. Price on the page.</h2>
+      <p class="section-sub">One-time purchase, no subscription. Every GUI Edition license includes all v1.x updates; later major versions are optional paid upgrades. No cart archaeology, no sales call to learn a number.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="tier">Community</div>
+          <div class="price">$0</div>
+          <div class="meta">Free forever · Apache-2.0</div>
+          <ul>
+            <li>Engine, CLI, MCP server</li>
+            <li>Minimal local web GUI</li>
+            <li>Reproducible projects</li>
+            <li>All open dictionaries</li>
+          </ul>
+          <a href="https://github.com/SIM-DAD/tass" class="btn btn-ghost btn-full">Get it on GitHub</a>
+        </div>
+        <div class="pricing-card">
+          <div class="tier">Student</div>
+          <div class="price">$59</div>
+          <div class="meta">One-time · verified student status</div>
+          <ul>
+            <li>Full GUI Edition</li>
+            <li>All v1.x updates included</li>
+          </ul>
+          <a href="/buy/" class="btn btn-primary btn-full">Buy</a>
+        </div>
+        <div class="pricing-card">
+          <div class="tier">Academic</div>
+          <div class="price">$149</div>
+          <div class="meta">One-time · single researcher</div>
+          <ul>
+            <li>Full GUI Edition</li>
+            <li>All v1.x updates included</li>
+            <li>Clears a P-card without a signature</li>
+          </ul>
+          <a href="/buy/" class="btn btn-primary btn-full">Buy</a>
+        </div>
+        <div class="pricing-card">
+          <div class="tier">Professional</div>
+          <div class="price">$399</div>
+          <div class="meta">One-time · no institutional email needed</div>
+          <ul>
+            <li>Full GUI Edition</li>
+            <li>All v1.x updates included</li>
+            <li>For consultants, journalists, nonprofits, government</li>
+          </ul>
+          <a href="/buy/" class="btn btn-primary btn-full">Buy</a>
+        </div>
+        <div class="pricing-card">
+          <div class="tier">Lab</div>
+          <div class="price">$499</div>
+          <div class="meta">One-time · five academic seats</div>
+          <ul>
+            <li>Full GUI Edition, five seats</li>
+            <li>All v1.x updates included</li>
+            <li>One grant line for a whole lab</li>
+          </ul>
+          <a href="/buy/" class="btn btn-primary btn-full">Buy</a>
+        </div>
+      </div>
+
+      <p class="pricing-fine">Site and department licenses start at $1,995; write to <a href="mailto:tass@simdadllc.com?subject=TASS%20site%20license">tass@simdadllc.com</a> for a quote you can put in a budget before talking to anyone. Every purchase carries an unconditional 30-day money-back guarantee; see the <a href="/refunds.html">refund policy</a>. Dictionaries are never a paid feature in any edition.</p>
+    </div>
+  </section>
+
+  <!-- BETA -->
+  <section class="section section-alt" id="beta" aria-labelledby="beta-h">
+    <div class="container-narrow">
+      <span class="eyebrow">Closed beta · now recruiting</span>
+      <h2 id="beta-h">Put TASS to work on <em>your</em> corpus.</h2>
+      <p class="section-sub" style="margin-bottom:1.25rem;">Ahead of the public launch, we are opening the GUI Edition to researchers who will use it on their own data and help shape the first release. Participation is free for the duration of the beta, and beta installers ship through this program.</p>
+      <p style="font-size:0.9375rem;color:var(--muted);line-height:1.7;max-width:62ch;margin-bottom:1.75rem;">The beta is open to people currently affiliated with a university or an established research institution. Apply from your institutional email address; we use it to confirm eligibility. A short note about your institution, your field, and how you would like to use TASS helps us place you.</p>
+      <a class="btn btn-primary btn-lg" href="mailto:tass@simdadllc.com?subject=TASS%20beta%20participation&body=Please%20send%20this%20from%20your%20institutional%20email%20address.%0A%0AName%3A%0AInstitution%3A%0AField%20%2F%20research%20area%3A%0AHow%20you%20would%20like%20to%20use%20TASS%3A%0A">Apply from your institutional email</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">TASS</div>
+        <div class="footer-sub">A product of SIM DAD LLC</div>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/refunds.html">Refunds</a>
+        <a href="/about.html">About</a>
+        <a href="/support/">Support</a>
+        <a href="https://github.com/SIM-DAD/tass">GitHub</a>
+        <a href="/eula.html">EULA</a>
+        <a href="/changelog.html">Release log</a>
+      </nav>
+    </div>
+    <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved. TASS never sends your data anywhere; analysis runs entirely on your machine.</p>
+  </footer>
+
   <!-- First-party, cookie-free page counter (aggregate daily counts only; no cookies, no IP stored, honors Do Not Track) -->
   <script>
     (function () {

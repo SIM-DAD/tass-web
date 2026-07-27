@@ -3,293 +3,119 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pricing — TASS | SIM DAD LLC</title>
-  <link rel="icon" type="image/svg+xml" href="../img/logo.svg">
-  <meta name="description" content="TASS pricing for academic researchers, labs, and departments. Subscription licensing with 30-day free trial.">
-  <meta property="og:title" content="Pricing — TASS">
-  <meta property="og:description" content="Subscription pricing built for researchers, not institutions.">
+  <title>Buy TASS · One-time purchase, checkout at launch</title>
+  <meta name="description" content="TASS GUI Edition pricing: one-time purchase, no subscription. Checkout opens with the public launch; join the beta today.">
+  <meta name="author" content="SIM DAD LLC">
+  <meta name="theme-color" content="#009E73">
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <link rel="canonical" href="https://usetass.app/buy/">
+  <meta property="og:title" content="Buy TASS">
+  <meta property="og:description" content="One-time purchase, no subscription. Checkout opens with the public launch.">
   <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --accent:    #2E7D5E;
-      --accent-h:  #256B50;
-      --text:      #0F0F0F;
-      --muted:     #6B7280;
-      --bg:        #FFFFFF;
-      --surface:   #F7F7F8;
-      --border:    #E4E4E7;
-      --font:      'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --max-w:     1080px;
-      --radius:    8px;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --text:    #F4F4F5;
-        --muted:   #A1A1AA;
-        --bg:      #09090B;
-        --surface: #111113;
-        --border:  #27272A;
-      }
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
-    a { color: var(--accent); }
-    a:hover { color: var(--accent-h); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
-
-    /* NAV */
-    nav { border-bottom: 1px solid var(--border); }
-    .nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 800; font-size: 1.1rem; color: var(--text); letter-spacing: -0.02em; }
-    .nav-brand img { height: 24px; width: 24px; }
-    .nav-back { font-size: 0.8125rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
-    .nav-back:hover { color: var(--text); }
-
-    /* HERO */
-    .page-hero { padding: 4rem 0 3rem; }
-    .eyebrow { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); display: block; margin-bottom: 1rem; }
-    .page-hero h1 { font-size: 2.25rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 0.75rem; }
-    .page-hero p { font-size: 1.0625rem; color: var(--muted); max-width: 60ch; }
-
-    /* PRICING GRID */
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2.5rem 0; }
-    .pricing-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; display: flex; flex-direction: column; }
-    .pricing-card .tier { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.75rem; }
-    .pricing-card .price { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.25rem; }
-    .pricing-card .price span { font-size: 1rem; font-weight: 500; color: var(--muted); }
-    .pricing-card .meta { font-size: 0.8125rem; color: var(--muted); margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
-    .pricing-card ul { list-style: none; margin-bottom: 1.5rem; flex: 1; }
-    .pricing-card li { font-size: 0.875rem; color: var(--text); padding: 0.35rem 0; padding-left: 1.25rem; position: relative; }
-    .pricing-card li::before { content: '\2713'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: 0.75rem; }
-    .btn { display: inline-block; padding: 0.75rem 1.5rem; font-family: var(--font); font-size: 0.875rem; font-weight: 600; text-decoration: none; border-radius: var(--radius); text-align: center; transition: background 0.15s, color 0.15s; cursor: pointer; border: none; }
-    .btn-primary { background: var(--accent); color: #fff; }
-    .btn-primary:hover { background: var(--accent-h); color: #fff; }
-    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-    .btn-outline:hover { background: var(--surface); }
-    .btn-full { width: 100%; }
-
-    /* SECTIONS */
-    .section { padding: 3.5rem 0; border-top: 1px solid var(--border); }
-    .section h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-    .section p.sub { font-size: 0.9375rem; color: var(--muted); margin-bottom: 2rem; max-width: 60ch; }
-
-    /* INCLUDES GRID */
-    .includes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .include-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
-    .include-card h3 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .include-card p { font-size: 0.8125rem; color: var(--muted); line-height: 1.55; margin: 0; }
-
-    /* FAQ */
-    .faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
-    .faq-item:first-child { border-top: 1px solid var(--border); }
-    .faq-q { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .faq-a { font-size: 0.9375rem; color: var(--muted); max-width: 72ch; line-height: 1.65; margin: 0; }
-
-    /* CONTACT */
-    .contact-strip { padding: 3.5rem 0; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
-    .contact-strip p { font-size: 0.9375rem; color: var(--muted); max-width: 52ch; margin: 0; }
-
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2.5rem 0; }
-    .footer-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
-    .footer-brand { font-weight: 800; font-size: 1rem; letter-spacing: -0.02em; }
-    .footer-sub { font-size: 0.775rem; color: var(--muted); margin-top: 2px; }
-    .footer-links { display: flex; gap: 1.75rem; }
-    .footer-links a { font-size: 0.8125rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
-    .footer-links a:hover { color: var(--text); }
-    .footer-copy { max-width: var(--max-w); margin: 1.5rem auto 0; padding: 1.5rem 2rem 0; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--muted); }
-
-    @media (max-width: 768px) {
-      .pricing-grid { grid-template-columns: 1fr; }
-      .includes-grid { grid-template-columns: 1fr; }
-      .contact-strip { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
 </head>
 <body>
 
-  <nav>
+  <nav class="nav" aria-label="Main">
     <div class="nav-inner">
-      <a href="/" class="nav-brand">
-        <img src="../img/logo.svg" alt="">
-        TASS
+      <a href="/" class="nav-brand" aria-label="TASS home">
+        <picture>
+          <source srcset="/img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
+          <img src="/img/wordmark-2E7D5E.svg" alt="TASS" class="nav-wordmark">
+        </picture>
       </a>
-      <a href="/" class="nav-back">&larr; Back to TASS</a>
+      <div class="nav-links">
+        <a href="/#pricing">Pricing</a>
+        <a href="/download/">Download</a>
+        <a href="/#beta" class="btn btn-primary">Join the beta</a>
+      </div>
     </div>
   </nav>
 
-  <main>
+  <main class="page">
     <div class="container">
+      <span class="page-eyebrow">Buy TASS</span>
+      <h1 class="page-title">Checkout opens with the public launch.</h1>
+      <p class="page-meta">GUI Edition · one-time purchase · no subscription · unconditional 30-day money-back guarantee</p>
 
-      <!-- HERO -->
-      <div class="page-hero">
-        <span class="eyebrow">Pricing</span>
-        <h1>Subscription pricing.<br>Priced for researchers, not institutions.</h1>
-        <p>Every tier includes every feature &mdash; no artificial limits by price. 30-day free trial with 500-row limit, cancel anytime. All processing runs locally on your machine.</p>
+      <div class="prose" style="max-width:72ch;">
+        <p>TASS is in closed beta, and we have not switched on a payment processor yet. Rather than sell you something early, here is the deal in plain terms: the prices below are the launch prices, checkout will open on this page when the GUI Edition ships publicly, and the fastest way to use TASS today is the beta program, which is free for its duration.</p>
+        <p>The Community Edition needs no checkout at all. It is free forever under Apache-2.0 at <a href="https://github.com/SIM-DAD/tass">github.com/SIM-DAD/tass</a>.</p>
       </div>
 
-      <!-- PRICING CARDS -->
-      <div class="pricing-grid">
-
+      <div class="pricing-grid" style="margin-top:2.5rem;">
+        <div class="pricing-card">
+          <div class="tier">Student</div>
+          <div class="price">$59</div>
+          <div class="meta">One-time · verified student status</div>
+          <ul>
+            <li>Full GUI Edition</li>
+            <li>All v1.x updates included</li>
+          </ul>
+        </div>
         <div class="pricing-card">
           <div class="tier">Academic</div>
-          <div class="price">$79<span>/yr</span></div>
-          <div class="meta">2 devices &middot; .edu email required</div>
+          <div class="price">$149</div>
+          <div class="meta">One-time · single researcher</div>
           <ul>
-            <li>Full dictionary analysis engine</li>
-            <li>All 6 bundled dictionaries + optional downloads</li>
-            <li>Group comparisons with post-hoc tests</li>
-            <li>Publication-quality visualizations (PNG + SVG)</li>
-            <li>APA citation block on every export</li>
-            <li>100,000+ entry dataset support</li>
+            <li>Full GUI Edition</li>
+            <li>All v1.x updates included</li>
           </ul>
-          <a href="/#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
         </div>
-
         <div class="pricing-card">
           <div class="tier">Professional</div>
-          <div class="price">$129<span>/yr</span></div>
-          <div class="meta">2 devices &middot; no .edu required</div>
+          <div class="price">$399</div>
+          <div class="meta">One-time · no institutional email needed</div>
           <ul>
-            <li>Everything in Academic</li>
-            <li>For journalists, consultants, nonprofits, government</li>
-            <li>No institutional email requirement</li>
+            <li>Full GUI Edition</li>
+            <li>All v1.x updates included</li>
           </ul>
-          <a href="/#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
         </div>
-
         <div class="pricing-card">
           <div class="tier">Lab</div>
-          <div class="price">$249<span>/yr</span></div>
-          <div class="meta">10 seats &middot; same organization</div>
+          <div class="price">$499</div>
+          <div class="meta">One-time · five academic seats</div>
           <ul>
-            <li>Everything in Academic</li>
-            <li>10 seats for research labs and small departments</li>
-            <li>Multi-seat license management</li>
+            <li>Full GUI Edition, five seats</li>
+            <li>All v1.x updates included</li>
           </ul>
-          <a href="/#waitlist" class="btn btn-primary btn-full">Join the waitlist &rarr;</a>
-        </div>
-
-        <div class="pricing-card">
-          <div class="tier">Department</div>
-          <div class="price">$699<span>/yr</span></div>
-          <div class="meta">50 seats &middot; same organization</div>
-          <ul>
-            <li>Everything in Academic</li>
-            <li>50 seats for departments and organizations</li>
-            <li>Multi-seat license management</li>
-            <li>Invoice-based billing for grant accounts</li>
-          </ul>
-          <a href="mailto:tass@simdadllc.com?subject=TASS%20Department%20License" class="btn btn-outline btn-full">Contact us</a>
-        </div>
-
-      </div>
-
-      <p style="font-size:0.875rem;color:var(--muted);margin-bottom:3rem;">
-        Custom institutional licensing? Contact <a href="mailto:tass@simdadllc.com">tass@simdadllc.com</a>
-      </p>
-
-      <!-- WHAT'S INCLUDED -->
-      <div class="section">
-        <h2>Everything in one license</h2>
-        <p class="sub">No per-feature upgrades. No data fees. Your data never leaves your machine.</p>
-        <div class="includes-grid">
-          <div class="include-card">
-            <h3>Full feature access</h3>
-            <p>Dictionary scoring, group comparisons (t-test, ANOVA, Cohen&rsquo;s d, eta-squared), visualizations, CSV/Excel/APA export, and saved .tass projects.</p>
-          </div>
-          <div class="include-card">
-            <h3>Six bundled dictionaries</h3>
-            <p>AFINN-165, VADER, Moral Foundations 2.0, Brysbaert Concreteness, WordNet POS Categories, and NLTK Stopwords. HurtLex and SentiWordNet available as optional downloads.</p>
-          </div>
-          <div class="include-card">
-            <h3>All updates</h3>
-            <p>Every update released during your license year &mdash; bug fixes, new features, and new dictionary support &mdash; at no additional cost.</p>
-          </div>
-          <div class="include-card">
-            <h3>Local, offline analysis</h3>
-            <p>All processing runs entirely on your machine. No data is transmitted. No server required. Your texts, your results &mdash; private by design.</p>
-          </div>
-          <div class="include-card">
-            <h3>APA citation export</h3>
-            <p>Every export includes a pre-formatted APA citation block so your methods section is complete from the moment you finish your analysis.</p>
-          </div>
-          <div class="include-card">
-            <h3>Reproducibility log</h3>
-            <p>Timestamped analysis log records every scoring decision &mdash; dictionaries, preprocessing, corrections &mdash; for transparent, reproducible research.</p>
-          </div>
         </div>
       </div>
 
-      <!-- FAQ -->
-      <div class="section">
-        <h2>Common questions</h2>
+      <p class="pricing-fine">Site and department licenses start at $1,995: <a href="mailto:tass@simdadllc.com?subject=TASS%20site%20license">tass@simdadllc.com</a>. Later major versions (v2 and beyond) will be optional paid upgrades; nothing you buy ever stops working.</p>
 
-        <div class="faq-item">
-          <p class="faq-q">How does the license key work?</p>
-          <p class="faq-a">After purchase on Gumroad, you receive a license key by email. Enter it in TASS when prompted on first launch. The key is tied to your account and can be activated on the number of devices your tier allows.</p>
-        </div>
-
-        <div class="faq-item">
-          <p class="faq-q">What happens when my license expires?</p>
-          <p class="faq-a">When your annual license expires, TASS enters a read-only mode: you can open and export existing projects, but you cannot run new analyses. Renewing restores full access immediately.</p>
-        </div>
-
-        <div class="faq-item">
-          <p class="faq-q">Is there a free trial?</p>
-          <p class="faq-a">Yes. TASS includes a 30-day free trial on first installation with full access to all features. The trial limits imports to 500 rows. No license key or credit card required.</p>
-        </div>
-
-        <div class="faq-item">
-          <p class="faq-q">Can I pay using a grant or purchase order?</p>
-          <p class="faq-a">Yes. Department licenses support invoice-based billing, compatible with most university grant accounts and departmental purchase processes. Contact us to initiate a quote.</p>
-        </div>
-
-        <div class="faq-item">
-          <p class="faq-q">Does a license include the T-Lex native dictionaries?</p>
-          <p class="faq-a">T-Lex dictionaries are developed independently of the TASS license and are freely available to all users for academic and non-commercial research. They are not behind a paywall.</p>
-        </div>
-
-        <div class="faq-item">
-          <p class="faq-q">What operating systems does TASS support at launch?</p>
-          <p class="faq-a">TASS v1.0 launches as a native Windows application (Windows 10 and 11). macOS support is planned for a future release.</p>
-        </div>
-
-        <div class="faq-item">
-          <p class="faq-q">What is your refund policy?</p>
-          <p class="faq-a">If TASS does not work as described on your system, contact us within 30 days of purchase for a full refund, no questions asked.</p>
-        </div>
+      <div class="callout" style="margin-top:3rem;">
+        <h3>Use TASS now: join the beta</h3>
+        <p>The beta is free, ships the full GUI Edition, and is open to researchers currently affiliated with a university or an established research institution. Apply from your institutional email address with a short note about your institution, your field, and how you would like to use TASS.</p>
+        <p><a class="btn btn-primary" href="mailto:tass@simdadllc.com?subject=TASS%20beta%20participation&body=Please%20send%20this%20from%20your%20institutional%20email%20address.%0A%0AName%3A%0AInstitution%3A%0AField%20%2F%20research%20area%3A%0AHow%20you%20would%20like%20to%20use%20TASS%3A%0A">Apply from your institutional email</a></p>
       </div>
 
-      <!-- CONTACT -->
-      <div class="contact-strip">
-        <div>
-          <span class="eyebrow">Questions?</span>
-          <p>Need an invoice for your department, want to discuss an institutional license, or have a question before you buy? Reach us directly.</p>
-        </div>
-        <a href="mailto:tass@simdadllc.com?subject=TASS%20Licensing%20Question" class="btn btn-primary">Email us</a>
+      <div class="callout">
+        <h3>Want to know when checkout opens?</h3>
+        <p>Email <a href="mailto:tass@simdadllc.com?subject=Notify%20me%20at%20TASS%20launch">tass@simdadllc.com</a> with the subject "Notify me at TASS launch". One email at launch, nothing else.</p>
       </div>
-
     </div>
   </main>
 
-  <footer>
+  <footer class="footer">
     <div class="footer-inner">
       <div>
         <div class="footer-brand">TASS</div>
         <div class="footer-sub">A product of SIM DAD LLC</div>
       </div>
-      <div class="footer-links">
-        <a href="https://simdadllc.com">simdadllc.com</a>
-        <a href="mailto:tass@simdadllc.com">Contact</a>
-        <a href="/eula.html">License agreement</a>
-      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/refunds.html">Refunds</a>
+        <a href="/about.html">About</a>
+        <a href="/support/">Support</a>
+        <a href="https://github.com/SIM-DAD/tass">GitHub</a>
+        <a href="/eula.html">EULA</a>
+      </nav>
     </div>
     <p class="footer-copy">&copy; 2026 SIM DAD LLC. All rights reserved.</p>
   </footer>
