@@ -286,3 +286,16 @@ h2 em { font-style: italic; color: var(--accent); font-weight: 500; }
 @media (max-width: 480px) {
   .hero-actions .btn { width: 100%; }
 }
+
+    /* The practice behind the product. Quiet by design: it should read as provenance,
+       not as an advertisement interrupting the product page. */
+    .practice { background: var(--surface); border-top: 1px solid var(--border);
+                border-bottom: 1px solid var(--border); padding: 3.5rem 1.25rem; }
+    .practice-inner { max-width: 680px; margin: 0 auto; }
+    .practice-eyebrow { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase;
+                        color: var(--muted); margin: 0 0 .6rem; }
+    .practice h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 1rem; }
+    .practice p { color: var(--text); margin: 0 0 1rem; }
+    .practice-cta { color: var(--muted); }
+    .practice-cta a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+    .practice-cta a:hover { text-decoration-thickness: 2px; }
