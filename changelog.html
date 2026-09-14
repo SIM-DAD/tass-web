@@ -46,35 +46,24 @@
   <main class="page">
     <div class="container-narrow">
       <span class="page-eyebrow">Release log</span>
-      <h1 class="page-title">What has shipped.</h1>
+      <h1 class="page-title">What exists today.</h1>
       <p class="page-meta">Newest first, versioned rather than dated. Fine-grained release notes for the Community Edition live with the source at <a href="https://github.com/SIM-DAD/tass" style="color:var(--accent-ink);border-bottom:1px solid var(--border);">github.com/SIM-DAD/tass</a>.</p>
 
       <div class="log">
-        <article class="rel latest">
-          <div class="ver"><span class="num">0.5</span><span class="name">Statistics, charts, projects</span><span class="tag">Current beta</span></div>
-          <p class="summary">The full analysis cycle in one place, with the receipts to publish it.</p>
-          <ul class="hi">
-            <li>Inferential statistics suite with assumption checks, effect sizes, corrections, post-hoc tests, and APA output, benchmarked against R golden files with a public audit report.</li>
-            <li>Eight deterministic publication SVG chart types with colorblind-safe palettes and embedded data tables.</li>
-            <li>Reproducible .tassproj archives: save a run, rerun it later, byte-compare every artifact.</li>
-            <li>Validation workspace: sampled human review, precision summaries, and coder-agreement reliability (Cohen's kappa, Krippendorff's alpha).</li>
-            <li>Desktop workbench (GUI Edition) in alpha, shipping to beta participants.</li>
-            <li>Public dictionary registry with sha256-pinned installs by name.</li>
-          </ul>
-        </article>
+      <article class="rel major">
+        <div class="ver"><span class="num">0.6.1</span><span class="name">Private beta</span></div>
+        <p class="summary">The first signed TASS Workbench, and the first whose licence keys activate.</p>
+        <ul class="hi">
+          <li>Corpus scoring against bundled lexicons (VADER with negation and booster rules, politeness strategies, Empath, SocialSent) or your own dictionary imported from a spreadsheet.</li>
+          <li>Intercoder reliability with Cohen&rsquo;s kappa and Krippendorff&rsquo;s alpha, benchmarked against R&rsquo;s irr package, each with an APA-formatted sentence.</li>
+          <li>Deterministic corpus preparation: trim, drop blanks, minimum token count, column filters and deduplication, applied in a fixed order so the same input always gives the same output.</li>
+          <li>Ranked exemplars and keyword-in-context, so any number traces back to the text that produced it.</li>
+          <li>Projects that re-run byte-identically, with tamper detection if results were edited after the fact.</li>
+          <li>Inferential statistics validated against R, charts carrying their own data tables, and export to Excel or APA.</li>
+          <li>XLSX import, added in this release.</li>
+        </ul>
+      </article>
 
-        <article class="rel">
-          <div class="ver"><span class="num">0.1 to 0.4</span><span class="name">Foundations</span></div>
-          <p class="summary">The clean-room engine, built in the open from requirements up.</p>
-          <ul class="hi">
-            <li>Deterministic scoring engine: percent, hits, weighted, and mean metrics; group summaries; time-windowed trajectories; phrase and wildcard terms.</li>
-            <li>Ten bundled open dictionaries, every one verified for any use, with citations carried in every manifest.</li>
-            <li>TASS VADER-rules sentiment: a clean-room implementation of the published VADER heuristics, honestly labeled.</li>
-            <li>CLI, MCP server, and minimal local web GUI generated from one spec table so the surfaces cannot drift.</li>
-            <li>Provenance manifests beside every scored output: versions, input hashes, licenses, citations.</li>
-            <li>Importers for transcripts, chat logs, spreadsheets, LIWC-format .dic files you have licensed, and SocialSent TSVs.</li>
-          </ul>
-        </article>
       </div>
     </div>
   </main>
