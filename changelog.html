@@ -9,24 +9,24 @@
   <meta name="theme-color" content="#009E73">
   <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
   <link rel="canonical" href="https://usetass.app/changelog.html">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/site.css">
   <style>
-    .log { position: relative; padding: 1.5rem 0 3rem; margin-left: 0.5rem; }
-    .log::before { content: ""; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--border); }
-    .rel { position: relative; padding: 0 0 2.25rem 2.5rem; }
-    .rel::before { content: ""; position: absolute; left: 0; top: 0.35rem; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 2px solid var(--border); }
-    .rel.latest::before { background: var(--accent); border-color: var(--accent); }
-    .ver { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-    .ver .num { font-family: var(--font-display); font-size: 1.7rem; font-weight: 600; color: var(--accent-ink); line-height: 1; }
-    .ver .name { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: var(--accent-ink); }
-    .ver .tag { font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--btn-fg); background: var(--accent-ink); padding: 0.18rem 0.5rem; border-radius: 100px; }
-    .summary { font-family: var(--font-display); font-size: 1.0625rem; color: var(--text); margin-top: 0.6rem; line-height: 1.55; max-width: 58ch; }
-    ul.hi { list-style: none; margin-top: 0.9rem; display: grid; gap: 0.4rem; max-width: 62ch; }
-    ul.hi li { position: relative; padding-left: 1.1rem; font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
-    ul.hi li::before { content: ""; position: absolute; left: 0; top: 0.6rem; width: 5px; height: 5px; border-radius: 50%; background: var(--accent-ink); }
+    /* Release log: one entry per version, the version number set as data in a hanging column. */
+    .log { border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); margin-top: 0.5rem; }
+    .rel { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0 1.5rem; padding: 1.25rem 0 1.5rem; }
+    .rel + .rel { border-top: 1px solid var(--rule); }
+    .ver { display: contents; }
+    .ver .num { grid-column: 1; grid-row: 1 / span 3; font-family: var(--mono); font-size: 1.25rem; line-height: 1.5; }
+    .ver .name { grid-column: 2; font-style: italic; color: var(--muted); }
+    .summary { grid-column: 2; font-size: 1.3125rem; font-weight: 600; line-height: 1.35; margin-top: 0.1rem; }
+    ul.hi { grid-column: 2; list-style: disc; margin: 0.9rem 0 0 1.2rem; max-width: var(--measure); }
+    ul.hi li { margin-bottom: 0.35rem; }
+    ul.hi li::marker { color: var(--muted); }
+    @media (max-width: 768px) {
+      .rel { grid-template-columns: 1fr; }
+      .ver .num { grid-row: auto; }
+      .ver .name, .summary, ul.hi { grid-column: 1; }
+    }
   </style>
 </head>
 <body>
@@ -36,7 +36,7 @@
       <a href="/" class="nav-brand" aria-label="TASS home">
         <picture>
           <source srcset="/img/wordmark-F4F4F5.svg" media="(prefers-color-scheme: dark)">
-          <img src="/img/wordmark-2E7D5E.svg" alt="TASS" class="nav-wordmark">
+          <img src="/img/wordmark-256B50.svg" alt="TASS" class="nav-wordmark">
         </picture>
       </a>
       <div class="nav-links"><a href="/">&larr; Back to TASS</a></div>
@@ -47,7 +47,7 @@
     <div class="container-narrow">
       <span class="page-eyebrow">Release log</span>
       <h1 class="page-title">What exists today.</h1>
-      <p class="page-meta">Newest first, versioned rather than dated. Fine-grained release notes for the Community Edition live with the source at <a href="https://github.com/SIM-DAD/tass" style="color:var(--accent-ink);border-bottom:1px solid var(--border);">github.com/SIM-DAD/tass</a>.</p>
+      <p class="page-meta">Newest first, versioned rather than dated. Fine-grained release notes for the Community Edition live with the source at <a href="https://github.com/SIM-DAD/tass">github.com/SIM-DAD/tass</a>.</p>
 
       <div class="log">
       <article class="rel major">
