@@ -5,11 +5,11 @@
 /* ── TOKENS ─────────────────────────────────────────────────────── */
 :root {
   --accent:      #009E73;  /* brand green: large display text, borders, decoration */
-  --accent-ink:  #007A59;  /* accent for small text and button fills (AA on white/surface) */
+  --accent-ink:  #006C4F;  /* accent for small text and button fills: 6.3:1 on white, the 5:1 house floor with margin */
   --accent-deep: #006C4F;
   --btn-fg:      #FFFFFF;
   --text:        #0F0F0F;
-  --muted:       #6B7280;
+  --muted:       #586070;
   --bg:          #FFFFFF;
   --surface:     #F7F7F8;
   --border:      #E4E4E7;
@@ -93,7 +93,7 @@ main a:not(.btn):hover, .prose a:hover { border-color: var(--accent-ink); }
   font-size: clamp(2.6rem, 6vw, 4.5rem); font-weight: 600;
   line-height: 1.06; letter-spacing: -0.02em; max-width: 20ch; margin-bottom: 1.5rem;
 }
-.hero-accent { color: var(--accent); font-style: italic; font-weight: 500; }
+.hero-accent { color: var(--accent-ink); font-style: italic; font-weight: 500; }
 .hero-sub {
   font-size: 1.125rem; color: var(--muted); max-width: 56ch;
   line-height: 1.65; margin-bottom: 2.25rem;
@@ -125,7 +125,7 @@ h2 {
   font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 600;
   line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 1.1rem;
 }
-h2 em { font-style: italic; color: var(--accent); font-weight: 500; }
+h2 em { font-style: italic; color: var(--accent-ink); font-weight: 500; }
 .section-sub { font-size: 1.0625rem; color: var(--muted); max-width: 60ch; line-height: 1.65; }
 
 /* ── EDITION CARDS ──────────────────────────────────────────────── */
@@ -167,9 +167,9 @@ h2 em { font-style: italic; color: var(--accent); font-weight: 500; }
 .data-table th {
   padding: 0.8rem 1rem 0.6rem; text-align: left;
   font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
-  border-bottom: 1px solid var(--border); color: var(--muted);
+  border-bottom: 1px solid var(--border); color: var(--text);
 }
-.data-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--muted); }
+.data-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
 .data-table tr:last-child td { border-bottom: none; }
 .data-table td:first-child { color: var(--text); font-weight: 500; }
 .table-note { font-size: 0.8125rem; color: var(--muted); margin-top: 0.9rem; max-width: 64ch; line-height: 1.6; }
